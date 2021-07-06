@@ -5,13 +5,13 @@ import user from './services/users.extends'
 import services from "./services";
 
 export default function* rootSaga() {
-    yield all([
+    yield all(([
       ...auth.takes,
       ...layout.takes,
       // ...user.takes
       ...(Object.keys(services).reduce((takes, serviceName) => {
         const duck = services[serviceName]
-        return [...takes, duck.takes]
+        return [...takes, ...duck.takes]
       }, [])),
-    ])
+    ]))
 }

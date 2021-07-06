@@ -1,9 +1,9 @@
-// leagues-model.js - A mongoose model
+// events-model.js - A mongoose model
 // 
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
-  const modelName = 'leagues';
+  const modelName = 'events';
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({

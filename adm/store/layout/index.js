@@ -12,9 +12,9 @@ export default new Duck({
     types: ['TOGGLE'],
     initialState,
     reducer: (state, action, duck) => {
-        if (action.type === '@@INIT') {
-            console.log('layout', '@@INIT')
-        }
+        // if (action.type === '@@INIT') {
+        //     console.log('layout', '@@INIT')
+        // }
         switch(action.type) {
             case duck.types.TOGGLE:
                 return { ...state, toggle: !state.toggle };

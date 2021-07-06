@@ -6,18 +6,26 @@ import UserForm from 'screens/user/Form'
 import UserCard from 'screens/user/Card'
 import { Row, Col, Button } from "atoms";
 
-function Control ({ id, control, data, requestGet }) {
+function Control ({ id, control, data, dismiss, requestGet, requestSave }) {
   useEffect (() => {
-    if (!data && id !== 'new')
+    if (id !== 'new')
       requestGet(id)
   }, [id])
-  const handleSave = (data) => {
-    console.log('handle save', data)
+  const handleSubmit = (edited, e) => {
+    if (id && control === 'edit')
+      requestSave(id, edited)
+    else if (id === 'new' && control === 'add')
+      requestSave(null, edited)
+    dismiss()
   }
+  const handleError = (error, e) => {
+    console.log('handleError', error)
+  }
+  // if (!data) return null
   return (
     <div>
-      {control === 'add' ? <UserForm onSubmit={handleSave}/> : null}
-      {control === 'edit' ? <UserForm defaultValues={data} onSubmit={handleSave}/> : null}
+      {control === 'add' ? <UserForm onSubmit={handleSubmit} onError={handleError}/> : null}
+      {control === 'edit' ? <UserForm defaultValues={data} onSubmit={handleSubmit} onError={handleError}/> : null}
       {control === 'view' ? <UserCard data={data}/> : null}
       {control === 'remove' ? <UserCard data={data}/> : null}
     </div>
@@ -55,7 +63,8 @@ const mapStateToProps = (state, props) => {
   }
 }
 const mapActionsToProps = {
-  requestGet: ducks.users.creators.get
+  requestGet: ducks.users.creators.get,
+  requestSave: ducks.users.creators.save
 }
 Control.fullscreen = false
 Control.Header = connect(mapStateToProps, mapActionsToProps)(Header)

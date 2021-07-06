@@ -1,0 +1,22 @@
+{
+  "name": "@xla/schemas",
+  "version": "1.0.0",
+  "description": "xla validation schemas",
+  "private": "true",
+  "type": "module",
+  "author": "alidplus",
+  "license": "ISC",
+  "dependencies": {
+    "joi": "^17.4.0"
+  },
+  "scripts": {
+  },
+  "browserslist": [
+    ">0.3%",
+    "not ie 11",
+    "not dead",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+  }
+}

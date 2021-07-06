@@ -13,7 +13,6 @@ function List ({ uid, find, requestFind }) {
   const hash = useHash()
   const router = useRouter()
   const setFilters = filters => {
-    console.log(router.pathname)
     router.push({ pathname: router.pathname, query: filters }, undefined, { shallow: true })
   }
   useEffect(() => {

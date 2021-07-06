@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import { useForm } from "react-hook-form";
 import { joiResolver } from '@hookform/resolvers/joi';
 import { DevTool } from "@hookform/devtools";
-import userSchema from 'validations/users'
+import { schema, options } from '@xla/schemas/user'
 import {Button} from "atoms";
 import getByDot from 'lodash/get'
 import TextField from "components/TextField";
 
 
-const Form = ({ onSubmit, defaultValues }) => {
+const Form = ({ onSubmit, onError, defaultValues }) => {
   const {
     register: formRegister,
     handleSubmit,
@@ -19,7 +19,7 @@ const Form = ({ onSubmit, defaultValues }) => {
     reset
   } = useForm({
     defaultValues,
-    resolver: joiResolver(userSchema)
+    resolver: joiResolver(schema, options)
   });
   useEffect(() => {
     reset(defaultValues)
@@ -31,7 +31,7 @@ const Form = ({ onSubmit, defaultValues }) => {
     ...formRegister(name)
   })
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit, onError)}>
       <TextField label="Username" {...register("username")} />
       <TextField label="Mobile" {...register("mobile")} />
       <TextField label="Email" {...register("email")} />

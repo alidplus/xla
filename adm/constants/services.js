@@ -4,7 +4,8 @@ export default [
   'leagues',
   'matches',
   'players',
-  'scores',
+  'events',
   'referees',
-  'sponsors'
+  'sponsors',
+  'fs'
 ]

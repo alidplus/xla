@@ -5,5 +5,15 @@ module.exports = withSass({
   ),
   cssLoaderOptions: {
     importLoaders: 2
-  }
+  },
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    // Important: return the modified config
+    config.watchOptions = {
+      ignored: [
+        /node_modules([\\]+|\/)+(?!\@xla\/.+)/,
+        /\@xla\/.+\/.+([\\]+|\/)node_modules/
+      ]
+    }
+    return config
+  },
 });

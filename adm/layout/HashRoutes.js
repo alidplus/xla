@@ -16,11 +16,9 @@ export const HashModal = withRouter(({ Component, match }) => {
   const [show, setShow] = useState(true)
   let history = useHistory();
   function dismiss() {
-    console.log('on dismiss')
     setShow(false)
   }
   function distroy () {
-    console.log('on distroy')
     history.goBack()
   }
   const closeBtn = <Button className="btn-close" onClick={dismiss}></Button>

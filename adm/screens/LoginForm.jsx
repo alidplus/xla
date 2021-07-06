@@ -2,13 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Button} from "../atoms";
 import {useForm} from "react-hook-form";
-import {joiResolver} from "@hookform/resolvers/joi";
-import userSchema from "../validations/users";
+import loginSchema, { options } from '@xla/schemas/login'
+import { joiResolver } from '@hookform/resolvers/joi';
 import TextField from "../components/TextField";
 import {DevTool} from "@hookform/devtools";
+import {schema} from "@xla/schemas/user";
 
 const Form = ({ errorMessage, onSubmit }) => {
-  const {register, handleSubmit, watch, formState: {errors}, control} = useForm();
+  const {register, handleSubmit, watch, formState: {errors}, control} = useForm({
+    resolver: joiResolver(schema, options)
+  });
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextField label="Email" errors={errors} {...register("email")} />

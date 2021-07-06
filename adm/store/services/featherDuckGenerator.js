@@ -1,16 +1,18 @@
 // In your application's entrypoint
-import { enableMapSet } from "immer"
-enableMapSet()
-import Duck, { constructLocalized } from 'extensible-duck'
-import { put, takeEvery, call } from 'redux-saga/effects'
+// import { enableMapSet } from "immer"
+// enableMapSet()
+import Duck, { constructLocalized } from 'extensible-duck';
+import { take, put, takeEvery, call } from 'redux-saga/effects'
+import { eventChannel, END } from 'redux-saga'
 import {createCachedSelector} from 're-reselect';
-import produce from "immer"
-import merge from "lodash/merge"
-import cloneDeep from "lodash/cloneDeep"
-import pick from "lodash/pick"
-import { APP_NAME } from '../../constants/vars'
-import client from '../api/feathersClient'
-import hash from 'object-hash'
+import produce from "immer";
+import merge from "lodash/merge";
+import omitBy from "lodash/omitBy";
+import cloneDeep from "lodash/cloneDeep";
+import { APP_NAME } from '../../constants/vars';
+import client from '../api/feathersClient';
+import ObjectId from 'bson-objectid';
+import Q from 'query';
 
 const initialState = {
   collection: {},
@@ -31,6 +33,8 @@ export default (serviceName) => {
       "GET", "GET_PENDING", "GET_FULFILLED", "GET_REJECTED",
       "FIND", "FIND_PENDING", "FIND_FULFILLED", "FIND_REJECTED",
       "LIST", "LIST_PENDING", "LIST_FULFILLED", "LIST_REJECTED",
+      "PATCH", "PATCH_PENDING", "PATCH_FULFILLED", "PATCH_REJECTED",
+      "CREATE", "CREATE_PENDING", "CREATE_FULFILLED", "CREATE_REJECTED",
     ],
     initialState,
     reducer: (_state, action, duck) => {
@@ -49,10 +53,7 @@ export default (serviceName) => {
           case duck.types.FIND_PENDING:
             state.paginateRequests[meta.uid] = payload; break;
           case duck.types.FIND_FULFILLED:
-            console.log('FIND_FULFILLED', payload)
-            payload.data.forEach(d => {
-              state.collection[d._id] = d
-            })
+            payload.data.forEach(d => { state.collection[d._id] = d })
             payload.data = payload.data.map(d => d._id)
             state.paginateRequests[meta.uid] = merge(state.paginateRequests[meta.uid], payload, {__isLoading: false, __error: null}); break;
           case duck.types.FIND_REJECTED:
@@ -62,24 +63,39 @@ export default (serviceName) => {
           case duck.types.LIST_PENDING:
             state.listRequests[meta.uid] = payload; break;
           case duck.types.LIST_FULFILLED:
-            payload.forEach(d => {
-              state.collection[d._id] = d
-            })
+            payload.forEach(d => { state.collection[d._id] = d })
             const data = payload.map(d => d._id)
             state.listRequests[meta.uid] = merge(state.listRequests[meta.uid], { data, total: data.length }, {__isLoading: false, __error: null}); break;
           case duck.types.LIST_REJECTED:
             state.listRequests[meta.uid] = merge(state.listRequests[meta.uid], {__error: payload, __isLoading: false}); break;
+
+          case duck.types.PATCH:
+          case duck.types.PATCH_PENDING:
+            state.collection[meta._id] = merge(state.collection[meta._id] || {}, payload, { __stashBefore: state.collection[meta._id] }); break;
+          case duck.types.PATCH_FULFILLED:
+            state.collection[meta._id] = merge(state.collection[meta._id], payload, { __stashBefore: null }); break;
+          case duck.types.PATCH_REJECTED:
+            state.collection[meta._id] = state.collection[meta._id].__stashBefore; break;
+
+          case duck.types.CREATE:
+          case duck.types.CREATE_PENDING:
+            state.collection[meta.tid] = merge({ _id: meta.tid }, payload); break;
+          case duck.types.CREATE_FULFILLED:
+            delete state.collection[meta.tid]
+            state.collection[payload._id] = payload; break;
+          case duck.types.CREATE_REJECTED:
+            state.collection[meta.tid].__error = payload; break;
         }
       })
     },
-    selectors: (...args) => ({
+    selectors: (duck) => ({
       root: (state, props) => state,
       props: (state, props) => props,
       ...constructLocalized({
         collection: (state, gState) => state.collection,
         paginateRequests: (state, gState) => state.paginateRequests,
         listRequests: (state, gState) => state.listRequests,
-      })(...args),
+      })(duck),
 
       get: new Duck.Selector(selectors =>
         createCachedSelector(
@@ -146,21 +162,71 @@ export default (serviceName) => {
           promise: Service.find({ query: { ...query, $limit: -1 } }),
           data: { total: 0, data: [], __isLoading: true, __error: null }
         }
+      }),
+      save: (_id, data, params) => {
+        data = omitBy(data, (v, k) => k.startsWith('_'))
+        if (_id && _id !== 'new') {
+          return {
+            type: duck.types.PATCH,
+            meta: { _id, data, params },
+            payload: {
+              promise: Service.patch(_id, data, params),
+              data
+            }
+          }
+        } else {
+          return {
+            type: duck.types.CREATE,
+            meta: { data, params, tid: ObjectId().toString() },
+            payload: {
+              promise: Service.create(data, params),
+              data
+            }
+          }
+        }
+      },
+      onPatch: (data) => ({
+        type: duck.types.PATCH,
+        meta: { _id: data._id },
+        payload: data
       })
     }),
     sagas: (duck) => ({
-      // handleGetRequest: function* (action) {
-      //   try {
-      //     yield put({ type: duck.types.AWAIT_UPDATE, _id: action._id })
-      //     const payload = yield Service.get(action._id)
-      //     yield put({ type: duck.types.UPDATE, _id: action._id, payload })
-      //   } catch(error) {
-      //     yield put({ type: duck.types.UPDATE_FAIL, _id: action._id, error })
-      //   }
-      // }
+      setupEventsChannel: function* (action) {
+        const eventsChannel = yield call(() => eventChannel(emitter => {
+          const onCreated = data => { emitter({ event: 'created', data }) }
+          const onPatched = data => { emitter({ event: 'patched', data }) }
+          Service.on('created', onCreated)
+          Service.on('patched', onPatched)
+          return () => {
+            Service.off('created', onCreated)
+            Service.off('patched', onPatched)
+          }
+        }))
+        try {
+          while (true) {
+            // take(END) will cause the saga to terminate by jumping to the finally block
+            const { event, data } = yield take(eventsChannel)
+            switch (event) {
+              case 'created': yield put({
+                type: duck.types.CREATE,
+                meta: { tid: data._id },
+                payload: data
+              }); break;
+              case 'patched': yield put({
+                type: duck.types.PATCH,
+                meta: { _id: data._id },
+                payload: data
+              }); break;
+            }
+          }
+        } finally {
+          console.log('eventsChannel terminated')
+        }
+      }
     }),
     takes: (duck) => ([
-      // takeEvery(duck.types.REQUEST_GET, duck.sagas.handleGetRequest)
+      takeEvery("persist/REHYDRATE", duck.sagas.setupEventsChannel)
     ])
   })
 

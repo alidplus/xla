@@ -7,13 +7,12 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware, { END } from 'redux-saga';
 import { persistStore } from 'redux-persist';
 
-function configureStore(initialState) {
+function configureStore(initialState, {isServer, req = null}) {
   let store;
   const sagaMiddleware = createSagaMiddleware();
 
-  const isClient = typeof window !== 'undefined';
   const middlewares = [reduxThunk, promise, sagaMiddleware]
-  if (isClient) {
+  if (!isServer) {
     const bindMiddleware = (...middlewares) => {
       if (process.env.NODE_ENV !== "production") {
         return composeWithDevTools(applyMiddleware(...middlewares));
@@ -33,8 +32,9 @@ function configureStore(initialState) {
       applyMiddleware(...middlewares)
     );
   }
-
-  store.sagaTask = sagaMiddleware.run(rootSaga);
+  if (req || !isServer) {
+    store.sagaTask = sagaMiddleware.run(rootSaga);
+  }
 
   return store;
 }

@@ -5,6 +5,7 @@ import Pagination from 'components/Pagination'
 import TableSearch from 'components/TableSearch'
 import {FormGroup} from "../../atoms";
 import PropTypes from "prop-types";
+
 const usersMap = [
   {
     title: 'ID',
