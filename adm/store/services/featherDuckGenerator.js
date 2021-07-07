@@ -2,7 +2,7 @@
 // import { enableMapSet } from "immer"
 // enableMapSet()
 import Duck, { constructLocalized } from 'extensible-duck';
-import { take, put, takeEvery, call } from 'redux-saga/effects'
+import { take, put, takeEvery, call, select } from 'redux-saga/effects'
 import { eventChannel, END } from 'redux-saga'
 import {createCachedSelector} from 're-reselect';
 import produce from "immer";
@@ -12,23 +12,18 @@ import cloneDeep from "lodash/cloneDeep";
 import { APP_NAME } from '../../constants/vars';
 import client from '../api/feathersClient';
 import ObjectId from 'bson-objectid';
-import Q from 'query';
 
 const initialState = {
   collection: {},
   paginateRequests: {},
   listRequests: {},
 };
-const wait = (ms) => new Promise(res => setTimeout(res, ms))
 
 const initialData = (_id = "") => ({ _id, __isLoading: true, __error: null })
 
-
-export default (serviceName) => {
+export default (serviceName, duck) => {
   const Service = client.service(serviceName)
-  const duck = new Duck({
-    namespace: APP_NAME,
-    store: serviceName,
+  return  {
     types: [
       "GET", "GET_PENDING", "GET_FULFILLED", "GET_REJECTED",
       "FIND", "FIND_PENDING", "FIND_FULFILLED", "FIND_REJECTED",
@@ -51,6 +46,7 @@ export default (serviceName) => {
 
           case duck.types.FIND:
           case duck.types.FIND_PENDING:
+            if (state.paginateRequests[meta.uid]) break;
             state.paginateRequests[meta.uid] = payload; break;
           case duck.types.FIND_FULFILLED:
             payload.data.forEach(d => { state.collection[d._id] = d })
@@ -84,7 +80,7 @@ export default (serviceName) => {
             delete state.collection[meta.tid]
             state.collection[payload._id] = payload; break;
           case duck.types.CREATE_REJECTED:
-            state.collection[meta.tid].__error = payload; break;
+            state.collection[meta.tid].__error = payload.message; break;
         }
       })
     },
@@ -151,7 +147,7 @@ export default (serviceName) => {
           meta: { query, uid },
           payload: {
             promise: Service.find({ query }),
-            data: { total: 0, limit: 10, skip: 0, data: [], __isLoading: true, __error: null }
+            data: { query, total: 0, limit: 10, skip: 0, data: [], __isLoading: true, __error: null }
           }
         })
       },
@@ -160,7 +156,7 @@ export default (serviceName) => {
         meta: { query, uid },
         payload: {
           promise: Service.find({ query: { ...query, $limit: -1 } }),
-          data: { total: 0, data: [], __isLoading: true, __error: null }
+          data: { query, total: 0, data: [], __isLoading: true, __error: null }
         }
       }),
       save: (_id, data, params) => {
@@ -223,13 +219,27 @@ export default (serviceName) => {
         } finally {
           console.log('eventsChannel terminated')
         }
+      },
+      reloadAllFinds: function* () {
+        const paginates = yield select(duck.selectors.paginateRequests)
+        for (const uid in paginates) {
+          const mutation = yield call(duck.creators.find, uid, paginates[uid].query)
+          yield put(mutation)
+        }
+      },
+      reloadAllLists: function* () {
+        const lists = yield select(duck.selectors.listRequests)
+        for (let uid in lists) {
+          const mutation = yield call(duck.creators.list, uid, lists[uid].query)
+          yield put(mutation)
+        }
       }
     }),
     takes: (duck) => ([
-      takeEvery("persist/REHYDRATE", duck.sagas.setupEventsChannel)
+      takeEvery("persist/REHYDRATE", duck.sagas.setupEventsChannel),
+      takeEvery(duck.types.CREATE_FULFILLED, duck.sagas.reloadAllFinds),
+      takeEvery(duck.types.CREATE_FULFILLED, duck.sagas.reloadAllLists)
     ])
-  })
-
-  return duck
+  }
 }
 

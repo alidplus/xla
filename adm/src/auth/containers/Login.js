@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Form from '../screens/LoginForm'
+import Form from '../screens/Form'
 import authDuck from "store/auth";
 import {connect} from "react-redux";
 

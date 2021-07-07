@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux'
 import auth from './auth'
 import layout from './layout'
-import user from './services/users.extends'
-import services from './services'
+import ducks from './services/index'
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 
 const isClient = typeof window !== 'undefined';
@@ -19,12 +18,14 @@ const prepareReducer = (whitelist = [], module) => {
 
 export default combineReducers({
   [auth.store]: auth.reducer,
-  // [user.store]: user.reducer,
-  ...(Object.keys(services).reduce((reducers, serviceName) => {
-    const duck = services[serviceName]
-    reducers[duck.store] = duck.reducer
-    return reducers
-  }, {})),
+  [ducks.users.store]: ducks.users.reducer,
+  [ducks.teams.store]: ducks.teams.reducer,
+  [ducks.leagues.store]: ducks.leagues.reducer,
+  [ducks.matches.store]: ducks.matches.reducer,
+  [ducks.players.store]: ducks.players.reducer,
+  [ducks.events.store]: ducks.events.reducer,
+  [ducks.referees.store]: ducks.referees.reducer,
+  [ducks.sponsors.store]: ducks.sponsors.reducer,
   [layout.store]: prepareReducer(['toggle'], layout)
 })
 

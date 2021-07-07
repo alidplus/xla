@@ -15,4 +15,10 @@ module.exports.email = Joi.string()//.email({ tlds: { allow: false } })
 
 module.exports.mobile = Joi.string()
 
-module.exports.ID = Joi.string()
+module.exports.ID = Joi.string().length(24).hex()
+
+module.exports.rate = Joi.number().min(0).max(5)
+module.exports.playerNo = Joi.number().min(0).max(99)
+
+module.exports.bDate = Joi.date().max('1-1-2007')
+module.exports.futureDate = Joi.date().min('now')

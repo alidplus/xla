@@ -1,6 +1,5 @@
 import withSession from '../../lib/session'
 export default withSession(async (req, res) => {
-  console.log(req.method, '????????????????????', req.body)
   switch (req.method) {
     case 'POST':
       return setToken();

@@ -1,5 +1,5 @@
 // leagues-model.js - A mongoose model
-// 
+//
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
@@ -7,10 +7,20 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    text: { type: String, required: true }
+    sid: {type: Number, unique: true},
+
+    title: { type: String, required: true },
+    text: { type: String },
+    teams: { type: Number, default: 0 },
+    homeAway: { type: Boolean, default: false },
+    results: Schema.Types.Mixed,
+
+    sponsor: { type: Schema.Types.ObjectId, ref: 'sponsors' },
+    participants: [{ type: Schema.Types.ObjectId, ref: 'teams' }]
   }, {
     timestamps: true
   });
+
 
   // This is necessary to avoid model compilation errors in watch mode
   // see https://mongoosejs.com/docs/api/connection.html#connection_Connection-deleteModel
@@ -18,5 +28,5 @@ module.exports = function (app) {
     mongooseClient.deleteModel(modelName);
   }
   return mongooseClient.model(modelName, schema);
-  
+
 };

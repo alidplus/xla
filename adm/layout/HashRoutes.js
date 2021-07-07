@@ -9,8 +9,8 @@ import {
   Link
 } from "react-router-dom";
 import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from "atoms";
-import Login from '../containers/LoginScreen'
-import UserControl from '../containers/user/Control'
+import Login from '../src/auth/containers/Login'
+import UserControl from '../src/users/containers/Control'
 
 export const HashModal = withRouter(({ Component, match }) => {
   const [show, setShow] = useState(true)

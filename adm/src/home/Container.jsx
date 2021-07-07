@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 
-function HomeScreen(props) {
+function Container(props) {
   return (
     <div>
       salam home page
@@ -11,4 +11,4 @@ function HomeScreen(props) {
 
 const mapStateToProps = (state) => ({});
 const mapActionsToProps = {}
-export default connect(mapStateToProps, mapActionsToProps)(HomeScreen)
+export default connect(mapStateToProps, mapActionsToProps)(Container)

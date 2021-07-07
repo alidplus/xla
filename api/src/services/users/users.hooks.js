@@ -9,7 +9,7 @@ module.exports = {
     all: [ /*authenticate('jwt')*/ ],
     find: [],
     get: [],
-    create: [ hashPassword('password') ],
+    create: [ hashPassword('password')/*, e => { throw new Error('stop here') }*/ ],
     update: [],
     patch: [],
     remove: []

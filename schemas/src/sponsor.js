@@ -3,9 +3,8 @@ const { ID, title, password, email, mobile } = require('./utils')
 
 const attrs = {
   // _id: ID,
-  name: title.required(),
-  email: email.required(),
-  mobile: mobile.required(),
+  title: title.required(),
+  text: title,
   // password,
   // confirmPassword: password.label('Confirm password'),
 }

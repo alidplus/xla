@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import authDuck from '../store/auth'
 import SingleLayout from '../layout/SingleLayout';
-import HomeScreen from '../containers/HomeScreen';
+import HomeScreen from '../src/home/Container';
 import HeadDefault from '../layout/head/HeadDefault';
 import {NavbarBrand} from "../atoms";
 

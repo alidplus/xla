@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Button} from "../atoms";
+import {Button} from "../../../atoms";
 import {useForm} from "react-hook-form";
-import loginSchema, { options } from '@xla/schemas/login'
 import { joiResolver } from '@hookform/resolvers/joi';
-import TextField from "../components/TextField";
+import TextField from "../../../components/TextField";
 import {DevTool} from "@hookform/devtools";
-import {schema} from "@xla/schemas/user";
+import {schema, options} from "@xla/schemas/src/login";
 
 const Form = ({ errorMessage, onSubmit }) => {
   const {register, handleSubmit, watch, formState: {errors}, control} = useForm({

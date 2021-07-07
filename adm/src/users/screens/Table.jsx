@@ -3,17 +3,21 @@ import Table from 'components/Table'
 import TableActions from 'components/TableActions'
 import Pagination from 'components/Pagination'
 import TableSearch from 'components/TableSearch'
-import {FormGroup} from "../../atoms";
+import Id from 'components/Id'
 import PropTypes from "prop-types";
 
 const usersMap = [
   {
     title: 'ID',
-    key: '_id',
+    render: data => (<Id type="user" data={data}/>),
   },
   {
-    title: 'Username',
-    key: 'username',
+    title: 'Email',
+    key: 'email',
+  },
+  {
+    title: 'date',
+    key: 'createdAt',
   },
   {
     title: 'Actions',
@@ -49,12 +53,12 @@ export default UserTable
 UserTable.propTypes = {
   onChange: PropTypes.func.isRequired,
   filters: PropTypes.object,
-  find: PropTypes.objectOf(PropTypes.shape({
+  find: PropTypes.object/*Of(PropTypes.shape({
     data: PropTypes.array,
     total: PropTypes.number,
     skip: PropTypes.number,
     limit: PropTypes.number
-  }))
+  }))*/
 }
 
 UserTable.defaultProps = {

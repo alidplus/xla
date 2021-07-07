@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "atoms";
-import LogoutBtn from "../containers/Logout";
+import LogoutBtn from "../src/auth/containers/Logout";
 import {Hash} from "./HashRoutes";
 import layoutDuck from "../store/layout";
 import authDuck from "../store/auth";

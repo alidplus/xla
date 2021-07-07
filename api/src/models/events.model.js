@@ -1,5 +1,5 @@
 // events-model.js - A mongoose model
-// 
+//
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
@@ -7,10 +7,18 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    text: { type: String, required: true }
+    sid: {type: Number, unique: true},
+    __model: {type: String, default: modelName, enum: [modelName] },
+
+    variety: { type: String, default: 'log', required: true },
+    payload: Schema.Types.Mixed,
+
+    target: { type: Schema.Types.ObjectId, refPath: 'model' },
+    model: { type: String, enum: ['users', 'leagues', 'teams', 'referees', 'sponsors', 'players', 'matches', 'events'] },
   }, {
     timestamps: true
   });
+
 
   // This is necessary to avoid model compilation errors in watch mode
   // see https://mongoosejs.com/docs/api/connection.html#connection_Connection-deleteModel
@@ -18,5 +26,5 @@ module.exports = function (app) {
     mongooseClient.deleteModel(modelName);
   }
   return mongooseClient.model(modelName, schema);
-  
+
 };

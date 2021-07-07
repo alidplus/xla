@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useForm } from "react-hook-form";
 import { joiResolver } from '@hookform/resolvers/joi';
 import { DevTool } from "@hookform/devtools";
-import { schema, options } from '@xla/schemas/user'
+import { schema, options } from '@xla/schemas/src/user'
 import {Button} from "atoms";
 import getByDot from 'lodash/get'
 import TextField from "components/TextField";
@@ -32,7 +32,7 @@ const Form = ({ onSubmit, onError, defaultValues }) => {
   })
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)}>
-      <TextField label="Username" {...register("username")} />
+      <TextField label="Name" {...register("name")} />
       <TextField label="Mobile" {...register("mobile")} />
       <TextField label="Email" {...register("email")} />
       <hr/>

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import MainLayout from '../layout/MainLayout';
-import HeadDefault from '../layout/head/HeadDefault';
-import AdminUsers from "../src/users/containers/List";
+import MainLayout from 'layout/MainLayout';
+import HeadDefault from 'layout/head/HeadDefault';
+import AdminTeams from "src/teams/containers/List";
 
 class Index extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class Index extends React.Component {
           description="NextJS with Reactstrap components with SCSS library, a NextJS dashboard template."
         />
         <MainLayout dispatch={dispatch} storeLayout={storeLayout}>
-          <AdminUsers/>
+          <AdminTeams/>
         </MainLayout>
       </>
     );

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 
-import ducks from 'store/services'
+import { usersDuck } from 'store/services'
 import { connect } from 'react-redux';
-import UserForm from 'screens/user/Form'
-import UserCard from 'screens/user/Card'
+import UserForm from 'src/users/screens/Form'
+import UserCard from 'src/users/screens/Card'
 import { Row, Col, Button } from "atoms";
 
 function Control ({ id, control, data, dismiss, requestGet, requestSave }) {
@@ -59,12 +59,12 @@ function Footer ({ control, data }) {
 const mapStateToProps = (state, props) => {
   const { id } = props
   return {
-    data: ducks.users.selectors.get(state, { id })
+    data: usersDuck.selectors.get(state, { id })
   }
 }
 const mapActionsToProps = {
-  requestGet: ducks.users.creators.get,
-  requestSave: ducks.users.creators.save
+  requestGet: usersDuck.creators.get,
+  requestSave: usersDuck.creators.save
 }
 Control.fullscreen = false
 Control.Header = connect(mapStateToProps, mapActionsToProps)(Header)

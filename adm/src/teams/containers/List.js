@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
-import ducks from 'store/services'
+import { teamsDuck } from 'store/services'
 import withUID from 'lib/withUID'
 import { connect } from 'react-redux';
-import Table from 'screens/user/Table'
+import Table from 'src/teams/screens/Table'
 import { useRouter } from 'next/router'
-import {Button} from "../../atoms";
+import {Button} from "../../../atoms";
 import {Edit, Plus} from "atoms/icons";
 import {useHash} from "layout/HashRoutes";
 
@@ -22,9 +22,9 @@ function List ({ uid, find, requestFind }) {
       // let rgx = keyword.split(' ').filter(a => a).join('|');
       query['$or'] = [
         {_id: keyword},
-        {username: keyword},
+        {teamname: keyword},
         {email: keyword},
-        // {username: {$regex: rgx, $options: 'ig'}},
+        // {teamname: {$regex: rgx, $options: 'ig'}},
         // {email: {$regex: rgx, $options: 'ig'}}
       ];
     }
@@ -32,8 +32,8 @@ function List ({ uid, find, requestFind }) {
   }, [router.query])
   return (
     <div>
-      <h4 className="float-start">Users Table</h4>
-      <Button className="float-end mb-2" size="sm" onClick={e => hash.push('/user/add/new')}><Plus/> Add User</Button>
+      <h4 className="float-start">Teams Table</h4>
+      <Button className="float-end mb-2" size="sm" onClick={e => hash.push('/team/add/new')}><Plus/> Add Team</Button>
       {find && <Table find={find} filters={router.query} onChange={setFilters}/>}
     </div>
   )
@@ -42,11 +42,11 @@ function List ({ uid, find, requestFind }) {
 const mapStateToProps = (state, props) => {
   const { uid } = props
   return {
-    find: ducks.users.selectors.find(state, { uid })
+    find: teamsDuck.selectors.find(state, { uid })
   }
 }
 const mapActionsToProps = {
-  requestFind: ducks.users.creators.find
+  requestFind: teamsDuck.creators.find
 }
 
-export default withUID(connect(mapStateToProps, mapActionsToProps)(List), 'admin-users')
+export default withUID(connect(mapStateToProps, mapActionsToProps)(List), 'admin-teams')

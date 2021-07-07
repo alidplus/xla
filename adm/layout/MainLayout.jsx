@@ -44,7 +44,12 @@ function MainLayout(mainProps) {
       <Container fluid className="min-vh-100" style={{paddingTop: '5rem'}}>
         <Row>
           {sideToggled && <Col className="flex-grow-0">
-            <NavLeft activeLink={activeLink}/>
+            <div className="d-md-none position-fixed w-75 h-100 top-0 bg-dark" style={{zIndex: 99, paddingTop: '75px'}}>
+              <NavLeft activeLink={activeLink}/>
+            </div>
+            <div className="d-none d-md-block">
+              <NavLeft activeLink={activeLink}/>
+            </div>
           </Col>}
           <Col className="">
             {children}

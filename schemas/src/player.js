@@ -1,13 +1,12 @@
 const Joi = require('joi')
-const { ID, title, password, email, mobile } = require('./utils')
+const { ID, title, playerNo, bDate, mobile } = require('./utils')
 
 const attrs = {
-  // _id: ID,
   name: title.required(),
-  email: email.required(),
-  mobile: mobile.required(),
-  // password,
-  // confirmPassword: password.label('Confirm password'),
+  no: playerNo.required(),
+  bDate: bDate.required(),
+
+  team: ID
 }
 
 const options = { convert: true, abortEarly: false, allowUnknown: true }

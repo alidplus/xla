@@ -14,7 +14,7 @@ import {
   NavbarText,
 } from 'atoms';
 
-import LogoutBtn from "containers/Logout";
+import LogoutBtn from "src/auth/containers/Logout";
 
 function NavBar({
   /* state vars */
