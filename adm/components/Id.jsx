@@ -1,20 +1,18 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 
-const Id = ({ type, data }) => {
-  return <span className="text-uppercase">{type}-{data.sid}</span>
+const Id = ({ data }) => {
+  const abr = (!data || !data.__model) ? 'id' :
+    data.__model.slice(0,2) + data.__model.charAt(data.__model.length - 2)
+  return <span title={data?._id} className="text-uppercase"><small>{abr}.</small><strong>{data?.sid}</strong></span>
 }
 
 export default Id
 
 Id.propTypes = {
-  type: PropTypes.string.isRequired,
-  data: PropTypes.object/*Of(PropTypes.shape({
-    sid: PropTypes.number.isRequired
-  }))*/.isRequired
+  data: PropTypes.object
 }
 
 Id.defaultProps = {
-  type: 'id',
   data: {sid:0}
 }

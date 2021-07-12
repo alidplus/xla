@@ -1,0 +1,63 @@
+$z-indexes: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$z-indexes: map-merge(
+  (
+    "0":      0,
+    "10":     10,
+    "20":     20,
+    "30":     30,
+    "40":     40,
+    "50":     50,
+    "auto":   auto,
+  ),
+  $z-indexes
+);
+
+$extra-overflows: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$extra-overflows: map-merge(
+  (
+    "visible": (
+      "property":'overflow',
+      "value": 'visible',
+    ),
+    "scroll": (
+      "property":'overflow',
+      "value": 'scroll',
+    ),
+    "x-auto": (
+      "property":'overflow-x',
+      "value": 'auto',
+    ),
+    "y-auto": (
+      "property":'overflow-y',
+      "value": 'auto',
+    ),
+    "x-hidden": (
+      "property":'overflow-x',
+      "value": 'hidden',
+    ),
+    "y-hidden": (
+      "property":'overflow-y',
+      "value": 'hidden',
+    ),
+    "x-visible": (
+      "property":'overflow-x',
+      "value": 'visible',
+    ),
+    "y-visible": (
+      "property":'overflow-y',
+      "value": 'visible',
+    ),
+    "x-scroll": (
+      "property":'overflow-x',
+      "value": 'scroll',
+    ),
+    "y-scroll": (
+      "property":'overflow-y',
+      "value": 'scroll',
+    ),
+  ),
+  $extra-overflows
+);
+

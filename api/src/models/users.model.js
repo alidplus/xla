@@ -32,6 +32,19 @@ module.exports = function (app) {
     strict: true,
     timestamps: true
   });
+  schema.set('toJSON', {virtuals: true});
+  schema.set('toObject', {virtuals: true});
+
+  schema.virtual('__model').get(() => modelName);
+
+  schema.virtual('avatar', {
+    ref: 'fs',
+    localField: '_id',
+    foreignField: 'target',
+    justOne: true,
+    match: { model: 'users', target: 'avatar' },
+    autopopulate: true
+  });
 
 
   // This is necessary to avoid model compilation errors in watch mode

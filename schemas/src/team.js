@@ -6,7 +6,7 @@ const attrs = {
   title: Joi.object().keys({
     fa: title.required(),
     en: title,
-    abr: title.length(3)
+    abr: Joi.string().uppercase().length(3)
   }).required(),
   owner: ID.required(),
   form: Joi.object().keys({

@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'atoms'
+
 const UserCard = ({ data }) => {
+  if (!data) return null
   return (
     <Card body>
-      <h5>{data.email}</h5>
-      <small>@{data.username}</small>
+      <pre>{JSON.stringify({data}, null, 2)}</pre>
     </Card>
   )
 }
@@ -13,5 +14,5 @@ const UserCard = ({ data }) => {
 UserCard.propTypes = {
   data: PropTypes.object
 }
-export default UserCard
 
+export default UserCard

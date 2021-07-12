@@ -2,9 +2,10 @@ import React from 'react';
 
 import MainLayout from '../layout/MainLayout';
 import HeadDefault from '../layout/head/HeadDefault';
-import AdminUsers from "../src/users/containers/List";
+import PaginatedListContainer from "../src/users/containers/PaginatedList";
+import TableScreen from "../src/users/screens/Table";
 
-class Index extends React.Component {
+class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isScrolled: false };
@@ -19,11 +20,13 @@ class Index extends React.Component {
           description="NextJS with Reactstrap components with SCSS library, a NextJS dashboard template."
         />
         <MainLayout dispatch={dispatch} storeLayout={storeLayout}>
-          <AdminUsers/>
+          <PaginatedListContainer>
+            <TableScreen/>
+          </PaginatedListContainer>
         </MainLayout>
       </>
     );
   }
 }
 
-export default Index
+export default User

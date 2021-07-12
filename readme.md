@@ -1,6 +1,7 @@
 ## after clone:
 ```
 cd schemas
+yarn install
 yarn link
 cd ..
 cd api

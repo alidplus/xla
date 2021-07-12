@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react'
-
+import React, { useEffect, useMemo } from 'react'
 import { usersDuck } from 'store/services'
-import withUID from 'lib/withUID'
 import { connect } from 'react-redux';
 import Table from 'src/users/screens/Table'
 import { useRouter } from 'next/router'
-import {Button} from "../../../atoms";
-import {Edit, Plus} from "atoms/icons";
-import {useHash} from "layout/HashRoutes";
+import { useHash } from 'layout/HashRoutes'
 
-function List ({ uid, find, requestFind }) {
-  const hash = useHash()
+const _uid = 'all-users-list'
+
+function List ({ uid = _uid, list, array, children }) {
   const router = useRouter()
+  const hash = useHash()
   const setFilters = filters => {
     router.push({ pathname: router.pathname, query: filters }, undefined, { shallow: true })
   }
@@ -19,34 +17,34 @@ function List ({ uid, find, requestFind }) {
     const { keyword, skip: $skip = 0, limit: $limit = 10 } = router.query
     const query = { $skip, $limit }
     if (keyword) {
-      // let rgx = keyword.split(' ').filter(a => a).join('|');
+      let rgx = keyword.split(' ').filter(a => a).join('|');
       query['$or'] = [
-        {_id: keyword},
-        {username: keyword},
-        {email: keyword},
-        // {username: {$regex: rgx, $options: 'ig'}},
-        // {email: {$regex: rgx, $options: 'ig'}}
+        {name: {$regex: rgx, $options: 'ig'}},
+        {email: {$regex: rgx, $options: 'ig'}},
+        {mobile: {$regex: rgx, $options: 'ig'}}
       ];
     }
-    requestFind(uid, query)
+    list(uid, query)
   }, [router.query])
-  return (
-    <div>
-      <h4 className="float-start">Users Table</h4>
-      <Button className="float-end mb-2" size="sm" onClick={e => hash.push('/user/add/new')}><Plus/> Add User</Button>
-      {find && <Table find={find} filters={router.query} onChange={setFilters}/>}
-    </div>
+  const cloneProps = useMemo(
+    () => ({ uid, router, hash, array, onChange: setFilters, filters: router.query}),
+    [array, router, hash]
   )
+
+  if (typeof children === 'function') return children(cloneProps)
+
+  if (Array.isArray(children))
+    return children.map(ch => React.cloneElement(ch, cloneProps))
+
+  return React.cloneElement(children, cloneProps)
 }
 
-const mapStateToProps = (state, props) => {
-  const { uid } = props
-  return {
-    find: usersDuck.selectors.find(state, { uid })
-  }
-}
-const mapActionsToProps = {
-  requestFind: usersDuck.creators.find
+const mapStateToProps = (state, { uid = _uid }) => {
+  return { array: usersDuck.selectors.find(state, { uid }) }
 }
 
-export default withUID(connect(mapStateToProps, mapActionsToProps)(List), 'admin-users')
+const mapDispatchToProps = {
+  list: usersDuck.creators.list
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(List)

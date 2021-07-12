@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const autoincrement = require('simple-mongoose-autoincrement');
 const logger = require('./logger');
 const softDelete = require('mongoose-delete');
+const autoPopulate = require('mongoose-autopopulate')
 // const namedScopesPlugin = require("mongoose-named-scopes");
 // const mongoosePaginate = require('mongoose-paginate-v2)';
 // const mongooseAggregatePaginate = require('mongoose-aggregate-paginate-v2)';
@@ -18,5 +19,6 @@ module.exports = function (app) {
   mongoose.Promise = global.Promise;
   mongoose.plugin(softDelete, { overrideMethods: true,  deletedAt: true });
   mongoose.plugin(autoincrement, {field: 'sid'});
+  mongoose.plugin(autoPopulate);
   app.set('mongooseClient', mongoose);
 };

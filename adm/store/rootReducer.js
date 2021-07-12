@@ -26,6 +26,7 @@ export default combineReducers({
   [ducks.events.store]: ducks.events.reducer,
   [ducks.referees.store]: ducks.referees.reducer,
   [ducks.sponsors.store]: ducks.sponsors.reducer,
+  [ducks.fs.store]: ducks.fs.reducer,
   [layout.store]: prepareReducer(['toggle'], layout)
 })
 

@@ -8,7 +8,6 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const schema = new Schema({
     sid: {type: Number, unique: true},
-    __model: {type: String, default: modelName, enum: [modelName] },
 
     variety: { type: String, default: 'log', required: true },
     payload: Schema.Types.Mixed,
@@ -18,6 +17,10 @@ module.exports = function (app) {
   }, {
     timestamps: true
   });
+  schema.set('toJSON', {virtuals: true});
+  schema.set('toObject', {virtuals: true});
+
+  schema.virtual('__model').get(() => modelName);
 
 
   // This is necessary to avoid model compilation errors in watch mode

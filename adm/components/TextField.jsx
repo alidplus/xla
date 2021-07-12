@@ -9,14 +9,14 @@ import {
 } from 'atoms';
 import { ErrorMessage } from '@hookform/error-message';
 
-const TextField = React.forwardRef(({ label, icon: Icon, errors, control, ...props }, ref) => {
+const TextField = React.forwardRef(({ label, icon: Icon, errors = {}, control, setValue, getValues, ...props }, ref) => {
   const invalid = useMemo(() => errors[props.name], [errors, props.name])
   return (
     <FormGroup>
       <Label>{label}:</Label>
       <InputGroup>
+        {Icon && <InputGroupAddon addonType="prepend"><Icon/></InputGroupAddon>}
         <Input {...props} innerRef={ref} invalid={!!invalid}/>
-        {Icon && <InputGroupAddon addonType="append"><Icon/></InputGroupAddon>}
       </InputGroup>
       <ErrorMessage errors={errors} name={props.name} />
     </FormGroup>

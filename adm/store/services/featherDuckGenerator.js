@@ -6,14 +6,22 @@ import { take, put, takeEvery, call, select } from 'redux-saga/effects'
 import { eventChannel, END } from 'redux-saga'
 import {createCachedSelector} from 're-reselect';
 import produce from "immer";
+import sift from "sift";
 import merge from "lodash/merge";
+import sortBy from "lodash/sortBy";
 import omitBy from "lodash/omitBy";
+import omit from "lodash/omit";
+import pick from "lodash/pick";
 import cloneDeep from "lodash/cloneDeep";
-import { APP_NAME } from '../../constants/vars';
 import client from '../api/feathersClient';
 import ObjectId from 'bson-objectid';
+import extractPopulatedFields from './extractPopulatedFields';
+
+const OPERATORS = ['$sort', '$limit', '$skip', '$select']
 
 const initialState = {
+  pops: [],
+  stash: {},
   collection: {},
   paginateRequests: {},
   listRequests: {},
@@ -30,6 +38,7 @@ export default (serviceName, duck) => {
       "LIST", "LIST_PENDING", "LIST_FULFILLED", "LIST_REJECTED",
       "PATCH", "PATCH_PENDING", "PATCH_FULFILLED", "PATCH_REJECTED",
       "CREATE", "CREATE_PENDING", "CREATE_FULFILLED", "CREATE_REJECTED",
+      "REMOVE", "REMOVE_PENDING", "REMOVE_FULFILLED", "REMOVE_REJECTED",
     ],
     initialState,
     reducer: (_state, action, duck) => {
@@ -37,50 +46,116 @@ export default (serviceName, duck) => {
       return produce(_state, state => {
         switch(action.type) {
           case duck.types.GET:
-          case duck.types.GET_PENDING:
-            state.collection[meta._id] = payload; break;
-          case duck.types.GET_FULFILLED:
-            state.collection[meta._id] = merge(state.collection[meta._id], payload, {__isLoading: false}); break;
-          case duck.types.GET_REJECTED:
-            state.collection[meta._id] = merge(state.collection[meta._id], {__error: payload, __isLoading: false}); break;
+          case duck.types.GET_PENDING: {
+            state.collection[meta._id] = payload;
+            break;
+          }
+          case duck.types.GET_FULFILLED: {
+            const {pops = [], raw = payload, rootId = payload._id} = extractPopulatedFields(payload)
+            state.pops = state.pops.concat(pops)
+            state.collection[meta._id] = merge(state.collection[meta._id], raw, {__isLoading: false});
+            break;
+          }
+          case duck.types.GET_REJECTED: {
+            state.collection[meta._id] = merge(state.collection[meta._id], {__error: payload, __isLoading: false});
+            break;
+          }
 
           case duck.types.FIND:
-          case duck.types.FIND_PENDING:
-            if (state.paginateRequests[meta.uid]) break;
-            state.paginateRequests[meta.uid] = payload; break;
-          case duck.types.FIND_FULFILLED:
-            payload.data.forEach(d => { state.collection[d._id] = d })
-            payload.data = payload.data.map(d => d._id)
-            state.paginateRequests[meta.uid] = merge(state.paginateRequests[meta.uid], payload, {__isLoading: false, __error: null}); break;
-          case duck.types.FIND_REJECTED:
-            state.paginateRequests[meta.uid] = merge(state.paginateRequests[meta.uid], {__error: payload, __isLoading: false}); break;
-
+          case duck.types.FIND_PENDING: {
+            state.paginateRequests[meta.uid] = Object.assign(state.paginateRequests[meta.uid] ?? {}, payload, {
+              __isLoading: false,
+              __error: null
+            });
+            break;
+          }
+          case duck.types.FIND_FULFILLED: {
+            payload.data = payload.data.map(d => {
+              const {pops = [], raw = d, rootId = d._id} = extractPopulatedFields(d)
+              state.collection[rootId] = raw
+              state.pops = state.pops.concat(pops)
+              return rootId
+            })
+            state.paginateRequests[meta.uid] = merge(state.paginateRequests[meta.uid], payload, {
+              __isLoading: false,
+              __error: null
+            });
+            break;
+          }
+          case duck.types.FIND_REJECTED: {
+            state.paginateRequests[meta.uid] = merge(state.paginateRequests[meta.uid], {
+              __error: payload,
+              __isLoading: false
+            });
+            break;
+          }
           case duck.types.LIST:
-          case duck.types.LIST_PENDING:
-            state.listRequests[meta.uid] = payload; break;
-          case duck.types.LIST_FULFILLED:
-            payload.forEach(d => { state.collection[d._id] = d })
-            const data = payload.map(d => d._id)
-            state.listRequests[meta.uid] = merge(state.listRequests[meta.uid], { data, total: data.length }, {__isLoading: false, __error: null}); break;
-          case duck.types.LIST_REJECTED:
-            state.listRequests[meta.uid] = merge(state.listRequests[meta.uid], {__error: payload, __isLoading: false}); break;
+          case duck.types.LIST_PENDING: {
+            state.listRequests[meta.uid] = payload;
+            break;
+          }
+          case duck.types.LIST_FULFILLED: {
+            const data = payload.map(d => {
+              const {pops = [], raw = d, rootId = d._id} = extractPopulatedFields(d)
+              state.collection[rootId] = raw
+              state.pops = state.pops.concat(pops)
+              return rootId
+            })
+            state.listRequests[meta.uid] = merge(state.listRequests[meta.uid], {
+              data,
+              total: data.length
+            }, {__isLoading: false, __error: null});
+            break;
+          }
+          case duck.types.LIST_REJECTED: {
+            state.listRequests[meta.uid] = merge(state.listRequests[meta.uid], {__error: payload, __isLoading: false});
+            break;
+          }
 
           case duck.types.PATCH:
-          case duck.types.PATCH_PENDING:
-            state.collection[meta._id] = merge(state.collection[meta._id] || {}, payload, { __stashBefore: state.collection[meta._id] }); break;
-          case duck.types.PATCH_FULFILLED:
-            state.collection[meta._id] = merge(state.collection[meta._id], payload, { __stashBefore: null }); break;
+          case duck.types.PATCH_PENDING: {
+            state.collection[meta._id] = merge(state.collection[meta._id] || {}, payload, {__stashBefore: state.collection[meta._id]});
+            break;
+          }
+          case duck.types.PATCH_FULFILLED: {
+            const {pops = [], raw = payload, rootId = payload._id} = extractPopulatedFields(payload)
+            state.pops = state.pops.concat(pops)
+            state.collection[meta._id] = merge(state.collection[meta._id], raw, {__stashBefore: null});
+            break;
+          }
           case duck.types.PATCH_REJECTED:
             state.collection[meta._id] = state.collection[meta._id].__stashBefore; break;
 
           case duck.types.CREATE:
           case duck.types.CREATE_PENDING:
             state.collection[meta.tid] = merge({ _id: meta.tid }, payload); break;
-          case duck.types.CREATE_FULFILLED:
+          case duck.types.CREATE_FULFILLED: {
+            const {pops = [], raw = payload, rootId = payload._id} = extractPopulatedFields(payload)
+            state.pops = state.pops.concat(pops)
             delete state.collection[meta.tid]
-            state.collection[payload._id] = payload; break;
+            state.collection[raw._id] = raw;
+            break;
+          }
           case duck.types.CREATE_REJECTED:
             state.collection[meta.tid].__error = payload.message; break;
+
+          case duck.types.REMOVE:
+          case duck.types.REMOVE_PENDING:
+            if (state.collection.hasOwnProperty(meta._id)) {
+              state.stash[meta._id] = state.collection[meta._id]
+              delete state.collection[meta._id];
+            }
+            break;
+          case duck.types.REMOVE_FULFILLED:
+            if (state.stash.hasOwnProperty(meta._id))
+              delete state.stash[meta._id];
+            break;
+          case duck.types.REMOVE_REJECTED:
+            if (state.stash.hasOwnProperty(meta._id)) {
+              state.collection[meta._id] = state.stash[meta._id]
+              delete state.stash[meta._id];
+            }
+            break;
         }
       })
     },
@@ -88,6 +163,7 @@ export default (serviceName, duck) => {
       root: (state, props) => state,
       props: (state, props) => props,
       ...constructLocalized({
+        pops: (state, gState) => state.pops,
         collection: (state, gState) => state.collection,
         paginateRequests: (state, gState) => state.paginateRequests,
         listRequests: (state, gState) => state.listRequests,
@@ -101,30 +177,37 @@ export default (serviceName, duck) => {
             if (!collection.hasOwnProperty(props.id)) return null
             else return collection[props.id]
           }
-        )( (state, props) => props.id )
+        )( (state, props) => String(props.id) )
       ),
       find: new Duck.Selector(selectors =>
         createCachedSelector(
-          selectors.root,
+          selectors.collection,
           selectors.paginateRequests,
           selectors.props,
-          (root, paginateRequests, props) => {
-            if (!paginateRequests.hasOwnProperty(props.uid)) return null
+          (collection, paginateRequests, props) => {
+            if (!paginateRequests.hasOwnProperty(props.uid)) return { data: [], skip: 0, limit: 10, total: 0 }
+            const { $skip = 0, $limit = 10, $sort = '', $select = ''} = pick(paginateRequests[props.uid].query, OPERATORS)
+            const sifter = sift(omit(paginateRequests[props.uid].query, OPERATORS))
             const paginate = cloneDeep(paginateRequests[props.uid])
-            paginate.data = paginate.data.map(id => selectors.get(root, { id }))
+            paginate.data = sortBy(Object.keys(collection).map(k => collection[k]), $sort.split(' ')).filter(sifter).
+              map(data => $select ? pick(data, $select.split(' ').concat(['_id', 'sid', 'createdAt', 'updatedAt'])) : data).
+              slice($skip, $skip + $limit)
             return paginate
           }
         )( (state, props) => props.uid )
       ),
       list: new Duck.Selector(selectors =>
         createCachedSelector(
-          selectors.root,
+          selectors.collection,
           selectors.listRequests,
           selectors.props,
-          (root, listRequests, props) => {
-            if (!listRequests.hasOwnProperty(props.uid)) return null
+          (collection, listRequests, props) => {
+            if (!listRequests.hasOwnProperty(props.uid)) return { total: 0, data: [] }
+            const { $skip = 0, $limit = 10, $sort = '', $select = ''} = pick(listRequests[props.uid].query, OPERATORS)
+            const sifter = sift(omit(listRequests[props.uid].query, OPERATORS))
             const list = cloneDeep(listRequests[props.uid])
-            list.data = list.data.map(id => selectors.get(root, { id }))
+            list.data = sortBy(Object.keys(collection).map(k => collection[k]), $sort.split(' ')).filter(sifter).
+            map(data => $select ? pick(data, $select.split(' ').concat(['_id', 'sid', 'createdAt', 'updatedAt'])) : data)
             return list
           }
         )( (state, props) => props.uid )
@@ -142,6 +225,7 @@ export default (serviceName, duck) => {
         }
       },
       find: (uid, query) => {
+        if(!query.$sort) query.$sort = '-createdAt'
         return ({
           type: duck.types.FIND,
           meta: { query, uid },
@@ -181,11 +265,21 @@ export default (serviceName, duck) => {
           }
         }
       },
-      onPatch: (data) => ({
-        type: duck.types.PATCH,
-        meta: { _id: data._id },
-        payload: data
-      })
+      remove: (_id, params) => {
+        return {
+          type: duck.types.REMOVE,
+          meta: { _id, params },
+          payload: {
+            promise: Service.remove(_id, params),
+            data: initialData(_id)
+          }
+        }
+      },
+      // onPatch: (data) => ({
+      //   type: duck.types.PATCH,
+      //   meta: { _id: data._id },
+      //   payload: data
+      // })
     }),
     sagas: (duck) => ({
       setupEventsChannel: function* (action) {
@@ -237,8 +331,8 @@ export default (serviceName, duck) => {
     }),
     takes: (duck) => ([
       takeEvery("persist/REHYDRATE", duck.sagas.setupEventsChannel),
-      takeEvery(duck.types.CREATE_FULFILLED, duck.sagas.reloadAllFinds),
-      takeEvery(duck.types.CREATE_FULFILLED, duck.sagas.reloadAllLists)
+      // takeEvery(duck.types.CREATE_FULFILLED, duck.sagas.reloadAllFinds),
+      // takeEvery(duck.types.CREATE_FULFILLED, duck.sagas.reloadAllLists)
     ])
   }
 }

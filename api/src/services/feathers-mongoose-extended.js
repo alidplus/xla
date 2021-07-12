@@ -109,7 +109,7 @@ exports.Service = class Service extends AdapterService {
       return model.countDocuments(query)
       .session(params.mongoose && params.mongoose.session).exec().then(executeQuery);
     }
-    
+
     return executeQuery().then(page => page.data);
   }
 

@@ -12,7 +12,6 @@ const Pagination = ({ total, skip, limit, loading, onChange, children, ...pagina
   const totalPages = Math.ceil(total / limit)
   let page = Math.floor(skip / limit) + 1
   const isLastPage = page === totalPages
-  if(total <= limit) return null
 
   const clickHandler = p => {
     if (loading || p === page) return
@@ -49,7 +48,7 @@ const Pagination = ({ total, skip, limit, loading, onChange, children, ...pagina
         : null
       }
       <PaginationItem active>
-        <PaginationLink href="javascript: void(0)">{page}</PaginationLink>
+        <PaginationLink disabled>{page}</PaginationLink>
       </PaginationItem>
       {page < totalPages ?
         <PaginationItem onClick={e => clickHandler(page + 1)}>

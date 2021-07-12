@@ -2,7 +2,8 @@ import React from 'react';
 
 import MainLayout from 'layout/MainLayout';
 import HeadDefault from 'layout/head/HeadDefault';
-import AdminTeams from "src/teams/containers/List";
+import PaginatedListContainer from "../src/teams/containers/PaginatedList";
+import TableScreen from "../src/teams/screens/Table";
 
 class Index extends React.Component {
   constructor(props) {
@@ -19,7 +20,9 @@ class Index extends React.Component {
           description="NextJS with Reactstrap components with SCSS library, a NextJS dashboard template."
         />
         <MainLayout dispatch={dispatch} storeLayout={storeLayout}>
-          <AdminTeams/>
+          <PaginatedListContainer>
+            <TableScreen/>
+          </PaginatedListContainer>
         </MainLayout>
       </>
     );

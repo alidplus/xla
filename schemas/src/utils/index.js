@@ -1,8 +1,7 @@
 const Joi = require('joi')
 
 module.exports = {}
-module.exports.title = Joi.string().trim().min(5).max(30)
-  .regex(/^[\sa-zA-Z0-9]*$/, 'letters, numbers and spaces')
+module.exports.title = Joi.string().trim().min(3).max(30)
 
 module.exports.password = Joi.string().trim().min(5).max(30)
   .regex(/^[\sa-zA-Z0-9]*$/, 'letters, numbers and spaces')

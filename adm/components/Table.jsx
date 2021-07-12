@@ -9,7 +9,7 @@ const InnerTd = ({ row, col }) => {
     const propName = col.propName || 'data'
     if (col.key) return getByDot(row, col.key, defaultValue);
     else if (col.render) return col.render(row) || defaultValue;
-    else if (col.Component) return React.createElement(col.Component, { [propName]: row });
+    else if (col.Component) return React.createElement(col.Component, { [propName]: row }, col.children);
     else return defaultValue
   }, [row, col])
 }
@@ -18,7 +18,7 @@ const TableConfig = {
 
 }
 
-const Table = ({ data, map, index, footer, ...tableProps }) => {
+const Table = ({ data, map, index, skip, footer, ...tableProps }) => {
   return (
     <AtomTable {...tableProps}>
       <thead>
@@ -32,9 +32,9 @@ const Table = ({ data, map, index, footer, ...tableProps }) => {
       <tbody>
       {data.map((row, i) => (
         <tr key={i}>
-          {!index ? null : <td scope="row">{i + 1}</td>}
+          {!index ? null : <th scope="row" className="vertical-align-middle">{i + 1 + skip}</th>}
           {map.map((col, j) => (
-            <td key={j} className={col.className}><InnerTd col={col} row={row}/></td>
+            <td className={`vertical-align-middle ${col.className}`} key={j}><InnerTd col={col} row={row}/></td>
           ))}
         </tr>
       ))}
@@ -62,6 +62,7 @@ Table.propTypes = {
   ...AtomTable.propTypes,
   index: PropTypes.bool,
   data: PropTypes.array.isRequired,
+  skip: PropTypes.number,
   map: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.shape({
       ...mapItemCommonKeys,
@@ -87,6 +88,7 @@ Table.defaultProps = {
   size: "sm",
   index: true,
   data: [],
+  skip: 0,
   map: [{
     title: 'ID',
     key: '_id'

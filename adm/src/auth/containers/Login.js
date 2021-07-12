@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Form from '../screens/Form'
+import LoginForm from '../screens/LoginForm'
 import authDuck from "store/auth";
 import {connect} from "react-redux";
 
@@ -20,7 +20,7 @@ const Login = ({ dismiss, authenticate }) => {
   return (
     <div>
       <div className="login">
-        <Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
+        <LoginForm isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
       </div>
     </div>
   )

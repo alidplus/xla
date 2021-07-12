@@ -12,7 +12,7 @@ const propTypes = {
   previous: PropTypes.bool,
   first: PropTypes.bool,
   last: PropTypes.bool,
-  tag: tagPropType,
+  tag: tagPropType
 };
 
 const defaultProps = {

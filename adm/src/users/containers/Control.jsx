@@ -1,72 +1,57 @@
-import React, { useEffect } from 'react'
-
+import React, { useEffect, useMemo, useState } from 'react'
 import { usersDuck } from 'store/services'
 import { connect } from 'react-redux';
 import UserForm from 'src/users/screens/Form'
 import UserCard from 'src/users/screens/Card'
-import { Row, Col, Button } from "atoms";
+import {Row, Col, Button, ModalHeader, ModalBody, ModalFooter} from "atoms";
+import {useHash} from "layout/HashRoutes";
+import {useRouter} from "next/router";
 
-function Control ({ id, control, data, dismiss, requestGet, requestSave }) {
+function Control ({ children, dismiss, data, get, save, remove, closeBtn, toggleFullBtn, id }) {
+  const hash = useHash()
+  const [errorMessage, setError] = useState(null)
   useEffect (() => {
-    if (id !== 'new')
-      requestGet(id)
+    if (id && (!data || data._id !== id))
+      get(id)
   }, [id])
-  const handleSubmit = (edited, e) => {
-    if (id && control === 'edit')
-      requestSave(id, edited)
-    else if (id === 'new' && control === 'add')
-      requestSave(null, edited)
-    dismiss()
+
+  const handleSubmit = async (edited, e) => {
+    console.log('handleSubmit', id, edited)
+    if (!id) {
+      let saved = await save(null, edited)
+      const { value } = saved
+      hash.push('/users/edit/' + value._id)
+    }
+    else if (id) {
+      await save(id, edited)
+      dismiss()
+    }
   }
+
+  const handleRemove = async (e) => {
+    if (id) {
+      await remove(id)
+      dismiss()
+    }
+  }
+
   const handleError = (error, e) => {
-    console.log('handleError', error)
+    setError(error.message)
   }
-  // if (!data) return null
-  return (
-    <div>
-      {control === 'add' ? <UserForm onSubmit={handleSubmit} onError={handleError}/> : null}
-      {control === 'edit' ? <UserForm defaultValues={data} onSubmit={handleSubmit} onError={handleError}/> : null}
-      {control === 'view' ? <UserCard data={data}/> : null}
-      {control === 'remove' ? <UserCard data={data}/> : null}
-    </div>
-  )
+
+  return useMemo(() => {
+    return React.cloneElement(children, { handleSubmit, handleRemove, handleError, id, data, errorMessage, dismiss, closeBtn, toggleFullBtn, hash })
+  }, [])
 }
 
-function Header ({ control, data }) {
-  switch (control) {
-    case 'view': return <div>view user</div>;
-    case 'edit': return <div>edit user</div>;
-    case 'remove': return <div>remove user?</div>;
-    case 'add': return <div>create new user</div>;
-    default: return <div>user control</div>
-  }
+const mapStateToProps = (state, { id }) => {
+  return { data: usersDuck.selectors.get(state, { id }) }
 }
 
-function Footer ({ control, data }) {
-  if (control !== 'remove') return null
-  return (
-    <Row className="my-2">
-      <Col>
-        <Button block color="danger">Yes</Button>
-      </Col>
-      <Col>
-        <Button block color="primary">No</Button>
-      </Col>
-    </Row>
-  )
-}
-
-const mapStateToProps = (state, props) => {
-  const { id } = props
-  return {
-    data: usersDuck.selectors.get(state, { id })
-  }
-}
 const mapActionsToProps = {
-  requestGet: usersDuck.creators.get,
-  requestSave: usersDuck.creators.save
+  get: usersDuck.creators.get,
+  save: usersDuck.creators.save,
+  remove: usersDuck.creators.remove,
 }
-Control.fullscreen = false
-Control.Header = connect(mapStateToProps, mapActionsToProps)(Header)
-Control.Footer = connect(mapStateToProps, mapActionsToProps)(Footer)
+
 export default connect(mapStateToProps, mapActionsToProps)(Control)

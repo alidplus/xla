@@ -4,16 +4,17 @@ import { ButtonGroup, Button, ButtonDropdown, DropdownToggle, DropdownMenu, Drop
 import { Eye, Trash, Edit, AngleDown } from 'atoms/icons';
 import { useHash } from "../layout/HashRoutes";
 
-const TableActions = ({ data }) => {
+const TableActions = ({ data, children, route = '' }) => {
   const hash = useHash()
   const [isOpen, setOpen] = useState(false);
   const toggle = () => setOpen(!isOpen);
   return (
     <ButtonGroup>
-      <ButtonGroup>
+      {!children ? null : <ButtonGroup>
         <ButtonDropdown isOpen={isOpen} toggle={toggle}>
           <DropdownToggle color="secondary" className="px-0"><AngleDown fw/></DropdownToggle>
           <DropdownMenu>
+            {children}
             <DropdownItem header>Header</DropdownItem>
             <DropdownItem disabled>Action</DropdownItem>
             <DropdownItem>Another Action</DropdownItem>
@@ -21,14 +22,14 @@ const TableActions = ({ data }) => {
             <DropdownItem>Another Action</DropdownItem>
           </DropdownMenu>
         </ButtonDropdown>
-      </ButtonGroup>
-      <Button size="sm" className="btn-icon" onClick={e => hash.push('/user/edit/' + data._id)}>
+      </ButtonGroup>}
+      <Button size="sm" className="btn-icon" onClick={e => hash.push(`/${route}/edit/${data._id}`)}>
         <Edit fw />
       </Button>
-      <Button size="sm" className="btn-icon" onClick={e => hash.push('/user/view/' + data._id)}>
+      <Button size="sm" className="btn-icon" onClick={e => hash.push(`/${route}/view/${data._id}`)}>
         <Eye fw />
       </Button>
-      <Button size="sm" className="btn-icon" onClick={e => hash.push('/user/remove/' + data._id)}>
+      <Button size="sm" className="btn-icon" onClick={e => hash.push(`/${route}/remove/${data._id}`)}>
         <Trash fw />
       </Button>
     </ButtonGroup>

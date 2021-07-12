@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useMemo } from 'react'
+import pick from 'lodash/pick'
 import Table from 'components/Table'
 import TableActions from 'components/TableActions'
 import Pagination from 'components/Pagination'
 import TableSearch from 'components/TableSearch'
 import Id from 'components/Id'
 import PropTypes from "prop-types";
+import FormattedDate from "components/FormattedDate";
+import {Button} from "../../../atoms";
+import {Plus} from "../../../atoms/icons";
+import { useHash } from 'layout/HashRoutes'
 
 const usersMap = [
   {
@@ -17,17 +22,18 @@ const usersMap = [
   },
   {
     title: 'date',
-    key: 'createdAt',
+    propName: 'data',
+    Component: FormattedDate,
   },
   {
     title: 'Actions',
-    propName: 'data',
     className: 'text-center',
-    Component: TableActions,
+    render: (data) => (<TableActions route="users" data={data}><div>ssssss</div></TableActions>),
   }
 ]
 
-function UserTable ({ find = {}, filters = {}, onChange }) {
+function UserTable ({ page = {}, filters = {}, onChange }) {
+  const hash = useHash()
   const handleSearch = e => {
     e.preventDefault()
     const keyword = e.currentTarget.keyword.value
@@ -36,32 +42,32 @@ function UserTable ({ find = {}, filters = {}, onChange }) {
   const handlePaginate = skip => {
     onChange(Object.assign({}, filters, { skip }))
   }
+  const paginateProps = useMemo(() => pick(page, ['total', 'skip', 'limit', 'loading']), [page])
   return (
-    <>
-      <TableSearch onSubmit={handleSearch}/>
+    <div>
+      <h4 className="float-start">Users Table</h4>
+      <Button className="float-end mb-2" size="sm" onClick={e => hash.push('/users/add/new')}><Plus/> Add User</Button>
+      <TableSearch keyword={filters.keyword} onSubmit={handleSearch}/>
       <Table
-        data={find.data}
+        data={page?.data ?? []}
+        skip={page.skip}
         map={usersMap}
       />
-      <Pagination {...find} onChange={handlePaginate}/>
-    </>
+      <Pagination {...paginateProps} onChange={handlePaginate}/>
+    </div>
   )
 }
 
-export default UserTable
-
 UserTable.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   filters: PropTypes.object,
-  find: PropTypes.object/*Of(PropTypes.shape({
-    data: PropTypes.array,
-    total: PropTypes.number,
-    skip: PropTypes.number,
-    limit: PropTypes.number
-  }))*/
+  page: PropTypes.object
 }
 
 UserTable.defaultProps = {
+  onChange: () => ({}),
   filters: {},
-  find: { data: [], total: 0, skip: 0, limit: 0 }
+  page: { data: [], total: 0, skip: 0, limit: 0 }
 }
+
+export default UserTable

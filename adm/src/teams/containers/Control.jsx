@@ -1,72 +1,57 @@
-import React, { useEffect } from 'react'
-
+import React, { useEffect, useMemo, useState } from 'react'
 import { teamsDuck } from 'store/services'
 import { connect } from 'react-redux';
 import TeamForm from 'src/teams/screens/Form'
 import TeamCard from 'src/teams/screens/Card'
-import { Row, Col, Button } from "atoms";
+import {Row, Col, Button, ModalHeader, ModalBody, ModalFooter} from "atoms";
+import {useHash} from "layout/HashRoutes";
+import {useRouter} from "next/router";
 
-function Control ({ id, control, data, dismiss, requestGet, requestSave }) {
+function Control ({ children, dismiss, data, get, save, remove, closeBtn, toggleFullBtn, id }) {
+  const hash = useHash()
+  const [errorMessage, setError] = useState(null)
   useEffect (() => {
-    if (id !== 'new')
-      requestGet(id)
+    if (id && (!data || data._id !== id))
+      get(id)
   }, [id])
-  const handleSubmit = (edited, e) => {
-    if (id && control === 'edit')
-      requestSave(id, edited)
-    else if (id === 'new' && control === 'add')
-      requestSave(null, edited)
-    dismiss()
+
+  const handleSubmit = async (edited, e) => {
+    console.log('handleSubmit', id, edited)
+    if (!id) {
+      let saved = await save(null, edited)
+      const { value } = saved
+      hash.push('/teams/edit/' + value._id)
+    }
+    else if (id) {
+      await save(id, edited)
+      dismiss()
+    }
   }
+
+  const handleRemove = async (e) => {
+    if (id) {
+      await remove(id)
+      dismiss()
+    }
+  }
+
   const handleError = (error, e) => {
-    console.log('handleError', error)
+    setError(error.message)
   }
-  // if (!data) return null
-  return (
-    <div>
-      {control === 'add' ? <TeamForm onSubmit={handleSubmit} onError={handleError}/> : null}
-      {control === 'edit' ? <TeamForm defaultValues={data} onSubmit={handleSubmit} onError={handleError}/> : null}
-      {control === 'view' ? <TeamCard data={data}/> : null}
-      {control === 'remove' ? <TeamCard data={data}/> : null}
-    </div>
-  )
+
+  return useMemo(() => {
+    return React.cloneElement(children, { handleSubmit, handleRemove, handleError, id, data, errorMessage, dismiss, closeBtn, toggleFullBtn, hash })
+  }, [])
 }
 
-function Header ({ control, data }) {
-  switch (control) {
-    case 'view': return <div>view team</div>;
-    case 'edit': return <div>edit team</div>;
-    case 'remove': return <div>remove team?</div>;
-    case 'add': return <div>create new team</div>;
-    default: return <div>team control</div>
-  }
+const mapStateToProps = (state, { id }) => {
+  return { data: teamsDuck.selectors.get(state, { id }) }
 }
 
-function Footer ({ control, data }) {
-  if (control !== 'remove') return null
-  return (
-    <Row className="my-2">
-      <Col>
-        <Button block color="danger">Yes</Button>
-      </Col>
-      <Col>
-        <Button block color="primary">No</Button>
-      </Col>
-    </Row>
-  )
-}
-
-const mapStateToProps = (state, props) => {
-  const { id } = props
-  return {
-    data: teamsDuck.selectors.get(state, { id })
-  }
-}
 const mapActionsToProps = {
-  requestGet: teamsDuck.creators.get,
-  requestSave: teamsDuck.creators.save
+  get: teamsDuck.creators.get,
+  save: teamsDuck.creators.save,
+  remove: teamsDuck.creators.remove,
 }
-Control.fullscreen = false
-Control.Header = connect(mapStateToProps, mapActionsToProps)(Header)
-Control.Footer = connect(mapStateToProps, mapActionsToProps)(Footer)
+
 export default connect(mapStateToProps, mapActionsToProps)(Control)

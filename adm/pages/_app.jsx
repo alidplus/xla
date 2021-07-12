@@ -6,20 +6,20 @@ import withReduxSaga from 'next-redux-saga';
 import createStore from "store";
 import { PersistGate } from 'redux-persist/integration/react';
 import HashRoutes from 'layout/HashRoutes'
-import { SWRConfig } from 'swr'
-import fetchJson from 'lib/fetchJson'
+// import { SWRConfig } from 'swr'
+// import fetchJson from 'lib/fetchJson'
 import { sessionMiddleware } from 'lib/session'
 import authDuck from 'store/auth'
 // Main SCSS
 import "assets/scss/main.scss";
 import client from "store/api/feathersClient";
 
-const swrConf = {
-  fetcher: fetchJson,
-  onError: (err) => {
-    console.error(err)
-  },
-}
+// const swrConf = {
+//   fetcher: fetchJson,
+//   onError: (err) => {
+//     console.error(err)
+//   },
+// }
 
 class MyApp extends App {
   constructor(props) {
@@ -50,11 +50,11 @@ class MyApp extends App {
     return (
       <Provider store={store}>
         <PersistGate persistor={store.__PERSISTOR} loading={null}>
-          <SWRConfig value={swrConf}>
+          {/*<SWRConfig value={swrConf}>*/}
             <HashRoutes>
               <Component {...pageProps} />
             </HashRoutes>
-          </SWRConfig>
+          {/*</SWRConfig>*/}
         </PersistGate>
       </Provider>
     );

@@ -7,14 +7,14 @@ import TextField from "../../../components/TextField";
 import {DevTool} from "@hookform/devtools";
 import {schema, options} from "@xla/schemas/src/login";
 
-const Form = ({ errorMessage, onSubmit }) => {
-  const {register, handleSubmit, watch, formState: {errors}, control} = useForm({
+const LoginForm = ({ errorMessage, onSubmit }) => {
+  const {register, handleSubmit, control} = useForm({
     resolver: joiResolver(schema, options)
   });
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <TextField label="Email" errors={errors} {...register("email")} />
-      <TextField label="Password" errors={errors} {...register("password")} />
+      <TextField label="Email" {...register("email")} />
+      <TextField label="Password" {...register("password")} />
       <hr/>
       <Button color="primary" type="submit">Login</Button>
       {errorMessage && <p className="error">{errorMessage}</p>}
@@ -23,9 +23,9 @@ const Form = ({ errorMessage, onSubmit }) => {
   )
 }
 
-export default Form
+export default LoginForm
 
-Form.propTypes = {
+LoginForm.propTypes = {
   errorMessage: PropTypes.string,
   onSubmit: PropTypes.func,
 }

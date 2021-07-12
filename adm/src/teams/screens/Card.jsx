@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'atoms'
+
 const TeamCard = ({ data }) => {
+  if (!data) return null
   return (
     <Card body>
-      <h5>{data.title.fa} [{data.title.abr}]</h5>
-      <small>{data.title.en}</small>
+      <pre>{JSON.stringify({data}, null, 2)}</pre>
     </Card>
   )
 }
@@ -13,5 +14,5 @@ const TeamCard = ({ data }) => {
 TeamCard.propTypes = {
   data: PropTypes.object
 }
-export default TeamCard
 
+export default TeamCard

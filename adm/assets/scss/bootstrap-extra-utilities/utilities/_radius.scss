@@ -1,0 +1,9 @@
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    .border-radius#{$infix}	    {border-radius: $border-radius;}
+    .border-radius#{$infix}-small	{border-radius: $border-radius-sm;}
+    .border-radius#{$infix}-large	{border-radius: $border-radius-lg;}
+    .border-radius#{$infix}-none	{border-radius: 0;}
+  }
+}

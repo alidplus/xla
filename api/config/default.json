@@ -2,9 +2,14 @@
   "host": "localhost",
   "port": 3030,
   "public": "../public/",
+  "fsDir": "../../fs/",
   "paginate": {
     "default": 10,
     "max": 50
+  },
+  "serviceOptions": {
+    "lean": false,
+    "whitelist": ["$and", "$options", "$regex"]
   },
   "authentication": {
     "entity": "user",
@@ -39,6 +44,11 @@
         ]
       }
     }
+  },
+  "arvanCloud": {
+    "ACCESS_KEY": "8ff0bd9b-7896-4688-a41c-0158c5cd9e71",
+    "SECRET_KEY": "cfe9aa285b425cc6d7db8582786b6051f2f977efde979a6c9b32ca88486b6801",
+    "API_URL": "https://s3.ir-thr-at1.arvanstorage.com"
   },
   "nedb": "../data",
   "mongodb": "mongodb://localhost:27017/xla"

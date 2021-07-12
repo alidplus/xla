@@ -1,0 +1,28 @@
+{
+  "users":  {
+    "avatar": { "count": 1 }
+  },
+  "leagues": {
+    "symbol": { "count": 1 },
+    "gallery": { "count": 10 }
+  },
+  "teams":  {
+    "gallery": { "count": 5 },
+    "flag": { "count": 1 }
+  },
+  "referees": {
+    "avatar": { "count": 1 }
+  },
+  "sponsors":  {
+    "logo": { "count": 1 },
+    "banner": { "count": 3 }
+  },
+  "players": {
+    "avatar": { "count": 1 },
+    "shape": { "count": 2 },
+    "gallery": { "count": 10 }
+  },
+  "matches":  {
+    "gallery": { "count": 1 }
+  }
+}

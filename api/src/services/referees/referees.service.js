@@ -6,7 +6,8 @@ const hooks = require('./referees.hooks');
 module.exports = function (app) {
   const options = {
     Model: createModel(app),
-    paginate: app.get('paginate')
+    paginate: app.get('paginate'),
+    ...app.get('serviceOptions')
   };
 
   // Initialize our service with any options it requires
