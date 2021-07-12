@@ -44,6 +44,7 @@ export const Etsy = (p) => <i className={classnames("fa fa-etsy", iconOptions(p)
 export const FreeCodeCamp = (p) => <i className={classnames("fa fa-free-code-camp", iconOptions(p), p.className)}/>
 export const Grav = (p) => <i className={classnames("fa fa-grav", iconOptions(p), p.className)}/>
 export const HandshakeO = (p) => <i className={classnames("fa fa-handshake-o", iconOptions(p), p.className)}/>
+export const HandsHelping = (p) => <i className={classnames("fa fa-hands-helping", iconOptions(p), p.className)}/>
 export const IdBadge = (p) => <i className={classnames("fa fa-id-badge", iconOptions(p), p.className)}/>
 export const IdCard = (p) => <i className={classnames("fa fa-id-card", iconOptions(p), p.className)}/>
 export const IdCardO = (p) => <i className={classnames("fa fa-id-card-o", iconOptions(p), p.className)}/>
@@ -251,7 +252,7 @@ export const FolderO = (p) => <i className={classnames("fa fa-folder-o", iconOpt
 export const FolderOpen = (p) => <i className={classnames("fa fa-folder-open", iconOptions(p), p.className)}/>
 export const FolderOpenO = (p) => <i className={classnames("fa fa-folder-open-o", iconOptions(p), p.className)}/>
 export const FrownO = (p) => <i className={classnames("fa fa-frown-o", iconOptions(p), p.className)}/>
-export const FutbolO = (p) => <i className={classnames("fa fa-futbol-o", iconOptions(p), p.className)}/>
+export const Futbol = (p) => <i className={classnames("fa fa-futbol", iconOptions(p), p.className)}/>
 export const Gamepad = (p) => <i className={classnames("fa fa-gamepad", iconOptions(p), p.className)}/>
 export const Gavel = (p) => <i className={classnames("fa fa-gavel", iconOptions(p), p.className)}/>
 export const Gear = (p) => <i className={classnames("fa fa-gear", iconOptions(p), p.className)}/>
@@ -476,6 +477,7 @@ export const Unsorted = (p) => <i className={classnames("fa fa-unsorted", iconOp
 export const Upload = (p) => <i className={classnames("fa fa-upload", iconOptions(p), p.className)}/>
 export const User = (p) => <i className={classnames("fa fa-user", iconOptions(p), p.className)}/>
 export const UserPlus = (p) => <i className={classnames("fa fa-user-plus", iconOptions(p), p.className)}/>
+export const UserLock = (p) => <i className={classnames("fa fa-user-lock", iconOptions(p), p.className)}/>
 export const UserSecret = (p) => <i className={classnames("fa fa-user-secret", iconOptions(p), p.className)}/>
 export const UserTimes = (p) => <i className={classnames("fa fa-user-times", iconOptions(p), p.className)}/>
 export const Users = (p) => <i className={classnames("fa fa-users", iconOptions(p), p.className)}/>

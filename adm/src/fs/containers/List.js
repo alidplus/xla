@@ -1,50 +1,43 @@
-import React, { useEffect, useState } from 'react'
-
+import React, { useEffect, useMemo } from 'react'
 import { fsDuck } from 'store/services'
-import withUID from 'lib/withUID'
 import { connect } from 'react-redux';
 import Table from 'src/fs/screens/Table'
 import { useRouter } from 'next/router'
-import {Button} from "../../../atoms";
-import {Edit, Plus} from "atoms/icons";
-import {useHash} from "layout/HashRoutes";
+import { useHash } from 'layout/HashRoutes'
+import { queryBuilder } from '../hooks/useOptionsProvider'
 
-function List ({ uid, find, requestFind }) {
-  const hash = useHash()
+const _uid = 'all-fs-list'
+
+function List ({ uid = _uid, list, array, children }) {
   const router = useRouter()
+  const hash = useHash()
   const setFilters = filters => {
     router.push({ pathname: router.pathname, query: filters }, undefined, { shallow: true })
   }
   useEffect(() => {
     const { keyword, skip: $skip = 0, limit: $limit = 10 } = router.query
-    const query = { $skip, $limit }
-    if (keyword) {
-      let rgx = keyword.split(' ').filter(a => a).join('|');
-      query['$or'] = [
-        {name: {$regex: rgx, $options: 'ig'}},
-        {email: {$regex: rgx, $options: 'ig'}},
-        {mobile: {$regex: rgx, $options: 'ig'}}
-      ];
-    }
-    requestFind(uid, query)
+    const query = { ...queryBuilder(keyword), $skip, $limit }
+    list(uid, query)
   }, [router.query])
-  return (
-    <div>
-      <h4 className="float-start">Fs Table</h4>
-      {/*<Button className="float-end mb-2" size="sm" onClick={e => hash.push('/fs/add/new')}><Plus/> Add Fs</Button>*/}
-      {find && <Table find={find} filters={router.query} onChange={setFilters}/>}
-    </div>
+  const cloneProps = useMemo(
+    () => ({ uid, router, hash, array, onChange: setFilters, filters: router.query}),
+    [array, router, hash]
   )
+
+  if (typeof children === 'function') return children(cloneProps)
+
+  if (Array.isArray(children))
+    return children.map(ch => React.cloneElement(ch, cloneProps))
+
+  return React.cloneElement(children, cloneProps)
 }
 
-const mapStateToProps = (state, props) => {
-  const { uid } = props
-  return {
-    find: fsDuck.selectors.find(state, { uid })
-  }
-}
-const mapActionsToProps = {
-  requestFind: fsDuck.creators.find
+const mapStateToProps = (state, { uid = _uid }) => {
+  return { array: fsDuck.selectors.find(state, { uid }) }
 }
 
-export default withUID(connect(mapStateToProps, mapActionsToProps)(List), 'admin-fs')
+const mapDispatchToProps = {
+  list: fsDuck.creators.list
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(List)

@@ -1,8 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from "classnames";
+import {HandsHelping} from "../../../atoms/icons";
 
-const SponsorInline = ({ data }) => {
-  return !data ? null : (<span>{data.name} <small>{data.email}</small></span>)
+const SponsorInline = ({ data, hash }) => {
+  return !data ? null : (
+    <span className={classnames("cursor-pointer", {'text-decoration-line-through':  data.deleted})} onClick={e => hash.push(`/players/view/${data._id}`)}>
+      <HandsHelping className="me-1" />
+      <span>{data.title}</span>
+    </span>
+  )
 }
 
 SponsorInline.propTypes = {

@@ -1,17 +1,20 @@
-import React, { useState } from 'react'
-import Card from './Card'
-import { Row, Col } from 'atoms'
+import React, { useMemo } from 'react'
+import pick from 'lodash/pick'
+import Table from 'components/Table'
 import TableActions from 'components/TableActions'
 import Pagination from 'components/Pagination'
 import TableSearch from 'components/TableSearch'
 import Id from 'components/Id'
 import PropTypes from "prop-types";
 import FormattedDate from "components/FormattedDate";
+import {Button} from "../../../atoms";
+import {Plus} from "../../../atoms/icons";
+import { useHash } from 'layout/HashRoutes'
 
 const fsMap = [
   {
     title: 'ID',
-    render: data => (<Id type="fs" data={data}/>),
+    render: data => (<Id type="f" data={data}/>),
   },
   {
     title: 'Email',
@@ -29,7 +32,8 @@ const fsMap = [
   }
 ]
 
-function FsTable ({ find = {}, filters = {}, onChange }) {
+function FTable ({ page = {}, filters = {}, onChange }) {
+  const hash = useHash()
   const handleSearch = e => {
     e.preventDefault()
     const keyword = e.currentTarget.keyword.value
@@ -38,35 +42,31 @@ function FsTable ({ find = {}, filters = {}, onChange }) {
   const handlePaginate = skip => {
     onChange(Object.assign({}, filters, { skip }))
   }
+  const paginateProps = useMemo(() => pick(page, ['total', 'skip', 'limit', 'loading']), [page])
   return (
-    <>
+    <div>
+      <h4 className="float-start">Fs Table</h4>
       <TableSearch keyword={filters.keyword} onSubmit={handleSearch}/>
-      <Row className="row-cols-3 mt-3">
-        {find.data.map(fs => {
-          return <Col key={fs._id}>
-            <Card data={fs} />
-          </Col>
-        })}
-      </Row>
-      <Pagination {...find} onChange={handlePaginate}/>
-    </>
+      <Table
+        data={page?.data ?? []}
+        skip={page.skip}
+        map={fsMap}
+      />
+      <Pagination {...paginateProps} onChange={handlePaginate}/>
+    </div>
   )
 }
 
-export default FsTable
-
-FsTable.propTypes = {
-  onChange: PropTypes.func.isRequired,
+FTable.propTypes = {
+  onChange: PropTypes.func,
   filters: PropTypes.object,
-  find: PropTypes.object/*Of(PropTypes.shape({
-    data: PropTypes.array,
-    total: PropTypes.number,
-    skip: PropTypes.number,
-    limit: PropTypes.number
-  }))*/
+  page: PropTypes.object
 }
 
-FsTable.defaultProps = {
+FTable.defaultProps = {
+  onChange: () => ({}),
   filters: {},
-  find: { data: [], total: 0, skip: 0, limit: 0 }
+  page: { data: [], total: 0, skip: 0, limit: 0 }
 }
+
+export default FTable

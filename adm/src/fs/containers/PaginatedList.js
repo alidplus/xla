@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo } from 'react'
-import { matchesDuck } from 'store/services'
+import { fsDuck } from 'store/services'
 import { connect } from 'react-redux';
-import Table from 'src/matches/screens/Table'
+import Table from 'src/fs/screens/Table'
 import { useRouter } from 'next/router'
 import { useHash } from 'layout/HashRoutes'
 import { queryBuilder } from '../hooks/useOptionsProvider'
 
-const _uid = 'all-matches-list'
+const _uid = 'all-fs-table'
 
-function List ({ uid = _uid, list, array, children }) {
+function PaginatedList ({ uid = _uid, find, page, children }) {
   const router = useRouter()
   const hash = useHash()
   const setFilters = filters => {
@@ -17,11 +17,11 @@ function List ({ uid = _uid, list, array, children }) {
   useEffect(() => {
     const { keyword, skip: $skip = 0, limit: $limit = 10 } = router.query
     const query = { ...queryBuilder(keyword), $skip, $limit }
-    list(uid, query)
+    find(uid, query)
   }, [router.query])
   const cloneProps = useMemo(
-    () => ({ uid, router, hash, array, onChange: setFilters, filters: router.query}),
-    [array, router, hash]
+    () => ({ uid, router, hash, page, onChange: setFilters, filters: router.query}),
+    [page, router, hash]
   )
 
   if (typeof children === 'function') return children(cloneProps)
@@ -33,11 +33,11 @@ function List ({ uid = _uid, list, array, children }) {
 }
 
 const mapStateToProps = (state, { uid = _uid }) => {
-  return { array: matchesDuck.selectors.find(state, { uid }) }
+  return { page: fsDuck.selectors.find(state, { uid }) }
 }
 
 const mapDispatchToProps = {
-  list: matchesDuck.creators.list
+  find: fsDuck.creators.find
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(List)
+export default connect(mapStateToProps, mapDispatchToProps)(PaginatedList)

@@ -1,72 +1,57 @@
-import React, { useEffect } from 'react'
-
+import React, { useEffect, useMemo, useState } from 'react'
 import { fsDuck } from 'store/services'
 import { connect } from 'react-redux';
-import FsForm from 'src/fs/screens/Form'
-import FsCard from 'src/fs/screens/Card'
-import { Row, Col, Button } from "atoms";
+import FForm from 'src/fs/screens/Form'
+import FCard from 'src/fs/screens/Card'
+import {Row, Col, Button, ModalHeader, ModalBody, ModalFooter} from "atoms";
+import {useHash} from "layout/HashRoutes";
+import {useRouter} from "next/router";
 
-function Control ({ id, control, data, dismiss, requestGet, requestSave }) {
+function Control ({ children, dismiss, data, get, save, remove, closeBtn, toggleFullBtn, id }) {
+  const hash = useHash()
+  const [errorMessage, setError] = useState(null)
   useEffect (() => {
-    if (id !== 'new')
-      requestGet(id)
+    if (id && (!data || data._id !== id))
+      get(id)
   }, [id])
-  const handleSubmit = (edited, e) => {
-    if (id && control === 'edit')
-      requestSave(id, edited)
-    else if (id === 'new' && control === 'add')
-      requestSave(null, edited)
-    dismiss()
+
+  const handleSubmit = async (edited, e) => {
+    console.log('handleSubmit', id, edited)
+    if (!id) {
+      let saved = await save(null, edited)
+      const { value } = saved
+      hash.push('/fs/edit/' + value._id)
+    }
+    else if (id) {
+      await save(id, edited)
+      dismiss()
+    }
   }
+
+  const handleRemove = async (e) => {
+    if (id) {
+      await remove(id)
+      dismiss()
+    }
+  }
+
   const handleError = (error, e) => {
-    console.log('handleError', error)
+    setError(error.message)
   }
-  // if (!data) return null
-  return (
-    <div>
-      {control === 'add' ? <FsForm onSubmit={handleSubmit} onError={handleError}/> : null}
-      {control === 'edit' ? <FsForm defaultValues={data} onSubmit={handleSubmit} onError={handleError}/> : null}
-      {control === 'view' ? <FsCard data={data}/> : null}
-      {control === 'remove' ? <FsCard data={data}/> : null}
-    </div>
-  )
+
+  return useMemo(() => {
+    return React.cloneElement(children, { handleSubmit, handleRemove, handleError, id, data, errorMessage, dismiss, closeBtn, toggleFullBtn, hash })
+  }, [])
 }
 
-function Header ({ control, data }) {
-  switch (control) {
-    case 'view': return <div>view fs</div>;
-    case 'edit': return <div>edit fs</div>;
-    case 'remove': return <div>remove fs?</div>;
-    case 'add': return <div>create new fs</div>;
-    default: return <div>fs control</div>
-  }
+const mapStateToProps = (state, { id }) => {
+  return { data: fsDuck.selectors.get(state, { id }) }
 }
 
-function Footer ({ control, data }) {
-  if (control !== 'remove') return null
-  return (
-    <Row className="my-2">
-      <Col>
-        <Button block color="danger">Yes</Button>
-      </Col>
-      <Col>
-        <Button block color="primary">No</Button>
-      </Col>
-    </Row>
-  )
-}
-
-const mapStateToProps = (state, props) => {
-  const { id } = props
-  return {
-    data: fsDuck.selectors.get(state, { id })
-  }
-}
 const mapActionsToProps = {
-  requestGet: fsDuck.creators.get,
-  requestSave: fsDuck.creators.save
+  get: fsDuck.creators.get,
+  save: fsDuck.creators.save,
+  remove: fsDuck.creators.remove,
 }
-Control.fullscreen = false
-Control.Header = connect(mapStateToProps, mapActionsToProps)(Header)
-Control.Footer = connect(mapStateToProps, mapActionsToProps)(Footer)
+
 export default connect(mapStateToProps, mapActionsToProps)(Control)

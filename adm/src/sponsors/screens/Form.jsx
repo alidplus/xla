@@ -7,17 +7,25 @@ const Form = ({ register, control, data }) => {
   return (
     <>
       <FsUploader
-        label="Avatar"
+        label="Logo"
         target={data?._id}
         model="sponsors"
-        pathname="avatar"
+        pathname="logo"
         count={1}
         accept="image/*"
-        thumbNail={<Avatar circle size="100px" className="mx-1"/>}
+        thumbNail={<Avatar size="100px" className="mx-1"/>}
       />
-      <TextField label="Name" {...register("name")} />
-      <TextField label="Mobile" {...register("mobile")} />
-      <TextField label="Email" {...register("email")} />
+      <FsUploader
+        label="Banner"
+        target={data?._id}
+        model="sponsors"
+        pathname="banner"
+        count={1}
+        accept="image/*"
+        thumbNail={<Avatar size="100px" className="mx-1"/>}
+      />
+      <TextField label="Title" {...register("title")} />
+      <TextField label="Text" {...register("text")} />
       {/*<DevTool control={control} />*/}
     </>
   )

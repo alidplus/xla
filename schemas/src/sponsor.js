@@ -5,8 +5,6 @@ const attrs = {
   // _id: ID,
   title: title.required(),
   text: title,
-  // password,
-  // confirmPassword: password.label('Confirm password'),
 }
 
 const options = { convert: true, abortEarly: false, allowUnknown: true }

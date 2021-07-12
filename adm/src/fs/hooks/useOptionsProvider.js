@@ -8,11 +8,14 @@ export const queryBuilder = (keyword = '') => {
     '$or': [
       { _id: keyword },
       { sid: keyword },
-      { name: {$regex: rgx, $options: 'ig'} }
+      { model: keyword },
+      { pathname: keyword },
+      { target: keyword },
+      { fileName: {$regex: rgx, $options: 'ig'} }
     ]
   }
 }
 
-export default optionsProvider.bind({}, 'referees', queryBuilder, Inline)
+export default optionsProvider.bind({}, 'fs', queryBuilder, Inline)
 
 // returns { options, searchProps, paginateProps, selected }

@@ -20,6 +20,7 @@ import eventRoutes from 'src/events/routes'
 import playerRoutes from 'src/players/routes'
 import refereeRoutes from 'src/referees/routes'
 import sponsorRoutes from 'src/sponsors/routes'
+import fsRoutes from 'src/fs/routes'
 
 export const HashModal = withRouter(({ children, match }) => {
   const history = useHistory();
@@ -57,7 +58,8 @@ const hashRoutes = [
   eventRoutes,
   playerRoutes,
   refereeRoutes,
-  sponsorRoutes
+  sponsorRoutes,
+  fsRoutes
 ]
 
 

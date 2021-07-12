@@ -16,8 +16,7 @@ const Form = ({ register, control, data }) => {
         thumbNail={<Avatar circle size="100px" className="mx-1"/>}
       />
       <TextField label="Name" {...register("name")} />
-      <TextField label="Mobile" {...register("mobile")} />
-      <TextField label="Email" {...register("email")} />
+      <TextField label="lvl" {...register("lvl")} />
       {/*<DevTool control={control} />*/}
     </>
   )

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Table from 'src/referees/screens/Table'
 import { useRouter } from 'next/router'
 import { useHash } from 'layout/HashRoutes'
+import { queryBuilder } from '../hooks/useOptionsProvider'
 
 const _uid = 'all-referees-table'
 
@@ -15,15 +16,7 @@ function PaginatedList ({ uid = _uid, find, page, children }) {
   }
   useEffect(() => {
     const { keyword, skip: $skip = 0, limit: $limit = 10 } = router.query
-    const query = { $skip, $limit }
-    if (keyword) {
-      let rgx = keyword.split(' ').filter(a => a).join('|');
-      query['$or'] = [
-        {name: {$regex: rgx, $options: 'ig'}},
-        {email: {$regex: rgx, $options: 'ig'}},
-        {mobile: {$regex: rgx, $options: 'ig'}}
-      ];
-    }
+    const query = { ...queryBuilder(keyword), $skip, $limit }
     find(uid, query)
   }, [router.query])
   const cloneProps = useMemo(
