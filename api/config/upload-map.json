@@ -1,6 +1,10 @@
 {
   "users":  {
-    "avatar": { "count": 1 }
+    "avatar": {
+      "count": 1,
+      "size": 100,
+      "ratio": 1
+    }
   },
   "leagues": {
     "symbol": { "count": 1 },

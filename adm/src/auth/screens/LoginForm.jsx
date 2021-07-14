@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Button} from "../../../atoms";
 import {useForm} from "react-hook-form";
 import { joiResolver } from '@hookform/resolvers/joi';
-import TextField from "../../../components/TextField";
+import TextField from "../../../components/form/TextField";
 import {DevTool} from "@hookform/devtools";
 import {schema, options} from "@xla/schemas/src/login";
 

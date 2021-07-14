@@ -17,8 +17,8 @@ const sponsorsMap = [
     render: data => (<Id type="sponsor" data={data}/>),
   },
   {
-    title: 'Email',
-    key: 'email',
+    title: 'Title',
+    key: 'title',
   },
   {
     title: 'date',

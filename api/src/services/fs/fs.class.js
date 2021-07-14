@@ -4,18 +4,29 @@ const multer = require('multer')
 const sizeOf = require('buffer-image-size');
 const path = require('path')
 const getByDot = require('lodash/get')
-const uploadMap = require('./upload-map.json')
+const uploadMap = require('../../../config/upload-map.json')
+const rimraf = require("rimraf");
 const fs = require('fs')
-const S3 = require('aws-s3')
 const fsp = fs.promises
 
 exports.Fs = class Fs extends Service {
+  constructor(options, app) {
+    super(options, app);
+    this.app = app
+  }
   async remove (id, params) {
-    const fsRoot = app.get('fsDir')
+    const fsRoot = this.app.get('fsDir')
     const f = await super.remove(id, params)
-    const { model, target, pathname, uploadId } = f
-    const dirPath = path.join( fsRoot, model, target, pathname, uploadId )
-    await fsp.rm(dirPath, { force: true, recursive: true, maxRetries: 3, retryDelay: 300 })
+    const { model, target, pathname, uploadId, fileName, thumbnail } = f
+    const thPath = path.join( fsRoot, model, String(target), pathname, uploadId, thumbnail )
+    const filePath = path.join( fsRoot, model, String(target), pathname, uploadId, fileName )
+    const dirPath = path.join( fsRoot, model, String(target), pathname, uploadId )
+    await new Promise((resolve, reject) => {
+      rimraf(dirPath, function (a,b,c) { console.log("done", a,b,c); resolve() });
+    })
+    // await fsp.unlink(filePath)
+    // await fsp.unlink(thPath)
+    // await fsp.rmdir(dirPath, { force: true, recursive: true, maxRetries: 3, retryDelay: 300 })
     return f
   }
 };
@@ -37,7 +48,7 @@ exports.uploadQueue = function (app) {
       const currentUploads = await Service.find({ query: { model, target, pathname, $limit: 0 }})
       const currentUploadsCount = currentUploads.total
       const allowableUploadsCount = getByDot(uploadMap, `${model}.${pathname}.count`, 0)
-      if (currentUploadsCount >= allowableUploadsCount) return res.status(500).send('exceeded upload limit')
+      if (currentUploadsCount + 1 >= allowableUploadsCount) return res.status(500).send('exceeded upload limit')
 
       const nameSplits = fileName.split('.')
       const extension = nameSplits.pop()

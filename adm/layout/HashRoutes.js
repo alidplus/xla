@@ -41,7 +41,7 @@ export const HashModal = withRouter(({ children, match }) => {
     }
   }, [match.params, full])
   return (
-    <Modal centered isOpen={show} toggle={dismiss} onClosed={distroy} className={classnames({
+    <Modal centered isOpen={show} toggle={dismiss} onClosed={distroy} size="lg" className={classnames({
       'modal-fullscreen' : full === true,
       [`modal-fullscreen-${full}-down`]: typeof full === 'string',
     })}>

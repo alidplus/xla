@@ -1,8 +1,9 @@
 import {Avatar, ModalFooter} from "atoms";
-import TextField from "components/TextField";
+import TextField from "components/form/TextField";
+import SwitchField from "components/form/SwitchField";
 import FsUploader from "components/FsUploader";
 import React from "react";
-import CustomSelectField from "components/CustomSelectField";
+import CustomSelectField from "components/form/CustomSelectField";
 import useSponsorOptionsProvider from "src/sponsors/hooks/useOptionsProvider";
 
 const Form = ({ register, control, data }) => {
@@ -28,6 +29,7 @@ const Form = ({ register, control, data }) => {
       />
       <TextField label="Title" {...register("title")} />
       <TextField label="Description" {...register("text")} />
+      <SwitchField label="Home Away?" {...register("homeAway")} falseLabel="Single Match" trueLabel="Home Away"/>
       <TextField label="Teams" {...register("teams")} />
       <CustomSelectField label="Sponsor" {...register("sponsor")} provider={useSponsorOptionsProvider}/>
       {/*<DevTool control={control} />*/}

@@ -6,6 +6,8 @@ import {useDropzone} from 'react-dropzone'
 import {fsDuck} from "../store/services";
 import {connect} from "react-redux";
 import FsGallery from './FsGallery'
+import {FormGroup, Label} from "atoms";
+import FsEditor from './FsEditor';
 
 const dropZoneCss = {
   minHeight: '100px',
@@ -13,23 +15,29 @@ const dropZoneCss = {
   cursor: 'pointer'
 }
 const FsUploader = (allProps)=> {
-  const { target, pathname, model, requestQueue, queue, count = 10, thumbNail, ...props } = allProps
+  const { label, target, pathname, model, requestQueue, queue, count = 10, thumbNail, ...props } = allProps
   if (!target) return null
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     requestQueue(acceptedFiles.slice(0, count), { target, pathname, model, count })
   }, [])
   const { getRootProps, getInputProps, isDragActive, open } = useDropzone({ onDrop, accept: props.accept, multiple: count > 1 })
   return (
-    <>
-      <div className={classNames("d-flex flex-wrap justify-content-center align-items-center py-2", {'shadow-lg': isDragActive })} style={dropZoneCss} {...getRootProps()} onClick={open}>
+    <FormGroup className="mb-1">
+      <Label>{label}:</Label>
+      <div className={classNames("py-2", {'shadow-lg': isDragActive })} style={dropZoneCss} {...getRootProps()} onClick={open}>
         <input {...getInputProps()} />
-        {queue.length ?
-          queue.map((f, i) => React.cloneElement(thumbNail, { file: f, key: f.url })) :
-          <span>Drop an image here...</span>
-        }
+        <div className="text-center">Drop an image here...</div>
+        <div className="d-flex flex-wrap justify-content-center align-items-center">
+          {queue.length ?
+            queue.map((f, i) => (
+              <FsEditor>{React.cloneElement(thumbNail, {file: f, key: f.url})}</FsEditor>
+            )) :
+            null
+          }
+        </div>
+        <FsGallery {...allProps}/>
       </div>
-      <FsGallery {...allProps}/>
-    </>
+    </FormGroup>
   )
 }
 

@@ -1,8 +1,8 @@
 import {Avatar, ModalFooter} from "atoms";
-import TextField from "components/TextField";
+import TextField from "components/form/TextField";
 import FsUploader from "components/FsUploader";
 import React from "react";
-import CustomSelectField from "components/CustomSelectField";
+import CustomSelectField from "components/form/CustomSelectField";
 import useTeamOptionsProvider from 'src/users/hooks/useOptionsProvider'
 
 const Form = ({ register, control, data }) => {
@@ -10,7 +10,7 @@ const Form = ({ register, control, data }) => {
     <>
       <FsUploader
         label="Gallery"
-        target={defaultValues?._id}
+        target={data?._id}
         model="teams"
         pathname="gallery"
         count={2}

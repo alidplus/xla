@@ -15,15 +15,13 @@ module.exports = function (app) {
     homeAway: { type: Boolean, default: false },
     results: Schema.Types.Mixed,
 
-    sponsor: { type: Schema.Types.ObjectId, ref: 'sponsors' },
-    participants: [{ type: Schema.Types.ObjectId, ref: 'teams' }]
+    sponsor: { type: Schema.Types.ObjectId, ref: 'sponsors', autopopulate: true  },
+    participants: [{ type: Schema.Types.ObjectId, ref: 'teams', autopopulate: true  }]
   }, {
+    modelName,
+    strict: true,
     timestamps: true
   });
-  schema.set('toJSON', {virtuals: true});
-  schema.set('toObject', {virtuals: true});
-
-  schema.virtual('__model').get(() => modelName);
 
 
   // This is necessary to avoid model compilation errors in watch mode

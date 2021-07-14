@@ -41,6 +41,7 @@
     "cssnano": "^4.1.10",
     "extensible-duck": "^1.6.0",
     "feathers-authentication-management": "^3.1.0",
+    "filerobot-image-editor": "^3.12.17",
     "immer": "^9.0.3",
     "joi": "^17.4.0",
     "lodash": "^4.17.21",
@@ -54,6 +55,7 @@
     "prop-types": "^15.7.2",
     "re-reselect": "^4.0.0",
     "react": "16.12.0",
+    "react-datepicker2": "^3.3.13",
     "react-dom": "16.12.0",
     "react-dropzone": "^11.3.4",
     "react-hook-form": "^7.9.0",
@@ -71,6 +73,9 @@
     "sift": "^13.5.4",
     "socket.io-client": "2.3.0",
     "swr": "^0.5.6"
+  },
+  "comments": {
+    "next": "9.3.2"
   },
   "engines": {
     "node": "^12.0.0",

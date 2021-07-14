@@ -17,29 +17,17 @@ module.exports = function (app) {
 
     owner: { type: Schema.Types.ObjectId, required: true, ref: 'users', autopopulate: true },
     form: {
-      gk: { type: Schema.Types.ObjectId, ref: 'players' },
-      ca: { type: Schema.Types.ObjectId, ref: 'players' },
-      p1: { type: Schema.Types.ObjectId, ref: 'players' },
-      p2: { type: Schema.Types.ObjectId, ref: 'players' },
-      p3: { type: Schema.Types.ObjectId, ref: 'players' },
+      gk: { type: Schema.Types.ObjectId, ref: 'players', autopopulate: true },
+      ca: { type: Schema.Types.ObjectId, ref: 'players', autopopulate: true },
+      p1: { type: Schema.Types.ObjectId, ref: 'players', autopopulate: true },
+      p2: { type: Schema.Types.ObjectId, ref: 'players', autopopulate: true },
+      p3: { type: Schema.Types.ObjectId, ref: 'players', autopopulate: true },
     },
-    sponsor: { type: Schema.Types.ObjectId, ref: 'sponsors' }
+    sponsor: { type: Schema.Types.ObjectId, ref: 'sponsors', autopopulate: true }
   }, {
+    modelName,
+    strict: true,
     timestamps: true
-  });
-
-  schema.set('toJSON', {virtuals: true});
-  schema.set('toObject', {virtuals: true});
-
-  schema.virtual('__model').get(() => modelName);
-
-  schema.virtual('gallery', {
-    ref: 'fs',
-    localField: '_id',
-    foreignField: 'target',
-    justOne: false,
-    match: { model: 'teams', target: 'gallery' },
-    autopopulate: true
   });
 
 

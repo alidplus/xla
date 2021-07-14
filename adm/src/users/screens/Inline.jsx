@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { UserCircle } from 'atoms/icons'
+import Icon from './icon'
 import classnames from "classnames";
 
 const UserInline = ({ data, hash }) => {
   return !data ? null : (
     <span className={classnames("cursor-pointer", {'text-decoration-line-through':  data.deleted})} onClick={e => hash.push(`/users/view/${data._id}`)}>
-      <UserCircle className="me-1" />
+      <Icon className="me-1" />
       <span>{data.name}</span>
     </span>
   )

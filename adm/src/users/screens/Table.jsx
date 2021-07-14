@@ -17,6 +17,10 @@ const usersMap = [
     render: data => (<Id type="user" data={data}/>),
   },
   {
+    title: 'Name',
+    key: 'name',
+  },
+  {
     title: 'Email',
     key: 'email',
   },

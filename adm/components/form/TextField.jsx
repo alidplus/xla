@@ -12,7 +12,7 @@ import { ErrorMessage } from '@hookform/error-message';
 const TextField = React.forwardRef(({ label, icon: Icon, errors = {}, control, setValue, getValues, ...props }, ref) => {
   const invalid = useMemo(() => errors[props.name], [errors, props.name])
   return (
-    <FormGroup>
+    <FormGroup className="mb-1">
       <Label>{label}:</Label>
       <InputGroup>
         {Icon && <InputGroupAddon addonType="prepend"><Icon/></InputGroupAddon>}

@@ -1,5 +1,6 @@
 import {Avatar, ModalFooter} from "atoms";
-import TextField from "components/TextField";
+import TextField from "components/form/TextField";
+import RateField from "components/form/RateField"
 import FsUploader from "components/FsUploader";
 import React from "react";
 
@@ -16,7 +17,7 @@ const Form = ({ register, control, data }) => {
         thumbNail={<Avatar circle size="100px" className="mx-1"/>}
       />
       <TextField label="Name" {...register("name")} />
-      <TextField label="lvl" {...register("lvl")} />
+      <RateField label="lvl" {...register("lvl")} />
       {/*<DevTool control={control} />*/}
     </>
   )

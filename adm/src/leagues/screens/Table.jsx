@@ -17,8 +17,12 @@ const leaguesMap = [
     render: data => (<Id type="league" data={data}/>),
   },
   {
-    title: 'Email',
-    key: 'email',
+    title: 'Title',
+    key: 'title',
+  },
+  {
+    title: 'Teams#',
+    key: 'teams',
   },
   {
     title: 'date',

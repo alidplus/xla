@@ -10,7 +10,7 @@ const storage = isClient ? require('redux-persist/lib/storage').default : null
 const prepareReducer = (whitelist = [], module) => {
   if (isClient) {
     const { persistReducer } = require('redux-persist');
-    const persistConfig = { key: module.store, storage, whitelist, stateReconciler: hardSet };
+    const persistConfig = { key: module.store, storage, whitelist, /*stateReconciler: hardSet*/ };
     return persistReducer(persistConfig, module.reducer)
   }
   return module.reducer
@@ -18,15 +18,15 @@ const prepareReducer = (whitelist = [], module) => {
 
 export default combineReducers({
   [auth.store]: auth.reducer,
-  [ducks.users.store]: ducks.users.reducer,
-  [ducks.teams.store]: ducks.teams.reducer,
-  [ducks.leagues.store]: ducks.leagues.reducer,
-  [ducks.matches.store]: ducks.matches.reducer,
-  [ducks.players.store]: ducks.players.reducer,
-  [ducks.events.store]: ducks.events.reducer,
-  [ducks.referees.store]: ducks.referees.reducer,
-  [ducks.sponsors.store]: ducks.sponsors.reducer,
-  [ducks.fs.store]: ducks.fs.reducer,
+  [ducks.users.store]: prepareReducer(['xcollection'], ducks.users),
+  [ducks.teams.store]: prepareReducer(['xcollection'], ducks.teams),
+  [ducks.leagues.store]: prepareReducer(['xcollection'], ducks.leagues),
+  [ducks.matches.store]: prepareReducer(['xcollection'], ducks.matches),
+  [ducks.players.store]: prepareReducer(['xcollection'], ducks.players),
+  [ducks.events.store]: prepareReducer(['xcollection'], ducks.events),
+  [ducks.referees.store]: prepareReducer(['xcollection'], ducks.referees),
+  [ducks.sponsors.store]: prepareReducer(['xcollection'], ducks.sponsors),
+  [ducks.fs.store]: prepareReducer(['xcollection'], ducks.fs),
   [layout.store]: prepareReducer(['toggle'], layout)
 })
 

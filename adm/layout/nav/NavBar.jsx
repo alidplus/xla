@@ -13,7 +13,7 @@ import {
   DropdownItem,
   NavbarText,
 } from 'atoms';
-
+import ReduxStats from './ReduxStats'
 import LogoutBtn from "src/auth/containers/Logout";
 
 function NavBar({
@@ -109,6 +109,9 @@ function NavBar({
             </DropdownMenu>
           </UncontrolledDropdown>
         </Collapse>
+        <NavbarText>
+          <ReduxStats />
+        </NavbarText>
       </Navbar>
     </div>
   );

@@ -17,8 +17,16 @@ const fsMap = [
     render: data => (<Id type="f" data={data}/>),
   },
   {
-    title: 'Email',
-    key: 'email',
+    title: 'File Name',
+    key: 'fileName',
+  },
+  {
+    title: 'Model',
+    key: 'model',
+  },
+  {
+    title: 'Kind',
+    key: 'pathname',
   },
   {
     title: 'date',
