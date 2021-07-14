@@ -3,14 +3,14 @@ import TextField from "components/TextField";
 import FsUploader from "components/FsUploader";
 import React from "react";
 import CustomSelectField from "components/CustomSelectField";
-import useTeamOptionsProvider from 'src/users/hooks/useOptionsProvider'
+import useUserOptionsProvider from 'src/users/hooks/useOptionsProvider'
 
 const Form = ({ register, control, data }) => {
   return (
     <>
       <FsUploader
         label="Gallery"
-        target={defaultValues?._id}
+        target={data?._id}
         model="teams"
         pathname="gallery"
         count={2}
@@ -20,7 +20,7 @@ const Form = ({ register, control, data }) => {
       <TextField label="Title Fa" {...register("title.fa")} />
       <TextField label="Title En" {...register("title.en")} />
       <TextField label="ABR" {...register("title.abr")} />
-      <CustomSelectField label="Owner" {...register("owner")} provider={useTeamOptionsProvider}/>
+      <CustomSelectField label="Owner" {...register("owner")} provider={useUserOptionsProvider}/>
       {/*<DevTool control={control} />*/}
     </>
   )

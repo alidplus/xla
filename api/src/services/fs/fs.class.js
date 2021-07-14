@@ -6,7 +6,6 @@ const path = require('path')
 const getByDot = require('lodash/get')
 const uploadMap = require('./upload-map.json')
 const fs = require('fs')
-const S3 = require('aws-s3')
 const fsp = fs.promises
 
 exports.Fs = class Fs extends Service {

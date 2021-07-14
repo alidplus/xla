@@ -1,12 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Card } from 'atoms'
+import { Card, CardBody } from 'atoms'
+import './Card.module.scss'
 
 const UserCard = ({ data }) => {
   if (!data) return null
   return (
-    <Card body>
-      <pre>{JSON.stringify({data}, null, 2)}</pre>
+    <Card>
+      <CardBody>
+        <div className="test-text">ttttttttt</div>
+        <pre>{JSON.stringify({data}, null, 2)}</pre>
+      </CardBody>
     </Card>
   )
 }
