@@ -4,34 +4,29 @@ import { Card , Row , Col } from 'atoms'
 import Fsloader from 'src/fs/containers/Load'
 import Userloader from 'src/users/containers/Load'
 import { date } from 'joi'
-import InlineUser from 'src/users/screens/Inline' 
+import InlineUser from 'src/users/screens/Inline'
+import Avatar from "../../fs/screens/Avatar";
 
 const TeamCard = ({ data }) => {
   if (!data) return null
   return (
     <Card body>
-     <Row className="justify-content-md-center">
-            <Col md="auto">
-              <Fsloader id={data.flag}>
-                {({data: file}) => {
-                
-                  // return <Avatar file={file}/>
-                  return <img className="rounded-circle img-thumbnail" src={`${process.env.FS_URL}${file.thUrl}`}/>
-                }}
-              </Fsloader>
-              
-            </Col>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
+          <Fsloader id={data.flag}>
+            <Avatar />
+          </Fsloader>
+        </Col>
       </Row>
-      
       <Row>
         <Col sm>{data.title.en}</Col>
         <Col className="text-center" sm>{data.title.abr}</Col>
         <Col className="text-end" sm>{data.title.fa}</Col>
       </Row>
       <Row>
-       <Col className="text-end pt-40">
+        <Col className="text-end pt-40">
           <Userloader id={data.owner}>
-              <InlineUser />
+            <InlineUser />
           </Userloader>
         </Col>
       </Row>

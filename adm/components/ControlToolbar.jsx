@@ -17,7 +17,6 @@ const ControlToolbar = function ControlToolbar({ children, data = null, classNam
   const r2remove = `/${model}/remove/${data._id}`
   return (
     <ButtonGroup className={classnames('', className)}>
-      <pre>{hash.location.pathname}</pre>
       {!children ? null : <ButtonGroup>
         <ButtonDropdown color="" isOpen={isOpen} toggle={toggle}>
           <DropdownToggle color="" className="px-0"><AngleDown fw/></DropdownToggle>
@@ -26,16 +25,16 @@ const ControlToolbar = function ControlToolbar({ children, data = null, classNam
           </DropdownMenu>
         </ButtonDropdown>
       </ButtonGroup>}
-      {hash.location.pathname === r2new || hideAdd ? null : <Button color="" size="sm" className="btn-icon" onClick={e => hash.push(r2new)}>
+      {hideAdd ? null : <Button color="" size="sm" className="btn-icon" onClick={e => hash.push(r2new)}>
         <Plus fw/>
       </Button>}
-      {hash.location.pathname === r2edit || hideEdit ? null : <Button color="" size="sm" className="btn-icon" onClick={e => hash.push(r2edit)}>
+      {hideEdit ? null : <Button color="" size="sm" className="btn-icon" onClick={e => hash.push(r2edit)}>
         <Edit fw/>
       </Button>}
-      {hash.location.pathname === r2view || hideView ? null : <Button color="" size="sm" className="btn-icon" onClick={e => hash.push(r2view)}>
+      {hideView ? null : <Button color="" size="sm" className="btn-icon" onClick={e => hash.push(r2view)}>
         <Eye fw/>
       </Button>}
-      {hash.location.pathname === r2remove || hideRemove ? null : <Button color="" size="sm" className="btn-icon" onClick={e => hash.push(r2remove)}>
+      {hideRemove ? null : <Button color="" size="sm" className="btn-icon" onClick={e => hash.push(r2remove)}>
         <Trash fw/>
       </Button>}
     </ButtonGroup>
