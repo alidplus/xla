@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {fsDuck} from "../store/services";
 import {connect} from "react-redux";
-import classNames from "classnames";
 import { useHash } from "../layout/HashRoutes";
 import {Button, ButtonGroup} from "../atoms";
 import {Trash} from "../atoms/icons";
@@ -38,7 +37,7 @@ const FsGallery = ({ target, pathname, model, requestList, list, thumbNail, requ
         return (
           <div className="col d-flex flex-column justify-content-center align-items-center" key={ f.url }>
             {React.cloneElement(thumbNail, {
-              file: { url: process.env.FS_URL + f.thUrl},
+              file: { url: process.env.XLA_FS_URL + f.thUrl},
               onClick: attachFsVeiw(f)
             })}
             <ButtonGroup size="sm" className="mt-1">

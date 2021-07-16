@@ -3,7 +3,7 @@ import { withIronSession, ironSession  } from 'next-iron-session'
 import { SESSION_COOKIE_NAME } from '../constants/vars'
 
 const sessionConfig = {
-  password: process.env.SECRET_COOKIE_PASSWORD,
+  password: process.env.XLA_SECRET_COOKIE_PASSWORD,
   cookieName: SESSION_COOKIE_NAME,
   cookieOptions: {
     // the next line allows to use the session in non-https environments like
@@ -12,10 +12,16 @@ const sessionConfig = {
   },
 }
 
-export default function session(handler) {
+const session = function session(handler) {
   return withIronSession(handler, sessionConfig)
 }
 
-export const sessionMiddleware = (req, res) => new Promise((resolve) => { ironSession(sessionConfig)(req, res, resolve) })
+export default session
+
+export const sessionMiddleware = function sessionMiddleware(req, res) {
+  return new Promise((resolve) => {
+    ironSession(sessionConfig)(req, res, resolve)
+  })
+}
 
 

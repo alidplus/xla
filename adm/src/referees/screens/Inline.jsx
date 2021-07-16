@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from "classnames";
-import Icon from './icon'
+import Icon from './Icon'
 
 const RefereeInline = ({ data, hash }) => {
   return !data ? null : (

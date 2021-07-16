@@ -7,7 +7,7 @@ const FCard = ({ data }) => {
   if (!data) return null
   return (
     <Card className="h-100">
-      <CardImg className="h-100 object-fit-contain" src={`${process.env.FS_URL}${data.url}`}/>
+      <CardImg className="h-100 object-fit-contain" src={`${process.env.XLA_FS_URL}${data.url}`}/>
       <CardImgOverlay>
         <CardTitle tag="h5">{data.fileName}</CardTitle>
         <CardText>

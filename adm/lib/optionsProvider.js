@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Id from 'components/Id'
 import ducks from "store/services";
 
-const simpleQuery = kwd => ({ _id: kwd })
+export const simpleQuery = kwd => ({ _id: kwd })
 
 export default function optionsProvider(serviceName, queryBuilder = simpleQuery, inline = Id, id = null) {
   const uid = `${serviceName}-hook-adapter`

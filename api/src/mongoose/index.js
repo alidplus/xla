@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const autoincrement = require('simple-mongoose-autoincrement');
+const autoincrement = require('./autoIncrement');
 const logger = require('../logger');
 const softDelete = require('mongoose-delete');
 const autoPopulate = require('mongoose-autopopulate')

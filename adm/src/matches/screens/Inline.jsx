@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Icon from './icon'
+import Icon from './Icon'
 import LoadTeamContainer from 'src/teams/containers/Load'
 import TeamInlineScreen from 'src/teams/screens/Inline'
 import classnames from "classnames";

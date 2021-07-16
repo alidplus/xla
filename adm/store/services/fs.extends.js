@@ -17,7 +17,7 @@ function queueKey (props) {
 export default (ducks, serviceName) => {
   const duck = ducks[serviceName]
   return  {
-    types: ['QUEUE', 'START_UPLOAD', 'UPLOAD_PROGRESS', 'UPLOAD_END'],
+    types: ['QUEUE', 'QUEUE_UPDATE_OBJECT', 'START_UPLOAD', 'UPLOAD_PROGRESS', 'UPLOAD_END'],
     initialState: Object.assign(duck.initialState, initialState),
     reducer: (_state, action, duck) => {
       const { payload, meta } = action
@@ -58,6 +58,16 @@ export default (ducks, serviceName) => {
             if (uploadIndex > -1) state.uploadQueue.splice(uploadIndex, 1);
             break;
           }
+
+          case duck.types.QUEUE_UPDATE_OBJECT: {
+            const { uploadId } = meta
+            const qk = queueKey(meta)
+            const queueItem = (state.queues.hasOwnProperty(qk) ? state.queues[qk] : []).find(item => item.uploadId === uploadId)
+            if (queueItem) {
+              queueItem.url = payload
+            }
+            break;
+          }
         }
       })
     },
@@ -95,6 +105,15 @@ export default (ducks, serviceName) => {
         return {
           type: duck.types.QUEUE,
           meta: { target, model, pathname, count },
+          payload
+        }
+      },
+
+      updateQueuedObject: (file, { target, model, pathname, uploadId }) => {
+        const payload = URL.createObjectURL(file)
+        return {
+          type: duck.types.QUEUE_UPDATE_OBJECT,
+          meta: { target, model, pathname, uploadId },
           payload
         }
       }
@@ -139,7 +158,7 @@ export default (ducks, serviceName) => {
                 Object.keys(task).forEach(k => {
                   formData.append(k, task[k]);
                 })
-                xhr.open('POST',process.env.API_URL + '/fs/uploadqueue');
+                xhr.open('POST',process.env.XLA_API_URL + '/fs/uploadqueue');
                 emitter({ event: 'onprogress', task, progress: 0, status: 1 })
                 xhr.send(formData)
               })

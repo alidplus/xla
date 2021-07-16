@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from "classnames";
-import pick from "lodash/pick";
 import {useDropzone} from 'react-dropzone'
 import {fsDuck} from "../store/services";
 import {connect} from "react-redux";
@@ -30,7 +29,7 @@ const FsUploader = (allProps)=> {
         <div className="d-flex flex-wrap justify-content-center align-items-center">
           {queue.length ?
             queue.map((f, i) => (
-              <FsEditor>{React.cloneElement(thumbNail, {file: f, key: f.url})}</FsEditor>
+              <FsEditor file={f} key={f.url}>{thumbNail}</FsEditor>
             )) :
             null
           }

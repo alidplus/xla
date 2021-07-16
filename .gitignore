@@ -136,7 +136,8 @@
 /api/lib/
 /api/data/
 
-stry
+/stry
+/atoms
 /fs
 /schemas/node_modules
 

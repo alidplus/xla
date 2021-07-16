@@ -1,7 +1,7 @@
-const Joi = require('joi')
-const { ID, title, playerNo, bDate, mobile } = require('./utils')
+import Joi from 'joi'
+import { ID, title, playerNo, bDate, mobile } from './partials'
 
-const attrs = {
+export const attrs = {
   name: title.required(),
   no: playerNo.required(),
   bDate: bDate.required(),
@@ -9,10 +9,8 @@ const attrs = {
   team: ID
 }
 
-const options = { convert: true, abortEarly: false, allowUnknown: true }
+export const options = { convert: true, abortEarly: false, allowUnknown: true }
 
-const schema = Joi.object().keys(attrs)
-
-module.exports = { schema, attrs, options };
+export const schema = Joi.object().keys(attrs)
 
 

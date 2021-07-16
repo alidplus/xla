@@ -1,33 +1,6 @@
-import React, {useEffect, useMemo} from 'react'
-import { usersDuck } from 'store/services'
-import { connect } from 'react-redux';
-import {useRouter} from "next/router";
-import {useHash} from "../../../layout/HashRoutes";
+import React from 'react'
+import { usersDuck as duck } from 'store/services'
+import withCommonLoadContainer from 'lib/withCommonLoadContainer'
 
-function Load ({ id, get, data, children }) {
-  const router = useRouter()
-  const hash = useHash()
-  useEffect (() => { if (id && (!data || data._id !== id)) get(id) }, [id])
+export default withCommonLoadContainer(duck)
 
-  const cloneProps = useMemo(
-    () => ({ id, router, hash, data }),
-    [data]
-  )
-
-  if (typeof children === 'function') return children(cloneProps)
-
-  if (Array.isArray(children))
-    return children.map(ch => React.cloneElement(ch, cloneProps))
-
-  return React.cloneElement(children, cloneProps)
-}
-
-const mapStateToProps = (state, { id }) => {
-  return { data: usersDuck.selectors.get(state, { id }) }
-}
-
-const mapDispatchToProps = {
-  get: usersDuck.creators.get
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Load)

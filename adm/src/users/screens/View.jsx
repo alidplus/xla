@@ -1,36 +1,50 @@
-import React, {useEffect} from 'react'
-import PropTypes from 'prop-types'
-import {useForm} from "react-hook-form";
-import { joiResolver } from '@hookform/resolvers/joi';
-import { schema, options } from '@xla/schemas/src/user'
-import {Button, Avatar, ModalHeader, ModalBody, ModalFooter} from "atoms";
-import getByDot from 'lodash/get'
+import React, { useState, useMemo } from 'react'
 import Card from './Card'
-import Id from "../../../components/Id";
+import withCommonViewScreen from 'lib/withCommonViewScreen'
+import Actions from './Actions'
+import {Nav, NavItem, NavLink, TabContent, TabPane} from "../../../atoms";
+import classnames from "classnames";
+import PaginatedTeamsContainer from "../../teams/containers/PaginatedList";
+import TeamsTableScreen from "../../teams/screens/Table";
 
-const Edit = ({ handleSubmit, handleRemove, handleError, id, data, dismiss, closeBtn, toggleFullBtn }) => {
+const ViewWithDetails = function ViewWithDetails(props) {
+  const [activeTab, setActiveTab] = useState('1')
+
+  const teamsQuery = useMemo(() => ({ owner: props.data._id }), [props.data._id])
   return (
-    <div className="h-100 d-flex flex-column">
-      <ModalHeader className="d-block p-0" tag="div">
-        <div className="d-flex justify-content-between align-items-center">
-          {toggleFullBtn}
-          <span>View user <Id type="user" data={data}/></span>
-          {closeBtn}
-        </div>
-      </ModalHeader>
-      <ModalBody className="p-0 flex-grow-1">
-        <Card data={data}/>
-      </ModalBody>
-      {/*<ModalFooter>
-        <Button color="primary" type="submit">Save</Button>
-      </ModalFooter>*/}
+    <div className="d-flex h-100">
+      <Nav tabs className="flex-column border-end border-start-0 border-bottom-0 border-top-0">
+        <NavItem>
+          <NavLink
+            className={classnames("cursor", { active: activeTab === '1' })}
+            onClick={() => { setActiveTab('1'); }}
+          >
+            Details
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            className={classnames({ active: activeTab === '2' })}
+            onClick={() => { setActiveTab('2'); }}
+          >
+            Teams
+          </NavLink>
+        </NavItem>
+      </Nav>
+      <TabContent activeTab={activeTab} className="flex-grow-1">
+        <TabPane tabId="1">
+          <Card {...props} />
+        </TabPane>
+        <TabPane tabId="2">
+          <div className="p-3">
+            <PaginatedTeamsContainer query={teamsQuery}>
+              <TeamsTableScreen/>
+            </PaginatedTeamsContainer>
+          </div>
+        </TabPane>
+      </TabContent>
     </div>
   )
 }
 
-Edit.propTypes = {
-  errorMessage: PropTypes.string,
-  handleSubmit: PropTypes.func,
-}
-
-export default Edit
+export default withCommonViewScreen(ViewWithDetails, 'user')

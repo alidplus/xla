@@ -5,25 +5,26 @@ import { Container, Row, Col } from 'atoms';
 import layoutDuck from 'store/layout'
 import authDuck from 'store/auth'
 
-/* Components */
 import NavLeft from './nav/NavLeft';
 import NavBar from './nav/NavBar';
-import Footer from './foot/Footer';
+// import Footer from './foot/Footer';
+
+const fixedPositionStyle = {zIndex: 99, paddingTop: '75px'}
 
 function MainLayout(mainProps) {
-  const { children, sideToggled, toggleSide, activeLink, authUser, logout } = mainProps;
+  const { children, sideToggled, toggleSide, authUser, logout } = mainProps;
 
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const isWideNav = useMemo(() => {
-    return sideToggled ? { width: '240px' } : { width: 0, padding: 0 }
-  }, [sideToggled])
-
-  const isWideContent = useMemo(() => {
-    return sideToggled ? { marginLeft: '240px' } : { marginLeft: 0 }
-  }, [sideToggled])
+  // const isWideNav = useMemo(() => {
+  //   return sideToggled ? { width: '240px' } : { width: 0, padding: 0 }
+  // }, [sideToggled])
+  //
+  // const isWideContent = useMemo(() => {
+  //   return sideToggled ? { marginLeft: '240px' } : { marginLeft: 0 }
+  // }, [sideToggled])
 
   const props = {
     /* state vars */
@@ -32,7 +33,6 @@ function MainLayout(mainProps) {
     /* toggles */
     toggle,
     toggleLeft: toggleSide,
-    activeLink,
     /* auth tools */
     authUser,
     logout
@@ -43,14 +43,16 @@ function MainLayout(mainProps) {
       <NavBar {...props} />
       <Container fluid className="min-vh-100" style={{paddingTop: '5rem'}}>
         <Row>
-          {sideToggled && <Col className="flex-grow-0">
-            <div className="d-md-none position-fixed w-75 h-100 top-0 bg-dark" style={{zIndex: 99, paddingTop: '75px'}}>
-              <NavLeft activeLink={activeLink}/>
-            </div>
-            <div className="d-none d-md-block">
-              <NavLeft activeLink={activeLink}/>
-            </div>
-          </Col>}
+          {sideToggled ? (
+            <Col className="flex-grow-0 p-0">
+              <div className="d-md-none position-fixed w-75 h-100 top-0 bg-dark" style={fixedPositionStyle}>
+                <NavLeft/>
+              </div>
+              <div className="d-none d-md-block">
+                <NavLeft/>
+              </div>
+            </Col>
+          ) : null}
           <Col className="">
             {children}
           </Col>

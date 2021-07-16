@@ -18,7 +18,7 @@ const TextField = React.forwardRef(({ label, icon: Icon, errors = {}, control, s
         {Icon && <InputGroupAddon addonType="prepend"><Icon/></InputGroupAddon>}
         <Input {...props} innerRef={ref} invalid={!!invalid}/>
       </InputGroup>
-      <ErrorMessage errors={errors} name={props.name} />
+      <div className="text-warning"><ErrorMessage as="span" errors={errors} name={props.name} /></div>
     </FormGroup>
   )
 })

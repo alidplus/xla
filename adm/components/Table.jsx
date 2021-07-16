@@ -25,7 +25,7 @@ const Table = ({ data, map, index, skip, footer, ...tableProps }) => {
         <tr>
           {!index ? null : <th scope="col">#</th>}
           {map.map((col, j) => (
-            <th scope="col" key={j} className={col.className}>{col.title}</th>
+            <th scope="col" key={j} className={col.className} width={col.width || 'auto'}>{col.title}</th>
           ))}
         </tr>
       </thead>

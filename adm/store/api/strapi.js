@@ -1,8 +1,8 @@
 import Axios from 'axios'
 
-console.log('process.env.REACT_APP_STRAPI_URL', process.env.REACT_APP_STRAPI_URL);
+console.log('process.env.REACT_APP_STRXLA_API_URL', process.env.REACT_APP_STRXLA_API_URL);
 const axios = Axios.create({
-  baseURL: process.env.REACT_APP_STRAPI_URL
+  baseURL: process.env.REACT_APP_STRXLA_API_URL
 })
 axios.interceptors.response.use(res => res.data, e => Promise.reject(e));
 

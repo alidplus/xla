@@ -1,7 +1,7 @@
-import React, {useMemo, useState} from "react";
+import React, {useMemo, useState, useEffect} from "react";
 import classnames from 'classnames'
 import {
-  HashRouter as Router,
+  MemoryRouter as Router,
   useHistory,
   useParams,
   withRouter,
@@ -25,23 +25,36 @@ import fsRoutes from 'src/fs/routes'
 export const HashModal = withRouter(({ children, match }) => {
   const history = useHistory();
   const [show, setShow] = useState(true)
-  const [full, setFull] = useState(false)
+  const [full, setFull] = useState(true)
   function dismiss() { setShow(false) }
-  function distroy () { history.goBack() }
+  function destroy () {
+    history.entries = [];
+    history.index = -1;
+    history.push('/')
+  }
   function toggleFullScreen () { setFull(prevState => !prevState) }
-  const closeBtn = <Button color="" className="btn-close m-0" onClick={dismiss}></Button>
+  const closeBtn = <Button color="" className="btn-close m-0" onClick={dismiss}/>
   const toggleFullBtn = <Button color="" className="btn-icon" onClick={toggleFullScreen}>{!full ? <Expand/> : <Compress/>}</Button>
   const containerProps = useMemo(() => {
     return {
       ...match.params,
       dismiss,
       closeBtn,
-      toggleFullScreen,
       toggleFullBtn
     }
   }, [match.params, full])
+
+  useEffect(() => {
+    const escFunction = function escFunction (event) {
+      if(event.keyCode === 27) {
+        history.goBack()
+      }
+    }
+    document.addEventListener("keydown", escFunction, false);
+    return () =>{ document.removeEventListener("keydown", escFunction, false); }
+  }, [])
   return (
-    <Modal centered isOpen={show} toggle={dismiss} onClosed={distroy} size="lg" className={classnames({
+    <Modal centered isOpen={show} toggle={dismiss} onClosed={destroy} size="lg" className={classnames({
       'modal-fullscreen' : full === true,
       [`modal-fullscreen-${full}-down`]: typeof full === 'string',
     })}>
@@ -71,8 +84,8 @@ export default function HashRoutes({ children, routes }) {
           <Route path="/login">
             <HashModal><Login /></HashModal>
           </Route>
-          {hashRoutes.reduce((acc, {Container, routes}) => {
-            return acc.concat(routes.map(({ path, Screen }) => {
+          {hashRoutes.reduce((acc, {Container: SuperContainer, routes}) => {
+            return acc.concat(routes.map(({ path, Screen, Container = SuperContainer }) => {
               return (
                 <Route path={path} key={path}>
                   <HashModal>

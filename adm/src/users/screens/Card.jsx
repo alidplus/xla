@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Card } from 'atoms'
+import { Card, Button } from 'atoms'
+import {useHash} from "layout/HashRoutes";
 
 const UserCard = ({ data }) => {
   if (!data) return null

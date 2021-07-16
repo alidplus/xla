@@ -1,33 +1,32 @@
 import React from 'react';
+import { useRouter } from 'next/router'
 import {
   ListGroup,
-  ListGroupItem,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledCollapse,
+  ListGroupItem
 } from 'atoms';
 
-import { MENUS, SUBMENUS } from '../../constants/menus';
-import services from '../../constants/services';
+import navigations from 'constants/navigations';
 
 function NavLeft(props) {
-  const { activeLink } = props;
+  const router = useRouter()
+  const { route: activeLink } = router
   return (
     <>
       <h4 className="headline">Menu</h4>
       <div className="wrapper-list-group">
         <ListGroup flush className="list-group-nav-left" tag="div">
-          {services.map((item, k) => {
-            const isActive = activeLink === item ? true : false;
+          {navigations.map((item, k) => {
+            const isActive = activeLink === item.path ? true : false;
             return (
               <ListGroupItem
-                key={`l${k}`}
+                key={item.path}
                 active={isActive}
+                className="text-nowrap"
                 tag="a"
-                href={`/${item}?`}
+                href={`${item.path}?`}
               >
-                {item}
+                {React.createElement(item.icon, { className: "me-2", fw: true })}
+                {item.label}
               </ListGroupItem>
             );
           })}
