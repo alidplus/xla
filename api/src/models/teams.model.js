@@ -38,7 +38,16 @@ module.exports = function (app) {
     localField: '_id',
     foreignField: 'target',
     justOne: false,
-    match: { model: 'teams', target: 'gallery' },
+    match: { model: 'teams', pathname: 'gallery' },
+    autopopulate: true
+  });
+
+  schema.virtual('flag', {
+    ref: 'fs',
+    localField: '_id',
+    foreignField: 'target',
+    justOne: true,
+    match: { model: 'teams', pathname: 'flag' },
     autopopulate: true
   });
 
