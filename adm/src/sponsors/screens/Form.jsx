@@ -1,5 +1,5 @@
 import {Avatar, ModalFooter} from "atoms";
-import TextField from "components/TextField";
+import TextField from "components/form/TextField";
 import FsUploader from "components/FsUploader";
 import React from "react";
 
@@ -25,7 +25,7 @@ const Form = ({ register, control, data }) => {
         thumbNail={<Avatar size="100px" className="mx-1"/>}
       />
       <TextField label="Title" {...register("title")} />
-      <TextField label="Text" {...register("text")} />
+      <TextField label="Text" type="textarea" {...register("text")} />
       {/*<DevTool control={control} />*/}
     </>
   )

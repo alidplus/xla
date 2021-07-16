@@ -1,12 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Card } from 'atoms'
+import moment from 'moment-jalaali'
+import { Card, CardImg, CardImgOverlay, CardTitle, CardText } from 'atoms'
 
 const FCard = ({ data }) => {
   if (!data) return null
   return (
-    <Card body>
-      <pre>{JSON.stringify({data}, null, 2)}</pre>
+    <Card className="h-100">
+      <CardImg className="h-100 object-fit-contain" src={`${process.env.FS_URL}${data.url}`}/>
+      <CardImgOverlay>
+        <CardTitle tag="h5">{data.fileName}</CardTitle>
+        <CardText>
+          <small className="text-muted">{moment(data.createdAt).format('LLLL')}</small>
+        </CardText>
+      </CardImgOverlay>
     </Card>
   )
 }

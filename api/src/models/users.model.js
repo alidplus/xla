@@ -29,21 +29,9 @@ module.exports = function (app) {
     resetShortToken: { type: String },
     resetExpires: { type: Date }, // or a long integer
   }, {
+    modelName,
     strict: true,
     timestamps: true
-  });
-  schema.set('toJSON', {virtuals: true});
-  schema.set('toObject', {virtuals: true});
-
-  schema.virtual('__model').get(() => modelName);
-
-  schema.virtual('avatar', {
-    ref: 'fs',
-    localField: '_id',
-    foreignField: 'target',
-    justOne: true,
-    match: { model: 'users', target: 'avatar' },
-    autopopulate: true
   });
 
 

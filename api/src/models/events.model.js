@@ -12,15 +12,13 @@ module.exports = function (app) {
     variety: { type: String, default: 'log', required: true },
     payload: Schema.Types.Mixed,
 
-    target: { type: Schema.Types.ObjectId, refPath: 'model' },
+    target: { type: Schema.Types.ObjectId, refPath: 'model', autopopulate: true },
     model: { type: String, enum: ['users', 'leagues', 'teams', 'referees', 'sponsors', 'players', 'matches', 'events'] },
   }, {
+    modelName,
+    strict: true,
     timestamps: true
   });
-  schema.set('toJSON', {virtuals: true});
-  schema.set('toObject', {virtuals: true});
-
-  schema.virtual('__model').get(() => modelName);
 
 
   // This is necessary to avoid model compilation errors in watch mode

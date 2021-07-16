@@ -12,12 +12,10 @@ module.exports = function (app) {
     title: { type: String, required: true },
     text: { type: String },
   }, {
+    modelName,
+    strict: true,
     timestamps: true
   });
-  schema.set('toJSON', {virtuals: true});
-  schema.set('toObject', {virtuals: true});
-
-  schema.virtual('__model').get(() => modelName);
 
 
   // This is necessary to avoid model compilation errors in watch mode

@@ -1,9 +1,10 @@
 import {Avatar, ModalFooter} from "atoms";
-import TextField from "components/TextField";
+import TextField from "components/form/TextField";
 import FsUploader from "components/FsUploader";
 import React from "react";
-import CustomSelectField from "components/CustomSelectField";
-import useUserOptionsProvider from 'src/users/hooks/useOptionsProvider'
+
+import CustomSelectField from "components/form/CustomSelectField";
+import useTeamOptionsProvider from 'src/users/hooks/useOptionsProvider'
 
 const Form = ({ register, control, data }) => {
   return (

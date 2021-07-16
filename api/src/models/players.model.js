@@ -1,3 +1,4 @@
+const moment = require('moment-jalaali')
 // players-model.js - A mongoose model
 //
 // See http://mongoosejs.com/docs/models.html
@@ -13,15 +14,16 @@ module.exports = function (app) {
     no: { type: Number, required: true },
     bDate: { type: Date, required: true },
 
-    team: { type: Schema.Types.ObjectId, ref: 'teams' }
+    team: { type: Schema.Types.ObjectId, ref: 'teams', autopopulate: true }
   }, {
+    modelName,
+    strict: true,
     timestamps: true
   });
-  schema.set('toJSON', {virtuals: true});
-  schema.set('toObject', {virtuals: true});
 
-  schema.virtual('__model').get(() => modelName);
-
+  schema.virtual('age').get(function() {
+    return this.bDate ? moment(this.bDate).fromNow(true) : '-'
+  });
 
   // This is necessary to avoid model compilation errors in watch mode
   // see https://mongoosejs.com/docs/api/connection.html#connection_Connection-deleteModel

@@ -1,8 +1,7 @@
-import {Avatar, ModalFooter} from "atoms";
-import TextField from "components/TextField";
-import FsUploader from "components/FsUploader";
+
 import React from "react";
-import CustomSelectField from "../../../components/CustomSelectField";
+import CustomSelectField from "components/form/CustomSelectField";
+import JdateField from "components/form/JdateField";
 import useTeamOptionsProvider from "src/teams/hooks/useOptionsProvider";
 import useLeagueOptionsProvider from "src/leagues/hooks/useOptionsProvider";
 import useRefereeOptionsProvider from "src/referees/hooks/useOptionsProvider";
@@ -10,7 +9,7 @@ import useRefereeOptionsProvider from "src/referees/hooks/useOptionsProvider";
 const Form = ({ register, control, data }) => {
   return (
     <>
-      <TextField label="Time" {...register("time")} />
+      <JdateField label="Time" type="date" {...register("time")} />
       <CustomSelectField label="Home" {...register("home")} provider={useTeamOptionsProvider}/>
       <CustomSelectField label="Away" {...register("away")} provider={useTeamOptionsProvider}/>
       <CustomSelectField label="League" {...register("league")} provider={useLeagueOptionsProvider}/>

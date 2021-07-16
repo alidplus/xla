@@ -12,17 +12,17 @@ module.exports = function (app) {
     time: { type: Date, required: true },
     results: Schema.Types.Mixed,
 
-    home: { type: Schema.Types.ObjectId, ref: 'teams' },
+    home: { type: Schema.Types.ObjectId, ref: 'teams', autopopulate: true },
     homeCp: Schema.Types.Mixed,
-    away: { type: Schema.Types.ObjectId, ref: 'teams' },
+    away: { type: Schema.Types.ObjectId, ref: 'teams', autopopulate: true },
     awayCp: Schema.Types.Mixed,
-    league: { type: Schema.Types.ObjectId, ref: 'leagues' },
-    referee: { type: Schema.Types.ObjectId, ref: 'referees' },
+    league: { type: Schema.Types.ObjectId, ref: 'leagues', autopopulate: true },
+    referee: { type: Schema.Types.ObjectId, ref: 'referees', autopopulate: true },
   }, {
+    modelName,
+    strict: true,
     timestamps: true
   });
-  schema.set('toJSON', {virtuals: true});
-  schema.set('toObject', {virtuals: true});
 
   schema.virtual('__model').get(() => modelName);
 

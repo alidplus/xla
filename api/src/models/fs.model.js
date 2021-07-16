@@ -28,12 +28,10 @@ module.exports = function (app) {
     pathname: { type: String, required: true, enum: ['avatar', 'symbol', 'gallery', 'flag', 'shape', 'logo', 'banner'] }
     // NOTE: add new enums to upload-map.json and Fs components propTypes
   }, {
+    modelName,
+    strict: true,
     timestamps: true
   });
-  schema.set('toJSON', {virtuals: true});
-  schema.set('toObject', {virtuals: true});
-
-  schema.virtual('__model').get(() => modelName);
 
 
   schema.virtual('url').get(function() {

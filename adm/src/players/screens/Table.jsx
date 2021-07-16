@@ -17,8 +17,16 @@ const playersMap = [
     render: data => (<Id type="player" data={data}/>),
   },
   {
-    title: 'Email',
-    key: 'email',
+    title: '#',
+    key: 'no',
+  },
+  {
+    title: 'Name',
+    key: 'name',
+  },
+  {
+    title: 'Age',
+    key: 'age',
   },
   {
     title: 'date',

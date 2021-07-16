@@ -17,8 +17,12 @@ const eventsMap = [
     render: data => (<Id type="event" data={data}/>),
   },
   {
-    title: 'Email',
-    key: 'email',
+    title: 'Model',
+    key: 'model',
+  },
+  {
+    title: 'Type',
+    key: 'variety',
   },
   {
     title: 'date',

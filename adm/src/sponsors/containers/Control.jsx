@@ -41,7 +41,7 @@ function Control ({ children, dismiss, data, get, save, remove, closeBtn, toggle
 
   return useMemo(() => {
     return React.cloneElement(children, { handleSubmit, handleRemove, handleError, id, data, errorMessage, dismiss, closeBtn, toggleFullBtn, hash })
-  }, [])
+  }, [toggleFullBtn])
 }
 
 const mapStateToProps = (state, { id }) => {

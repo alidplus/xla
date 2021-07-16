@@ -1,5 +1,5 @@
-const withSass = require("@zeit/next-sass");
-module.exports = withSass({
+// const withSass = require("@zeit/next-sass");
+module.exports = {
   env : Object.fromEntries(
     Object.entries(process.env).filter(([key, value]) => key && key !== "NODE_ENV")
   ),
@@ -16,4 +16,4 @@ module.exports = withSass({
     }
     return config
   },
-});
+}

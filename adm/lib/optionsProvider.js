@@ -60,16 +60,15 @@ export const arrayProvider = (allOptions) => (id = null) => {
     }
 
     const paginateProps = {
-      ...omit(page, ['data']),
-      onChange: (paginate) => setFilters(prevState => ({ ...prevState, ...paginate }))
+      className: "d-none"
     }
 
-    const options = allOptions.filter(opt => !keyword || opt.label.includes(keyword)).slice(skip, skip + limit)
+    const options = allOptions.filter(opt => !keyword || opt.label.includes(keyword))//.slice(skip, skip + limit)
 
     const selected = allOptions.find(opt => opt._id === id)
 
     return { options, searchProps, paginateProps, selected };
-  }, [options, id])
+  }, [allOptions, id])
 }
 
 export const nullProvider = () => {

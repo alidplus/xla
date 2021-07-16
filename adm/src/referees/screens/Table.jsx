@@ -17,8 +17,12 @@ const refereesMap = [
     render: data => (<Id type="referee" data={data}/>),
   },
   {
-    title: 'Email',
-    key: 'email',
+    title: 'Name',
+    key: 'name',
+  },
+  {
+    title: 'Level',
+    key: 'lvl',
   },
   {
     title: 'date',

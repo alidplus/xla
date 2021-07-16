@@ -5,6 +5,7 @@ import TableActions from 'components/TableActions'
 import Pagination from 'components/Pagination'
 import TableSearch from 'components/TableSearch'
 import Id from 'components/Id'
+import InLine from './Inline'
 import PropTypes from "prop-types";
 import FormattedDate from "components/FormattedDate";
 import {Button} from "../../../atoms";
@@ -17,8 +18,9 @@ const matchesMap = [
     render: data => (<Id type="matche" data={data}/>),
   },
   {
-    title: 'Email',
-    key: 'email',
+    title: 'Details',
+    propName: 'data',
+    Component: InLine,
   },
   {
     title: 'date',

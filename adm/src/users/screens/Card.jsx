@@ -17,10 +17,6 @@ const UserCard = ({ data }) => {
             <Col md="auto">
               <Fsloader id={data.avatar}>
                 <Avatar />
-                {/* {({data: file}) => {
-                  // return <Avatar file={file}/>
-                  return <img className="rounded-circle img-thumbnail" src={`${process.env.FS_URL}${file.thUrl}`}/>
-                }} */}
               </Fsloader>
               
             </Col>

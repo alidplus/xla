@@ -87,4 +87,9 @@ $utilities: map-merge(
 .cursor-pointer {
   cursor: pointer;
 }
-
+.tether-element {
+  z-index: 1050;
+}
+input.border-0 {
+  outline: none !important;
+}

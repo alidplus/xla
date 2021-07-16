@@ -224,7 +224,7 @@ export default (serviceName, duck) => {
           }
         }
       },
-      find: (uid, query) => {
+      find: (uid, query = {}) => {
         if(!query.$sort) query.$sort = '-createdAt'
         return ({
           type: duck.types.FIND,

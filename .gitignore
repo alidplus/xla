@@ -17,7 +17,7 @@
 
 # misc
 /adm/.DS_Store
-/adm/.env*
+/adm/.env
 
 # debug
 /adm/npm-debug.log*

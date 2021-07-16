@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Futbol} from "atoms/icons";
+import Icon from './icon'
 import LoadTeamContainer from 'src/teams/containers/Load'
 import TeamInlineScreen from 'src/teams/screens/Inline'
 import classnames from "classnames";
@@ -8,7 +8,7 @@ import classnames from "classnames";
 const MatchInline = ({ data, hash }) => {
   return !data ? null : (
     <span className={classnames("cursor-pointer", {'text-decoration-line-through':  data.deleted})} onClick={e => hash.push(`/matches/view/${data._id}`)}>
-      <Futbol className="me-1" />
+      <Icon className="me-1" />
       <span className="d-inline-flex flex-column align-items-center">
         <span className="d-inline-flex">
           <LoadTeamContainer id={data.home}>

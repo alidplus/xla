@@ -40,7 +40,7 @@ const Edit = ({ handleSubmit, handleRemove, handleError, id, data, dismiss, clos
         </div>
       </ModalHeader>
       <ModalBody className="flex-grow-1">
-        <Form register={register} data={data} control={control}/>
+        <Form register={register} data={data} control={control} getValues={getValues}/>
       </ModalBody>
       <ModalFooter className="p-0">
         <Button color="primary" type="submit">Save</Button>
