@@ -1,12 +1,45 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Card } from 'atoms'
+import { Card, Row , Col } from 'atoms'
+import Slider from 'components/Slider'
+import Fsloader from 'src/fs/containers/Load'
 
 const LeagueCard = ({ data }) => {
   if (!data) return null
   return (
     <Card body>
-      <pre>{JSON.stringify({data}, null, 2)}</pre>
+      <Row>
+        <Col>
+          <Slider />
+        </Col>
+      </Row>
+      <hr />
+      <Row className="justify-content-md-center">
+            <Col md="auto">{data.title}</Col>
+            <Col md="auto">
+              <Fsloader id={data.simbol}>
+                {({data: file}) => {
+                 if(!file) return null
+                  return <img className="rounded-circle img-thumbnail" src={`${process.env.FS_URL}${file.thUrl}`}/>
+                }}
+              </Fsloader>
+              
+            </Col>
+          </Row>
+          <Row>
+            <Col className="text-end pt-3">{data.text}</Col>
+          </Row>
+          <Row className="pt-3">
+            <Col className="text-light">تعداد تیم: {data.teams} </Col>
+            <Col className="text-light">
+               {data.homeAway}
+            </Col>
+            <Col className="text-end">فینال:استقلال</Col>
+          </Row>
+          <hr />
+          <Row>
+            <Col className="text-center text-light">spainer</Col>
+          </Row>
     </Card>
   )
 }
