@@ -1,8 +1,13 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const { iff, isProvider, preventChanges, keep } = require('feathers-hooks-common');
 
 module.exports = {
   before: {
-    all: [ /*authenticate('jwt')*/ ],
+    all: [
+      iff(isProvider("external"), [
+        authenticate('jwt')
+      ])
+    ],
     find: [],
     get: [],
     create: [],
