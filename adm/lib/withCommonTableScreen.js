@@ -8,7 +8,7 @@ import Table from "components/Table";
 import Pagination from "components/Pagination";
 
 const withCommonTableScreen = function withCommonTableScreen (tableMap, TopBar) {
-  return ({ page = {}, filters = {}, onChange }) => {
+  return ({ page = {}, filters = {}, onChange, hardQuery }) => {
     const hash = useHash()
     const handleSearch = e => {
       e.preventDefault()
@@ -21,7 +21,7 @@ const withCommonTableScreen = function withCommonTableScreen (tableMap, TopBar) 
     const paginateProps = useMemo(() => pick(page, ['total', 'skip', 'limit', 'loading']), [page])
     return (
       <div>
-        <TopBar />
+        <TopBar force={hardQuery} />
         <TableSearch keyword={filters.keyword} onSubmit={handleSearch}/>
         <Table
           data={page?.data ?? []}

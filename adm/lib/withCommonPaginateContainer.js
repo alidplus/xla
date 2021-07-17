@@ -12,7 +12,8 @@ const CommonPaginateContainer = function CommonPaginateContainer
     uid = _uid,
     find,
     page,
-    queryBuilder, query: propsQuery = defaultPropsQuery,
+    queryBuilder,
+    query: propsQuery = defaultPropsQuery,
     children
   }) {
   const router = useRouter()
@@ -31,7 +32,7 @@ const CommonPaginateContainer = function CommonPaginateContainer
   }, [router.query, propsQuery])
 
   const cloneProps = useMemo(
-    () => ({ uid, router, hash, page, onChange: setFilters, filters: router.query}),
+    () => ({ uid, router, hash, page, onChange: setFilters, filters: router.query, hardQuery: propsQuery }),
     [page, router, hash]
   )
 
@@ -48,7 +49,7 @@ const withCommonPaginateContainer = function withCommonLoadContiner (duck, query
   const mapStateToProps = (state, { uid = _uid }) => {
     return {
       page: duck.selectors.find(state, { uid }),
-      uid: _uid,
+      uid,
       queryBuilder
     }
   }

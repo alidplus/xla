@@ -3,17 +3,31 @@ import {useRouter} from "next/router";
 import {useHash} from "../layout/HashRoutes";
 import {connect} from "react-redux";
 
-const CommonListContainer = function CommonListContainer ({ uid = _uid, list, array, children }) {
+const defaultPropsQuery = {}
+
+const CommonListContainer = function CommonListContainer
+  ({
+    uid = _uid,
+    list,
+    array,
+    queryBuilder,
+    query: propsQuery = defaultPropsQuery,
+    children
+  }) {
   const router = useRouter()
   const hash = useHash()
+
   const setFilters = filters => {
     router.push({ pathname: router.pathname, query: filters }, undefined, { shallow: true })
   }
+
   useEffect(() => {
-    const { keyword, skip: $skip = 0, limit: $limit = 10 } = router.query
-    const query = { ...queryBuilder(keyword), $skip, $limit }
+    const { keyword, skip: $skip = 0, limit: $limit = -1 } = router.query
+    const searchQuery = queryBuilder(keyword)
+    const query = { $and: [searchQuery, propsQuery], $skip, $limit }
     list(uid, query)
   }, [router.query])
+
   const cloneProps = useMemo(
     () => ({ uid, router, hash, array, onChange: setFilters, filters: router.query}),
     [array, router, hash]
@@ -30,7 +44,11 @@ const CommonListContainer = function CommonListContainer ({ uid = _uid, list, ar
 const withCommonListContainer = function withCommonLoadContiner (duck, queryBuilder, _uid, Component = CommonListContainer) {
 
   const mapStateToProps = (state, { uid = _uid }) => {
-    return { array: duck.selectors.find(state, { uid }) }
+    return {
+      array: duck.selectors.list(state, { uid }),
+      uid,
+      queryBuilder
+    }
   }
 
   const mapDispatchToProps = {

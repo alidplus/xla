@@ -8,6 +8,7 @@ import Form from "../src/users/screens/Form";
 
 const withCommonEditScreen = function withCommonEditScreen (Card, Form, schema, schemaOptions, title = '') {
   return ({ handleSubmit, handleError, data, closeBtn, toggleFullBtn }) => {
+    // if (!data) return null
     const {
       register: formRegister,
       handleSubmit: onSubmit,
@@ -23,7 +24,7 @@ const withCommonEditScreen = function withCommonEditScreen (Card, Form, schema, 
     });
     useEffect(() => reset(data), [data])
     const register = (name) => ({
-      defaultValue: getByDot(data, name),
+      defaultValue: getByDot(data, name, ''),
       errors,
       control,
       setValue,
@@ -43,7 +44,7 @@ const withCommonEditScreen = function withCommonEditScreen (Card, Form, schema, 
         <ModalBody className="flex-grow-1 row align-items-start">
           <Col sm="4" className="position-sticky top-0">
             <h5>Preview</h5>
-            <Card data={preview}/>
+            <Card data={preview} className="shadow-sm"/>
           </Col>
           <Col sm="8">
             <Form register={register} data={data} control={control} getValues={getValues}/>

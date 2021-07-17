@@ -57,7 +57,7 @@ export default (serviceName, duck) => {
             break;
           }
           case duck.types.GET_REJECTED: {
-            state.collection[meta._id] = merge(state.collection[meta._id], {__error: payload, __isLoading: false});
+            state.collection[meta._id] = merge(state.collection[meta._id], {__error: payload.message, __isLoading: false});
             break;
           }
 
@@ -108,7 +108,7 @@ export default (serviceName, duck) => {
             break;
           }
           case duck.types.LIST_REJECTED: {
-            state.listRequests[meta.uid] = merge(state.listRequests[meta.uid], {__error: payload, __isLoading: false});
+            state.listRequests[meta.uid] = merge(state.listRequests[meta.uid], {__error: payload.message, __isLoading: false});
             break;
           }
 
@@ -299,12 +299,12 @@ export default (serviceName, duck) => {
             const { event, data } = yield take(eventsChannel)
             switch (event) {
               case 'created': yield put({
-                type: duck.types.CREATE,
+                type: duck.types.GET,
                 meta: { tid: data._id },
                 payload: data
               }); break;
               case 'patched': yield put({
-                type: duck.types.PATCH,
+                type: duck.types.GET,
                 meta: { _id: data._id },
                 payload: data
               }); break;

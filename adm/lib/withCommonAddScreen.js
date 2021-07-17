@@ -6,8 +6,11 @@ import {options, schema} from "@xla/schemas/src/user";
 import getByDot from "lodash/get";
 import Form from "../src/users/screens/Form";
 
+const emptryDefaultValues = {}
+
 const withCommonAddScreen = function withCommonAddScreen (Card, Form, schema, schemaOptions, title = '') {
-  return ({ handleSubmit, handleError, data, closeBtn, toggleFullBtn }) => {
+  return ({ handleSubmit, handleError, data, closeBtn, toggleFullBtn, hash }) => {
+    const defaultValues = hash.location?.state?.force ?? emptryDefaultValues
     const {
       register: formRegister,
       handleSubmit: onSubmit,
@@ -18,11 +21,16 @@ const withCommonAddScreen = function withCommonAddScreen (Card, Form, schema, sc
       control,
       reset,
     } = useForm({
-      defaultValues: {},
+      defaultValues,
       resolver: joiResolver(schema, schemaOptions)
     });
-    useEffect(() => reset(data), [data])
+
+    useEffect(() => {
+      reset(defaultValues)
+    }, [defaultValues])
+
     const register = (name) => ({
+      defaultValue: getByDot(defaultValues, name, ''),
       errors,
       control,
       setValue,

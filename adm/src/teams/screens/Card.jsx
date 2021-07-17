@@ -19,9 +19,9 @@ const TeamCard = ({ data }) => {
         </Col>
       </Row>
       <Row>
-        <Col sm>{data.title.en}</Col>
-        <Col className="text-center" sm>{data.title.abr}</Col>
-        <Col className="text-end" sm>{data.title.fa}</Col>
+        <Col sm>{data.title?.en}</Col>
+        <Col className="text-center" sm>{data.title?.abr}</Col>
+        <Col className="text-end" sm>{data.title?.fa}</Col>
       </Row>
       <Row>
         <Col className="text-end pt-40">

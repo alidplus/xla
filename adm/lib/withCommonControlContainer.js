@@ -8,14 +8,20 @@ const CommonControlContainer = function CommonControlContainer ({ children, dism
   useEffect (() => {
     if (id && (!data || data._id !== id))
       get(id)
+        .then(data => {
+          console.log('found item', id, data)
+        }).catch(e => {
+          console.log('found item ew', id, e)
+        })
   }, [id])
 
   const handleSubmit = async (edited, e) => {
-    console.log('handleSubmit', id, edited)
     if (!id) {
       let saved = await save(null, edited)
       const { value } = saved
-      hash.push('/users/edit/' + value._id)
+      setTimeout(() => {
+        hash.push(`/${value.__model}/edit/${value._id}`)
+      }, 200)
     }
     else if (id) {
       await save(id, edited)
@@ -33,9 +39,8 @@ const CommonControlContainer = function CommonControlContainer ({ children, dism
   const handleError = (error, e) => {
     setError(error.message)
   }
-
   return useMemo(() => {
-    return React.cloneElement(children, { handleSubmit, handleRemove, handleError, id, data, errorMessage, dismiss, closeBtn, toggleFullBtn, hash })
+    return React.cloneElement(children, { handleSubmit, handleRemove, handleError, id, data: (data || {}), errorMessage, dismiss, closeBtn, toggleFullBtn, hash })
   }, [toggleFullBtn, data])
 }
 

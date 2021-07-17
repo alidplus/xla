@@ -29,7 +29,7 @@ function NavBar({
 }) {
   return (
     <div>
-      <Navbar color="dark" dark expand="sm" fixed="top">
+      <Navbar color="dark" dark expand="sm" fixed="top" className="py-1">
         <NavbarBrand href="/">
           <img src="/logo.png" alt="Logo" className="logo ms-2" height="40" />
         </NavbarBrand>

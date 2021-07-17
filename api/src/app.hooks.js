@@ -10,7 +10,7 @@ module.exports = {
           delete hook.params.query.$limit;
         }
       },
-      debug('app: before find')
+      // debug('app: before find')
     ],
     get: [],
     create: [],

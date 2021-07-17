@@ -7,6 +7,7 @@ import {Plus} from "atoms/icons";
 import Icon from "./Icon";
 import withCommonTableScreen from 'lib/withCommonTableScreen'
 import {useHash} from "../../../layout/HashRoutes";
+import InLine from './InLine'
 
 const tableMap = [
   {
@@ -27,17 +28,21 @@ const tableMap = [
     title: 'Actions',
     width: 140,
     className: 'text-center',
-    render: (data) => (<ControlToolbar data={data} hideAdd></ControlToolbar>),
+    render: (data) => (<ControlToolbar data={data} hideAdd/>),
   }
 ]
 
-const TopBar = function TopBar() {
+const TopBar = function TopBar({force}) {
   const hash = useHash()
+  const createdRoute = {
+    pathname: '/matches/add/new',
+    state: { force }
+  }
   return (
     <div className="mb-2 d-flex align-items-center">
       <Icon size="2"/>
       <h4 className="ms-2 me-auto mb-0">Matches</h4>
-      <Button size="sm" onClick={e => hash.push('/matches/add/new')}><Plus/> Add Match</Button>
+      <Button size="sm" onClick={e => hash.push(createdRoute)}><Plus/> Add Match</Button>
     </div>
   )
 }

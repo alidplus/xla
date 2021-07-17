@@ -48,7 +48,7 @@ exports.uploadQueue = function (app) {
       const currentUploads = await Service.find({ query: { model, target, pathname, $limit: 0 }})
       const currentUploadsCount = currentUploads.total
       const allowableUploadsCount = getByDot(uploadMap, `${model}.${pathname}.count`, 0)
-      if (currentUploadsCount + 1 >= allowableUploadsCount) return res.status(500).send('exceeded upload limit')
+      if (currentUploadsCount >= allowableUploadsCount) return res.status(403).send('exceeded upload limit')
 
       const nameSplits = fileName.split('.')
       const extension = nameSplits.pop()
@@ -94,7 +94,7 @@ exports.uploadQueue = function (app) {
       return res.json(savedFs)
     } catch (e) {
       console.log('eeeeeee', e);
-      return res.status(501).send(e.message)
+      return res.status(410).send(e.message)
     }
   }
 }

@@ -5,11 +5,12 @@ import FsUploader from "components/FsUploader";
 import React from "react";
 
 import CustomSelectField from "components/form/CustomSelectField";
-import useTeamOptionsProvider from 'src/users/hooks/useOptionsProvider'
+import useUserOptionsProvider from 'src/users/hooks/useOptionsProvider'
 import classnames from "classnames";
 
 const Form = ({ register, control, data }) => {
   const [activeTab, setActiveTab] = useState('1')
+  console.log(data, '')
   return (
     <>
       <Nav tabs className="border-bottom border-dark">
@@ -35,7 +36,7 @@ const Form = ({ register, control, data }) => {
           <TextField label="Title Fa" {...register("title.fa")} />
           <TextField label="Title En" {...register("title.en")} />
           <TextField label="ABR" {...register("title.abr")} />
-          <CustomSelectField label="Owner" {...register("owner")} provider={useTeamOptionsProvider}/>
+          <CustomSelectField label="Owner" {...register("owner")} provider={useUserOptionsProvider}/>
         </TabPane>
         <TabPane tabId="2">
           <FsUploader

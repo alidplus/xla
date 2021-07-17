@@ -1,7 +1,7 @@
 import {Avatar, ModalFooter, Nav, NavItem, NavLink, TabContent, TabPane} from "atoms";
 import TextField from "components/form/TextField";
 import FsUploader from "components/FsUploader";
-import React from "react";
+import React, { useState } from "react";
 import classnames from "classnames";
 
 const Form = ({ register, control, data }) => {

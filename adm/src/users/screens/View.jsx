@@ -32,8 +32,10 @@ const ViewWithDetails = function ViewWithDetails(props) {
         </NavItem>
       </Nav>
       <TabContent activeTab={activeTab} className="flex-grow-1">
-        <TabPane tabId="1">
-          <Card {...props} />
+        <TabPane tabId="1" className="h-100">
+          <div className="d-flex justify-content-center align-items-center h-100">
+            <Card {...props} className="flex-grow-1" />
+          </div>
         </TabPane>
         <TabPane tabId="2">
           <div className="p-3">

@@ -30,13 +30,17 @@ const tableMap = [
   }
 ]
 
-const TopBar = function TopBar() {
+const TopBar = function TopBar({force}) {
   const hash = useHash()
+  const createdRoute = {
+    pathname: '/sponsors/add/new',
+    state: { force }
+  }
   return (
     <div className="mb-2 d-flex align-items-center">
       <Icon size="2"/>
       <h4 className="ms-2 me-auto mb-0">Sponsors</h4>
-      <Button size="sm" onClick={e => hash.push('/sponsors/add/new')}><Plus/> Add Sponsor</Button>
+      <Button size="sm" onClick={e => hash.push(createdRoute)}><Plus/> Add Sponsor</Button>
     </div>
   )
 }

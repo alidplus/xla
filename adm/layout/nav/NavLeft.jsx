@@ -23,7 +23,7 @@ function NavLeft(props) {
                 active={isActive}
                 className="text-nowrap"
                 tag="a"
-                href={`${item.path}?`}
+                href={item.path}
               >
                 {React.createElement(item.icon, { className: "me-2", fw: true })}
                 {item.label}

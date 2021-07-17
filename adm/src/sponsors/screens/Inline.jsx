@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import classnames from "classnames";
 import Icon from './Icon'
 
-const SponsorInline = ({ data, hash }) => {
+const SponsorInline = ({ data, hash, className }) => {
   return !data ? null : (
-    <span className={classnames("cursor-pointer", {'text-decoration-line-through':  data.deleted})} onClick={e => hash.push(`/players/view/${data._id}`)}>
+    <span className={classnames("cursor-pointer", {'text-decoration-line-through':  data.deleted}, className)} onClick={e => hash.push(`/players/view/${data._id}`)}>
       <Icon className="me-1" />
       <span>{data.title}</span>
     </span>

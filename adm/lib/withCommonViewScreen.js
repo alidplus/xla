@@ -4,7 +4,7 @@ import Id from "components/Id";
 import ControlToolbar from "components/ControlToolbar";
 
 const withCommonViewScreen = function withCommonViewScreen (Card, title = '', ExtraActions) {
-  return ({ data, closeBtn, toggleFullBtn }) => {
+  return ({ data, closeBtn, toggleFullBtn, ...restprops }) => {
     return (
       <div className="h-100 d-flex flex-column">
         <ModalHeader className="d-block p-0" tag="div">
@@ -15,7 +15,7 @@ const withCommonViewScreen = function withCommonViewScreen (Card, title = '', Ex
           </div>
         </ModalHeader>
         <ModalBody className="p-0 flex-grow-1 -d-flex justify-content-center align-items-center">
-          <Card data={data}/>
+          <Card {...restprops} data={data}/>
         </ModalBody>
         <ModalFooter className="p-0">
           {!ExtraActions ? (
