@@ -7,7 +7,7 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    sid: {type: Number, unique: true},
+    sid: { type: Number, unique: true },
 
     name: String,
     email: { type: String, unique: true, lowercase: true },
@@ -34,6 +34,17 @@ module.exports = function (app) {
     timestamps: true
   });
 
+
+  schema.index(
+    {
+      name: 'text'
+    }/*,
+    {
+      name: "myindex", 
+      weights: {
+        name: 2
+      }
+    }*/);
 
   // This is necessary to avoid model compilation errors in watch mode
   // see https://mongoosejs.com/docs/api/connection.html#connection_Connection-deleteModel

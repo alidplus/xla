@@ -3,14 +3,10 @@ import Inline from "../screens/Inline";
 
 export const queryBuilder = (keyword = '') => {
   if (!keyword) return {}
-  let rgx = keyword.split(' ').filter(a => a).join('|');
+  // let query = keyword.split(' ').filter(a => a).join(' ');
+  // console.log(query);
   return {
-    '$or': [
-      { _id: keyword },
-      { sid: keyword },
-      { name: {$regex: rgx, $options: 'ig'} },
-      { email: {$regex: rgx, $options: 'ig'} }
-    ]
+    "$search": keyword
   }
 }
 

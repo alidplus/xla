@@ -1,19 +1,28 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const { iff, isProvider, preventChanges, keep } = require('feathers-hooks-common');
+const { iff, isProvider, preventChanges, keep, debug } = require('feathers-hooks-common');
 const { hashPassword, protect } = require('@feathersjs/authentication-local').hooks;
+const search = require('feathers-mongodb-fuzzy-search');
+
+const keeper = () => iff(isProvider('external'), [
+  keep("name", "email", "mobile")
+]);
 
 module.exports = {
   before: {
     all: [
-      iff(isProvider("external"), [
-        authenticate('jwt')
-      ])
+      // iff(isProvider("external"), [
+      //   authenticate('jwt')
+      // ]),
     ],
-    find: [],
+    find: [
+      debug("first"),
+      search(),
+      debug("second")
+    ],
     get: [],
-    create: [ hashPassword('password')/*, e => { throw new Error('stop here') }*/ ],
-    update: [],
-    patch: [],
+    create: [ hashPassword('password')/*, e => { throw new Error('stop here') }*/ , keeper() ],
+    update: [ keeper() ],
+    patch: [ keeper() ],
     remove: []
   },
 

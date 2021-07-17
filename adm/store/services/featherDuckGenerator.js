@@ -17,7 +17,7 @@ import client from '../api/feathersClient';
 import ObjectId from 'bson-objectid';
 import extractPopulatedFields from './extractPopulatedFields';
 
-const OPERATORS = ['$sort', '$limit', '$skip', '$select']
+const OPERATORS = ['$sort', '$limit', '$skip', '$select', '$search']
 
 const initialState = {
   pops: [],

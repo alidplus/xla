@@ -9,7 +9,7 @@
   },
   "serviceOptions": {
     "lean": false,
-    "whitelist": ["$and", "$options", "$regex"]
+    "whitelist": ["$and", "$options", "$regex", "$text", "$search"]
   },
   "authentication": {
     "entity": "user",
