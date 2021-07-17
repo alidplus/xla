@@ -1,5 +1,5 @@
 // Application hooks that run for every service
-const { debug } = require('feathers-hooks-common')
+const { debug, iff, isProvider, disallow } = require('feathers-hooks-common')
 module.exports = {
   before: {
     all: [],
@@ -14,7 +14,9 @@ module.exports = {
     ],
     get: [],
     create: [],
-    update: [],
+    update: [
+      disallow("external")
+    ],
     patch: [],
     remove: []
   },
