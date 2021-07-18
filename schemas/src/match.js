@@ -1,8 +1,11 @@
 
-import Joi from 'joi'
-import { ID, title, playerNo, futureDate, mobile } from './partials'
+const Joi = require('joi')
+const { ID, title, playerNo, futureDate, mobile } = require('./partials')
 
-export const attrs = {
+module.exports = {}
+
+
+const attrs = module.exports.attrs = {
 
   time: futureDate.required(),
   results: Joi.object(),
@@ -13,8 +16,8 @@ export const attrs = {
   referee: ID
 }
 
-export const options = { convert: true, abortEarly: false, allowUnknown: true }
+const options = module.exports.options = { convert: true, abortEarly: false, allowUnknown: true }
 
-export const schema = Joi.object().keys(attrs)
+const schema = module.exports.schema = Joi.object().keys(attrs)
 
 
