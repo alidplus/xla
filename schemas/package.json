@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "xla validation schemas",
   "private": "true",
-  "type": "module",
   "author": "alidplus",
   "license": "ISC",
   "dependencies": {

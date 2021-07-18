@@ -1,22 +1,24 @@
-import Joi from 'joi'
+const Joi = require('joi')
 
-export const title = Joi.string().trim().min(3).max(30)
+module.exports = {}
 
-export const password = Joi.string().trim().min(5).max(30)
+const title = module.exports.title = Joi.string().trim().min(3).max(30)
+
+const password = module.exports.password = Joi.string().trim().min(5).max(30)
   .regex(/^[\sa-zA-Z0-9]*$/, 'letters, numbers and spaces')
 
-export const fullName = Joi.string().trim().max(30)
+const fullName = module.exports.fullName = Joi.string().trim().max(30)
 
-export const address = Joi.string().trim().max(120)
+const address = module.exports.address = Joi.string().trim().max(120)
 
-export const email = Joi.string()//.email({ tlds: { allow: false } })
+const email = module.exports.email = Joi.string()//.email({ tlds: { allow: false } })
 
-export const mobile = Joi.string()
+const mobile = module.exports.mobile = Joi.string()
 
-export const ID = Joi.string().length(24).hex()
+const ID = module.exports.ID = Joi.string().length(24).hex()
 
-export const rate = Joi.number().min(0).max(5)
-export const playerNo = Joi.number().min(0).max(99)
+const rate = module.exports.rate = Joi.number().min(0).max(5)
+const playerNo = module.exports.playerNo = Joi.number().min(0).max(99)
 
-export const bDate = Joi.date().max('1-1-2007')
-export const futureDate = Joi.date().min('now')
+const bDate = module.exports.bDate = Joi.date().max('1-1-2007')
+const futureDate = module.exports.futureDate = Joi.date().min('now')

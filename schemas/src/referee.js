@@ -1,13 +1,17 @@
-import Joi from 'joi'
-import { ID, title, rate, email, mobile } from './partials'
+const Joi = require('joi')
+const { ID, title, rate, email, mobile } = require('./partials')
 
-export const attrs = {
+module.exports = {}
+
+
+
+const attrs = module.exports.attrs = {
   name: title.required(),
   lvl: rate,
 }
 
-export const options = { convert: true, abortEarly: false, allowUnknown: true }
+const options = module.exports.options = { convert: true, abortEarly: false, allowUnknown: true }
 
-export const schema = Joi.object().keys(attrs)
+const schema = module.exports.schema = Joi.object().keys(attrs)
 
 
