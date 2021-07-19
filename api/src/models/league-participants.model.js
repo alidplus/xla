@@ -1,27 +1,36 @@
-// referees-model.js - A mongoose model
+// league-participants-model.js - A mongoose model
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
-  const modelName = 'referees';
+  const modelName = 'leagueParticipants';
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
-  const schema = new Schema({
-    sid: {type: Number, unique: true},
 
+  const player = new Schema({
     name: { type: String, required: true },
-    lvl: { type: Number, default: 0, enum: [0,1,2,3,4,5] }
+    no: { type: Number, required: true }
+  },
+  {
+    timestamps: false
+  })
+
+  const schema = new Schema({
+    team: { type: Schema.Types.ObjectId, ref: 'teams', autopopulate: true },
+    league: { type: Schema.Types.ObjectId, ref: 'leagues', autopopulate: true },
+    form: {
+      gk: player,
+      ca: player,
+      p1: player,
+      p2: player,
+      p3: player,
+      s1: player,
+      s2: player,
+      s3: player
+    }
   }, {
-    modelName,
-    strict: true,
     timestamps: true
   });
-
-  schema.index(
-    {
-      name: "text"
-    }
-  );
 
   // This is necessary to avoid model compilation errors in watch mode
   // see https://mongoosejs.com/docs/api/connection.html#connection_Connection-deleteModel

@@ -6,8 +6,6 @@ import withReduxSaga from 'next-redux-saga';
 import createStore from "store";
 import { PersistGate } from 'redux-persist/integration/react';
 import HashRoutes from 'layout/HashRoutes'
-// import { SWRConfig } from 'swr'
-// import fetchJson from 'lib/fetchJson'
 import { sessionMiddleware } from 'lib/session'
 import authDuck from 'store/auth'
 // Main SCSS
@@ -48,15 +46,15 @@ class MyApp extends App {
   render() {
     const { Component, pageProps, store, user = {} } = this.props;
     return (
-      <Provider store={store}>
-        <PersistGate persistor={store.__PERSISTOR} loading={null}>
-          {/*<SWRConfig value={swrConf}>*/}
-            <HashRoutes>
-              <Component {...pageProps} />
-            </HashRoutes>
-          {/*</SWRConfig>*/}
-        </PersistGate>
-      </Provider>
+        <Provider store={store}>
+          <PersistGate persistor={store.__PERSISTOR} loading={null}>
+            {/*<SWRConfig value={swrConf}>*/}
+              <HashRoutes>
+                <Component {...pageProps} />
+              </HashRoutes>
+            {/*</SWRConfig>*/}
+          </PersistGate>
+        </Provider>
     );
   }
 }

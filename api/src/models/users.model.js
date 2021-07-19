@@ -9,7 +9,7 @@ module.exports = function (app) {
   const schema = new Schema({
     sid: { type: Number, unique: true },
 
-    name: String,
+    name: { type: String },
     email: { type: String, unique: true, lowercase: true },
     mobile: { type: String, lowercase: true },
     password: { type: String },
@@ -37,14 +37,16 @@ module.exports = function (app) {
 
   schema.index(
     {
-      name: 'text'
-    }/*,
+      name: 'text',
+      mobile: 'text',
+      email: 'text'
+    },
     {
-      name: "myindex", 
+      name: "textMobileEmailIndex", 
       weights: {
         name: 2
       }
-    }*/);
+    });
 
   // This is necessary to avoid model compilation errors in watch mode
   // see https://mongoosejs.com/docs/api/connection.html#connection_Connection-deleteModel

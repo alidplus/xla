@@ -48,12 +48,12 @@ class Index extends React.Component {
           title="Home | Next.JS with Reactstrap (React dashboard web application)"
           description="NextJS with Reactstrap components with SCSS library, a NextJS dashboard template."
         />
-        <div dispatch={dispatch} storeLayout={storeLayout}>
+        <div>
           <h3>Inlines</h3>
           <Row>
             <Col>
               <h6>User inline</h6>
-              <LoadUserContainer id="60eb1eb78eb80f5ee42f590b">
+              <LoadUserContainer id="60e1be8c4d04a2787c40da9d">
                 <InlineUserScreen/>
               </LoadUserContainer>
               <hr/>
@@ -89,9 +89,9 @@ class Index extends React.Component {
               </LoadSponsorContainer>
               <hr/>
               <h6>Fs inline</h6>
-              <LoadFsContainer id="60e956acef012e45149c9335">
+              {/*<LoadFsContainer id="60e956acef012e45149c9335">
                 <InlineFsScreen/>
-              </LoadFsContainer>
+              </LoadFsContainer>*/}
             </Col>
           </Row>
           <div>

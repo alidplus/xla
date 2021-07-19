@@ -92,4 +92,5 @@ export { default as UncontrolledDropdown } from './UncontrolledDropdown';
 export { default as UncontrolledTooltip } from './UncontrolledTooltip';
 export { default as Spinner } from './Spinner';
 export { default as Avatar } from './Avatar';
+export { default as Skeleton } from './Skeleton';
 export const Util = _Util

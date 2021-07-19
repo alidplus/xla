@@ -1,4 +1,5 @@
 import Container from './containers/Control'
+import LoadContainer from './containers/Load'
 import Add from './screens/Add'
 import Edit from './screens/Edit'
 import View from './screens/View'

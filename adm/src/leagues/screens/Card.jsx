@@ -1,19 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Card, Row , Col } from 'atoms'
-import Slider from 'components/Slider'
 import Fsloader from 'src/fs/containers/Load'
+import FsListContainer from 'src/fs/containers/List'
 import Avatar from "../../fs/screens/Avatar";
+import Slider from "../../fs/screens/Slider";
 
 const LeagueCard = ({ data }) => {
   if (!data) return null
   return (
     <Card body>
-      <Row>
-        <Col>
-          <Slider />
-        </Col>
-      </Row>
+      <FsListContainer uid={`league-gallery-${data._id}`} iterate>
+        <Slider />
+      </FsListContainer>
       <hr />
       <Row className="justify-content-md-center">
         <Col md="auto">{data.title}</Col>

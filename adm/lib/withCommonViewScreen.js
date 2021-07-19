@@ -3,7 +3,7 @@ import {ModalHeader, ModalBody, ModalFooter} from "atoms";
 import Id from "components/Id";
 import ControlToolbar from "components/ControlToolbar";
 
-const withCommonViewScreen = function withCommonViewScreen (Card, title = '', ExtraActions) {
+const withCommonViewScreen = function withCommonViewScreen (Component, title = '', ExtraActions) {
   return ({ data, closeBtn, toggleFullBtn, ...restprops }) => {
     return (
       <div className="h-100 d-flex flex-column">
@@ -15,13 +15,13 @@ const withCommonViewScreen = function withCommonViewScreen (Card, title = '', Ex
           </div>
         </ModalHeader>
         <ModalBody className="p-0 flex-grow-1 -d-flex justify-content-center align-items-center">
-          <Card {...restprops} data={data}/>
+          <Component {...restprops} data={data}/>
         </ModalBody>
         <ModalFooter className="p-0">
           {!ExtraActions ? (
             <ControlToolbar data={data} className="border-dark"/>
           ) : (
-            <ControlToolbar data={data} className="border-dark"><ExtraActions /></ControlToolbar>
+            <ControlToolbar data={data} className="border-dark" openUp><ExtraActions /></ControlToolbar>
           )}
         </ModalFooter>
       </div>

@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import {useRouter} from "next/router";
 import {useHash} from "../layout/HashRoutes";
 import {connect} from "react-redux";
+import {Spinner} from "atoms";
 
 const CommonLoadContainer = function CommonLoadContainer ({ id, get, data, children }) {
   const router = useRouter()
@@ -12,6 +13,8 @@ const CommonLoadContainer = function CommonLoadContainer ({ id, get, data, child
     () => ({ id, router, hash, data }),
     [data]
   )
+
+  if (!data) return null
 
   if (typeof children === 'function') return children(cloneProps)
 

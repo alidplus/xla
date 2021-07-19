@@ -1,5 +1,6 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const { iff, isProvider, preventChanges, keep } = require('feathers-hooks-common');
+const { iff, isProvider, preventChanges, keep, debug } = require('feathers-hooks-common');
+const search = require('feathers-mongodb-fuzzy-search');
 
 module.exports = {
   before: {
@@ -8,7 +9,9 @@ module.exports = {
         authenticate('jwt')
       ])
     ],
-    find: [],
+    find: [
+      search()
+    ],
     get: [],
     create: [],
     update: [],

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import {useHash} from "../layout/HashRoutes";
 import {connect} from "react-redux";
+import {Spinner} from "../atoms";
 
 const CommonControlContainer = function CommonControlContainer ({ children, dismiss, data, get, save, remove, closeBtn, toggleFullBtn, id }) {
   const hash = useHash()
@@ -19,9 +20,7 @@ const CommonControlContainer = function CommonControlContainer ({ children, dism
     if (!id) {
       let saved = await save(null, edited)
       const { value } = saved
-      setTimeout(() => {
-        hash.push(`/${value.__model}/edit/${value._id}`)
-      }, 200)
+      hash.push(`/${value.__model}/edit/${value._id}`)
     }
     else if (id) {
       await save(id, edited)
@@ -39,8 +38,11 @@ const CommonControlContainer = function CommonControlContainer ({ children, dism
   const handleError = (error, e) => {
     setError(error.message)
   }
+
+  // if (!data) return <Spinner size="sm" type="grow" color="light" />
+
   return useMemo(() => {
-    return React.cloneElement(children, { handleSubmit, handleRemove, handleError, id, data: (data || {}), errorMessage, dismiss, closeBtn, toggleFullBtn, hash })
+    return React.cloneElement(children, { handleSubmit, handleRemove, handleError, id, data, errorMessage, dismiss, closeBtn, toggleFullBtn, hash })
   }, [toggleFullBtn, data])
 }
 

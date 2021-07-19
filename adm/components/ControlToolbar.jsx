@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import {AngleDown, Edit, Eye, Plus, Trash} from "../atoms/icons";
+import {AngleDown, AngleUp, Edit, Eye, Plus, Trash} from "../atoms/icons";
 import { Button, ButtonDropdown, ButtonGroup, DropdownMenu, DropdownToggle } from "../atoms";
 import classnames from "classnames";
 import { useHash } from "layout/HashRoutes";
 
-const ControlToolbar = function ControlToolbar({ children, data = null, className, ...configs }) {
+const ControlToolbar = function ControlToolbar({ children, data = null, className, openUp, ...configs }) {
   const { hideAdd = false, hideEdit = false, hideView = false, hideRemove = false } = configs
   const [isOpen, setOpen] = useState(false);
   const toggle = () => setOpen(!isOpen);
@@ -18,8 +18,8 @@ const ControlToolbar = function ControlToolbar({ children, data = null, classNam
   return (
     <ButtonGroup className={classnames('', className)}>
       {!children ? null : <ButtonGroup>
-        <ButtonDropdown color="" isOpen={isOpen} toggle={toggle}>
-          <DropdownToggle color="" className="px-0"><AngleDown fw/></DropdownToggle>
+        <ButtonDropdown color="" isOpen={isOpen} toggle={toggle} direction={openUp ? 'up' : 'down'}>
+          <DropdownToggle color="" className="px-0">{openUp ? <AngleUp fw/> : <AngleDown fw/>}</DropdownToggle>
           <DropdownMenu>
             {React.cloneElement(children, { data })}
           </DropdownMenu>

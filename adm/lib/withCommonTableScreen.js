@@ -32,7 +32,6 @@ const withCommonTableScreen = function withCommonTableScreen (tableMap, TopBar) 
       </div>
     )
   }
-
 }
 
 export default withCommonTableScreen

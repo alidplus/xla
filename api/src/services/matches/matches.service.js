@@ -2,6 +2,7 @@
 const { Matches } = require('./matches.class');
 const createModel = require('../../models/matches.model');
 const hooks = require('./matches.hooks');
+const calcRes = require('./caculateResult');
 
 module.exports = function (app) {
   const options = {
@@ -17,4 +18,7 @@ module.exports = function (app) {
   const service = app.service('matches');
 
   service.hooks(hooks);
+  
+  app.service("events").on("created", calcRes());
+
 };

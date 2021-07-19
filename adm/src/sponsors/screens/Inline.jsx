@@ -5,7 +5,7 @@ import Icon from './Icon'
 
 const SponsorInline = ({ data, hash, className }) => {
   return !data ? null : (
-    <span className={classnames("cursor-pointer", {'text-decoration-line-through':  data.deleted}, className)} onClick={e => hash.push(`/players/view/${data._id}`)}>
+    <span className={classnames("cursor-pointer", {'text-decoration-line-through':  data.deleted}, className)} onClick={e => hash?.push(`/players/view/${data._id}`)}>
       <Icon className="me-1" />
       <span>{data.title}</span>
     </span>
