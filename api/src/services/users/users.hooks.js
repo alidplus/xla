@@ -10,9 +10,9 @@ const keeper = () => iff(isProvider('external'), [
 module.exports = {
   before: {
     all: [
-      iff(isProvider("external"), [
+      /*iff(isProvider("external"), [
         authenticate('jwt')
-      ]),
+      ]),*/
     ],
     find: [
       debug("first"),

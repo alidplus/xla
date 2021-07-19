@@ -1,13 +1,13 @@
 import { DropdownItem } from "atoms";
+import LeagueIcon from "src/leagues/screens/Icon";
+import { useHash } from 'layout/HashRoutes'
 
 const Actions = function Actions ({ data }) {
+  const hash = useHash()
   return (
     <>
-      <DropdownItem header>Header</DropdownItem>
-      <DropdownItem disabled>Action</DropdownItem>
-      <DropdownItem>Another Action</DropdownItem>
-      <DropdownItem divider/>
-      <DropdownItem>Another Action</DropdownItem>
+      <DropdownItem header>{data.title?.fa}</DropdownItem>
+      <DropdownItem onClick={e => { hash.push(`/teams/${data._id}/join`) }}><LeagueIcon /> Join a league</DropdownItem>
     </>
   )
 }

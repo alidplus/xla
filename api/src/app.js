@@ -43,6 +43,8 @@ app.configure(socketio());
 
 app.configure(mongoose);
 
+app.configure(mongoose);
+
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);
 app.configure(authentication);

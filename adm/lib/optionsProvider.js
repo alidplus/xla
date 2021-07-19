@@ -8,8 +8,8 @@ export const simpleQuery = kwd => ({ _id: kwd })
 
 export default function optionsProvider(serviceName, queryBuilder = simpleQuery, inline = Id, id = null) {
   const uid = `${serviceName}-hook-adapter`
-  const page =  useSelector(state => ducks[serviceName].selectors.find(state, { uid }));
-  const single =   useSelector(state => ducks[serviceName].selectors.get(state, { id }));
+  const page = useSelector(state => ducks[serviceName].selectors.find(state, { uid }));
+  const single = useSelector(state => ducks[serviceName].selectors.get(state, { id }));
   const dispatch = useDispatch();
   const find = (uid, query) => dispatch(ducks[serviceName].creators.find(uid, query))
   const get = (uid, query) => dispatch(ducks[serviceName].creators.find(uid, query))
@@ -18,7 +18,7 @@ export default function optionsProvider(serviceName, queryBuilder = simpleQuery,
 
   useEffect(() => {
     const { keyword, skip: $skip = 0, limit: $limit = 10 } = filters
-    const query = { ...queryBuilder(keyword), $skip, $limit }
+    const query = { /*...queryBuilder(keyword)*/ "$search": keyword, $skip, $limit }
     find(uid, query)
   }, [filters])
 

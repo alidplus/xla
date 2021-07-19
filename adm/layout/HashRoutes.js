@@ -1,7 +1,7 @@
 import React, {useMemo, useState, useEffect} from "react";
 import classnames from 'classnames'
 import {
-  MemoryRouter as Router,
+  HashRouter as Router,
   useHistory,
   useParams,
   withRouter,
@@ -22,7 +22,7 @@ import refereeRoutes from 'src/referees/routes'
 import sponsorRoutes from 'src/sponsors/routes'
 import fsRoutes from 'src/fs/routes'
 
-export const HashModal = withRouter(({ children, match }) => {
+const HModal = ({ children, match }) => {
   const history = useHistory();
   const [show, setShow] = useState(true)
   const [full, setFull] = useState(true)
@@ -61,7 +61,9 @@ export const HashModal = withRouter(({ children, match }) => {
       {React.cloneElement(children, containerProps)}
     </Modal>
   )
-})
+}
+
+export const HashModal = withRouter(HModal)
 
 const hashRoutes = [
   userRoutes,
@@ -75,32 +77,33 @@ const hashRoutes = [
   fsRoutes
 ]
 
-
-export default function HashRoutes({ children, routes }) {
-    return (
-      <Router>
-        {children}
-        <Switch>
-          <Route path="/login">
-            <HashModal><Login /></HashModal>
-          </Route>
-          {hashRoutes.reduce((acc, {Container: SuperContainer, routes}) => {
-            return acc.concat(routes.map(({ path, Screen, Container = SuperContainer }) => {
-              return (
-                <Route path={path} key={path}>
-                  <HashModal>
-                    <Container>
-                      <Screen/>
-                    </Container>
-                  </HashModal>
-                </Route>
-              )
-            }))
-          }, [])}
-        </Switch>
-      </Router>
-    )
+const HashRoutes = function HashRoutes({ children, routes }) {
+  return (
+    <Router>
+      {children}
+      <Switch>
+        <Route path="/login">
+          <HashModal><Login /></HashModal>
+        </Route>
+        {hashRoutes.reduce((acc, {Container: SuperContainer, routes}) => {
+          return acc.concat(routes.map(({ path, Screen, Container = SuperContainer }) => {
+            return (
+              <Route path={path} key={path}>
+                <HashModal>
+                  <Container>
+                    <Screen/>
+                  </Container>
+                </HashModal>
+              </Route>
+            )
+          }))
+        }, [])}
+      </Switch>
+    </Router>
+  )
 }
+
+export default HashRoutes
 
 export const Hash = Link
 export const useHash = useHistory

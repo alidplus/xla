@@ -4,6 +4,7 @@ import {useHash} from "../layout/HashRoutes";
 import {usersDuck} from "../store/services";
 import {connect} from "react-redux";
 import {queryBuilder} from "../src/users/hooks/useOptionsProvider";
+import {Spinner} from "../atoms";
 
 const defaultPropsQuery = {}
 
@@ -25,8 +26,8 @@ const CommonPaginateContainer = function CommonPaginateContainer
 
   useEffect(() => {
     const { keyword, skip: $skip = 0, limit: $limit = 10 } = router.query
-    const searchQuery = queryBuilder(keyword)
-    const query = { $and: [searchQuery, propsQuery], $skip, $limit }
+    // const searchQuery = queryBuilder(keyword)
+    const query = { $and: [propsQuery], "$search": keyword, $skip, $limit }
     console.log('qqq query', query)
     find(uid, query)
   }, [router.query, propsQuery])
@@ -35,6 +36,8 @@ const CommonPaginateContainer = function CommonPaginateContainer
     () => ({ uid, router, hash, page, onChange: setFilters, filters: router.query, hardQuery: propsQuery }),
     [page, router, hash]
   )
+
+  if (!page || !page.data || !Array.isArray(page.data)) return <Spinner size="sm" type="grow" color="light" />
 
   if (typeof children === 'function') return children(cloneProps)
 

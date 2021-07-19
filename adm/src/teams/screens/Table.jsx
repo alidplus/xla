@@ -5,6 +5,7 @@ import FormattedDate from "components/FormattedDate";
 import {Button} from "atoms";
 import {Plus} from "atoms/icons";
 import Icon from "./Icon";
+import Actions from './Actions'
 import withCommonTableScreen from 'lib/withCommonTableScreen'
 import {useHash} from "layout/HashRoutes";
 
@@ -30,7 +31,7 @@ const tableMap = [
     title: 'Actions',
     width: 140,
     className: 'text-center',
-    render: (data) => (<ControlToolbar data={data} hideAdd></ControlToolbar>),
+    render: (data) => (<ControlToolbar data={data} hideAdd><Actions /></ControlToolbar>),
   }
 ]
 

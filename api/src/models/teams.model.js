@@ -16,13 +16,7 @@ module.exports = function (app) {
     },
 
     owner: { type: Schema.Types.ObjectId, required: true, ref: 'users', autopopulate: true },
-    form: {
-      gk: { type: Schema.Types.ObjectId, ref: 'players', autopopulate: true },
-      ca: { type: Schema.Types.ObjectId, ref: 'players', autopopulate: true },
-      p1: { type: Schema.Types.ObjectId, ref: 'players', autopopulate: true },
-      p2: { type: Schema.Types.ObjectId, ref: 'players', autopopulate: true },
-      p3: { type: Schema.Types.ObjectId, ref: 'players', autopopulate: true },
-    },
+    // players: [{ type: Schema.Types.ObjectId, ref: 'players', autopopulate: true }],
     sponsor: { type: Schema.Types.ObjectId, ref: 'sponsors', autopopulate: true }
   }, {
     modelName,

@@ -20,7 +20,7 @@
     "defrian <dyarfi20@gmail.com> (https://dyarfi.github.io/)"
   ],
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "cross-env NODE_OPTIONS='--inspect' next dev -p 3001",
     "build": "next build",
     "start": "next start"
   },
@@ -55,6 +55,7 @@
     "prop-types": "^15.7.2",
     "re-reselect": "^4.0.0",
     "react": "^17.0.2",
+    "react-content-loader": "^6.0.3",
     "react-datepicker2": "^3.3.13",
     "react-dom": "^17.0.2",
     "react-dropzone": "^11.3.4",

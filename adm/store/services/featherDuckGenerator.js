@@ -6,7 +6,7 @@ import { take, put, takeEvery, call, select } from 'redux-saga/effects'
 import { eventChannel, END } from 'redux-saga'
 import {createCachedSelector} from 're-reselect';
 import produce from "immer";
-import sift from "sift";
+import sift, { createEqualsOperation } from "sift";
 import merge from "lodash/merge";
 import sortBy from "lodash/sortBy";
 import omitBy from "lodash/omitBy";
@@ -26,6 +26,21 @@ const initialState = {
   paginateRequests: {},
   listRequests: {},
 };
+
+const siftOptions = {
+  // operations: {
+  //   $search(params, ownerQuery, options) {
+  //     return createEqualsOperation(
+  //       value => {
+  //         console.log('siftOptions operations $search', {params, ownerQuery, options, value})
+  //         return value % params !== 0
+  //       },
+  //       ownerQuery,
+  //       options
+  //     );
+  //   }
+  // }
+}
 
 const initialData = (_id = "") => ({ _id, __isLoading: true, __error: null })
 
@@ -71,7 +86,7 @@ export default (serviceName, duck) => {
           }
           case duck.types.FIND_FULFILLED: {
             payload.data = payload.data.map(d => {
-              const {pops = [], raw = d, rootId = d._id} = extractPopulatedFields(d)
+              const { pops = [], raw = d, rootId = d._id } = extractPopulatedFields(d)
               state.collection[rootId] = raw
               state.pops = state.pops.concat(pops)
               return rootId
@@ -187,10 +202,14 @@ export default (serviceName, duck) => {
           (collection, paginateRequests, props) => {
             if (!paginateRequests.hasOwnProperty(props.uid)) return { data: [], skip: 0, limit: 10, total: 0 }
             const { $skip = 0, $limit = 10, $sort = '', $select = ''} = pick(paginateRequests[props.uid].query, OPERATORS)
-            const sifter = sift(omit(paginateRequests[props.uid].query, OPERATORS))
             const paginate = cloneDeep(paginateRequests[props.uid])
-            paginate.data = sortBy(Object.keys(collection).map(k => collection[k]), $sort.split(' ')).filter(sifter).
-              map(data => $select ? pick(data, $select.split(' ').concat(['_id', 'sid', 'createdAt', 'updatedAt'])) : data).
+            if (Array.isArray(paginate.data)) {
+              paginate.data = paginate.data.map(k => collection[k])
+              return paginate
+            }
+            const sifter = sift(omit(paginateRequests[props.uid].query, OPERATORS), siftOptions)
+            paginate.data = sortBy(Object.keys(collection).map(k => collection[k]), $sort.split(' ')).
+              filter(sifter).
               slice($skip, $skip + $limit)
             return paginate
           }
@@ -204,10 +223,13 @@ export default (serviceName, duck) => {
           (collection, listRequests, props) => {
             if (!listRequests.hasOwnProperty(props.uid)) return { total: 0, data: [] }
             const { $skip = 0, $limit = 10, $sort = '', $select = ''} = pick(listRequests[props.uid].query, OPERATORS)
-            const sifter = sift(omit(listRequests[props.uid].query, OPERATORS))
             const list = cloneDeep(listRequests[props.uid])
-            list.data = sortBy(Object.keys(collection).map(k => collection[k]), $sort.split(' ')).filter(sifter).
-            map(data => $select ? pick(data, $select.split(' ').concat(['_id', 'sid', 'createdAt', 'updatedAt'])) : data)
+            if (Array.isArray(list.data)) {
+              list.data = list.data.map(k => collection[k])
+              return list
+            }
+            const sifter = sift(omit(listRequests[props.uid].query, OPERATORS), siftOptions)
+            list.data = sortBy(Object.keys(collection).map(k => collection[k]), $sort.split(' ')).filter(sifter)
             return list
           }
         )( (state, props) => props.uid )
@@ -231,7 +253,7 @@ export default (serviceName, duck) => {
           meta: { query, uid },
           payload: {
             promise: Service.find({ query }),
-            data: { query, total: 0, limit: 10, skip: 0, data: [], __isLoading: true, __error: null }
+            data: { query, total: 0, limit: 10, skip: 0, data: null, __isLoading: true, __error: null }
           }
         })
       },
@@ -240,7 +262,7 @@ export default (serviceName, duck) => {
         meta: { query, uid },
         payload: {
           promise: Service.find({ query: { ...query, $limit: -1 } }),
-          data: { query, total: 0, data: [], __isLoading: true, __error: null }
+          data: { query, total: 0, data: null, __isLoading: true, __error: null }
         }
       }),
       save: (_id, data, params) => {
