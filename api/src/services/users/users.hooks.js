@@ -10,12 +10,12 @@ const keeper = () => iff(isProvider('external'), [
 module.exports = {
   before: {
     all: [
-      /*iff(isProvider("external"), [
+      iff(isProvider("external"), [
         authenticate('jwt')
-      ]),*/
+      ]),
     ],
     find: [
-      search(),
+      search()
     ],
     get: [],
     create: [ hashPassword('password')/*, e => { throw new Error('stop here') }*/ , keeper() ],

@@ -10,9 +10,7 @@ module.exports = {
       ])
     ],
     find: [
-      debug("first"),
-      search(),
-      debug("second")
+      search()
     ],
     get: [],
     create: [],

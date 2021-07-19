@@ -89,6 +89,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "postcss-rtlcss": "^1.7.2",
     "prettier": "^1.19.1",
     "redux-devtools-extension": "^2.13.8"
