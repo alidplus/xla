@@ -7,6 +7,7 @@ import Avatar from "../../fs/screens/Avatar";
 import {Col} from "../../../atoms";
 
 const TeamInline = ({ data, hash, en, abr, icon = true, away }) => {
+  if(!data) return null
   const cls = [
     "cursor-pointer d-flex align-items-center",
     {'flex-row-reverse': away },

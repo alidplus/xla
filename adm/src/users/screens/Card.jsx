@@ -12,7 +12,7 @@ const UserCard = ({ data, ...props }) => {
     <Card {...props}>
       <CardBody>
         {/* <pre>{JSON.stringify({data}, null, 2)}</pre> */}
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-center">
           <Col md="auto">
             <Fsloader id={data.avatar}>
               <Avatar />

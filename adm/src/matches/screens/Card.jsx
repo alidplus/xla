@@ -50,6 +50,9 @@ const MatcheCard = ({ data }) => {
           </>
         )}
       </LoadLeaguesContainer>
+      <Row>
+        <Col className="text-center text-light">{data.sponsor}</Col>
+      </Row>
     </Card>
   )
 }
