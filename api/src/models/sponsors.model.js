@@ -10,13 +10,19 @@ module.exports = function (app) {
     sid: {type: Number, unique: true},
 
     title: { type: String, required: true },
-    text: { type: String },
+    description: { type: String },
   }, {
     modelName,
     strict: true,
     timestamps: true
   });
 
+  schema.index(
+    {
+      title: "text",
+      description: "text",
+    }
+  );
 
   // This is necessary to avoid model compilation errors in watch mode
   // see https://mongoosejs.com/docs/api/connection.html#connection_Connection-deleteModel

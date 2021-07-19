@@ -25,6 +25,12 @@ module.exports = function (app) {
     return this.bDate ? moment(this.bDate).fromNow(true) : '-'
   });
 
+  schema.index(
+    {
+      name: "text"
+    }
+  )
+
   // This is necessary to avoid model compilation errors in watch mode
   // see https://mongoosejs.com/docs/api/connection.html#connection_Connection-deleteModel
   if (mongooseClient.modelNames().includes(modelName)) {
