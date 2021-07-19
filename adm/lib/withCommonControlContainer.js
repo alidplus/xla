@@ -20,9 +20,7 @@ const CommonControlContainer = function CommonControlContainer ({ children, dism
     if (!id) {
       let saved = await save(null, edited)
       const { value } = saved
-      setTimeout(() => {
-        hash.push(`/${value.__model}/edit/${value._id}`)
-      }, 200)
+      hash.push(`/${value.__model}/edit/${value._id}`)
     }
     else if (id) {
       await save(id, edited)

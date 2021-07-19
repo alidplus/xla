@@ -7,7 +7,7 @@ import classnames from "classnames";
 
 const MatchInline = ({ data, hash }) => {
   return !data ? null : (
-    <span className={classnames("cursor-pointer", {'text-decoration-line-through':  data.deleted})} onClick={e => hash.push(`/matches/view/${data._id}`)}>
+    <span className={classnames("cursor-pointer", {'text-decoration-line-through':  data.deleted})} onClick={e => hash?.push(`/matches/view/${data._id}`)}>
       <Icon className="me-1" />
       <span className="d-inline-flex flex-column align-items-center">
         <span className="d-inline-flex">

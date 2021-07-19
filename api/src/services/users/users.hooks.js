@@ -15,9 +15,7 @@ module.exports = {
       ]),*/
     ],
     find: [
-      debug("first"),
       search(),
-      debug("second")
     ],
     get: [],
     create: [ hashPassword('password')/*, e => { throw new Error('stop here') }*/ , keeper() ],

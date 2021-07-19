@@ -14,7 +14,7 @@ const TeamInline = ({ data, hash, en, abr, icon = true, away }) => {
     {'text-decoration-line-through': data.deleted}
   ]
   return !data ? null : (
-    <span className={classnames(cls)} onClick={e => hash.push(`/teams/view/${data._id}`)}>
+    <span className={classnames(cls)} onClick={e => hash?.push(`/teams/view/${data._id}`)}>
       {icon === true ? <Icon className="me-1"/> : null}
       {icon === 'flag' ? (
         <Fsloader id={data.flag}>

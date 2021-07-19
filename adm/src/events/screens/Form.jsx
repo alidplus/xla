@@ -1,27 +1,29 @@
 import TextField from "components/form/TextField";
 import React, {useMemo} from "react";
-import CustomSelectField from "../../../components/form/CustomSelectField";
-import useTeamOptionsProvider from "../../teams/hooks/useOptionsProvider";
+import CustomSelectField from "components/form/CustomSelectField";
 import {arrayProvider} from 'lib/optionsProvider'
+import useLeagueOptionsProvider from "src/leagues/hooks/useOptionsProvider";
+import useMatchOptionsProvider from "src/matches/hooks/useOptionsProvider";
+import useTeamOptionsProvider from "src/teams/hooks/useOptionsProvider";
+import usePlayerOptionsProvider from "src/players/hooks/useOptionsProvider";
 
-const evVarieties = [
-  { _id: 'score', label: 'گل' },
-  { _id: 'fool', label: 'خطا' },
+const eTypes = [
+  { _id: 'goal', label: 'گل' },
+  { _id: 'yellowCard', label: 'کارت زرد' },
+  { _id: 'redCard', label: 'کارت قرمز' },
+  { _id: 'MOTM', label: 'بهترین بازیکن مسابقه' }
 ]
-const modelVarieties = (['users', 'leagues', 'teams', 'referees', 'sponsors', 'players', 'matches', 'events']).map(m => ({
-  _id: m,
-  label: m
-}))
 
 const Form = ({ register, control, data, getValues }) => {
   const model = getValues('model')
   return (
     <>
-      <CustomSelectField label="Type" {...register("variety")} provider={arrayProvider(evVarieties)}/>
-      <TextField label="Value" {...register("payload")} />
-
-      <CustomSelectField label="Model" {...register("model")} provider={arrayProvider(modelVarieties)}/>
-      <CustomSelectField label="Target" {...register("target")} provider={useTeamOptionsProvider}/>
+      <CustomSelectField label="League" {...register("league")} provider={useLeagueOptionsProvider}/>
+      <CustomSelectField label="Match" {...register("match")} provider={useMatchOptionsProvider}/>
+      <TextField label="Time" type="number" min="0" max="120s" {...register("time")} />
+      <CustomSelectField label="Type" {...register("eType")} provider={arrayProvider(eTypes)}/>
+      <CustomSelectField label="Team" {...register("team")} provider={useTeamOptionsProvider}/>
+      <CustomSelectField label="Player" {...register("player")} provider={usePlayerOptionsProvider}/>
       {/*<DevTool control={control} />*/}
     </>
   )

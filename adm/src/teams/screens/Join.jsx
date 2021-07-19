@@ -19,7 +19,10 @@ const Join = ({ data }) => {
           <Card data={data}/>
         </Col>
         <Col>
-          Manage
+          <h2 className="h4 text-center">Manage Form</h2>
+          <div className="bg-football-field">
+
+          </div>
         </Col>
         <Col sm="3">
           <h2 className="h4 text-center">League</h2>

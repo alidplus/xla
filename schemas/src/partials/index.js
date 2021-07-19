@@ -19,6 +19,7 @@ const ID = module.exports.ID = Joi.string().length(24).hex()
 
 const rate = module.exports.rate = Joi.number().min(0).max(5)
 const playerNo = module.exports.playerNo = Joi.number().min(0).max(99)
+const matchTime = module.exports.matchTime = Joi.number().min(0).max(120)
 
 const bDate = module.exports.bDate = Joi.date().max('1-1-2007')
 const futureDate = module.exports.futureDate = Joi.date().min('now')
