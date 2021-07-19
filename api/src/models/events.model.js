@@ -9,11 +9,12 @@ module.exports = function (app) {
   const schema = new Schema({
     sid: {type: Number, unique: true},
 
-    variety: { type: String, default: 'log', required: true },
-    payload: Schema.Types.Mixed,
-
-    target: { type: Schema.Types.ObjectId, refPath: 'model', autopopulate: true },
-    model: { type: String, enum: ['users', 'leagues', 'teams', 'referees', 'sponsors', 'players', 'matches', 'events'] },
+    eType: { type: String, enum: ['goal', 'redCard', 'yellowCard', 'MOTM'], required: true },
+    league: { type: Schema.Types.ObjectId, refPath: 'users' , required: true },
+    match: { type: Schema.Types.ObjectId, refPath: 'matches' , required: true },
+    team: { type: Schema.Types.ObjectId, refPath: 'teams' },
+    player: { type: Schema.Types.ObjectId, refPath: 'players' },
+    time: { type: Number, required: true, default: 0 }
   }, {
     modelName,
     strict: true,
