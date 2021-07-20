@@ -3,4 +3,4 @@ import Form from './Form'
 import Card from './Card'
 import withCommonEditScreen from 'lib/withCommonEditScreen'
 
-export default withCommonEditScreen(Card, Form, schema, options, 'league-teams')
+export default withCommonEditScreen(Card, Form, schema, options, 'leagueTeams')

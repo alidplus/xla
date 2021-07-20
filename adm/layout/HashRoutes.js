@@ -20,8 +20,8 @@ import eventRoutes from 'src/events/routes'
 import playerRoutes from 'src/players/routes'
 import refereeRoutes from 'src/referees/routes'
 import sponsorRoutes from 'src/sponsors/routes'
-import leaguePlayersRoutes from 'src/league-players/routes'
-import leagueTeamsRoutes from 'src/league-teams/routes'
+import leaguePlayersRoutes from 'src/leaguePlayers/routes'
+import leagueTeamsRoutes from 'src/leagueTeams/routes'
 import fsRoutes from 'src/fs/routes'
 
 const HModal = ({ children, match }) => {

@@ -36,7 +36,7 @@ const Form = ({ register, control, data }) => {
           <FsUploader
             label="Avatar"
             target={data?._id}
-            model="league-teams"
+            model="leagueTeams"
             pathname="avatar"
             count={1}
             accept="image/*"

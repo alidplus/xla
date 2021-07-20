@@ -1,7 +1,7 @@
 // Initializes the `league-participants` service on path `/league-participants`
-const { LeagueTeams } = require('./league-teams.class');
-const createModel = require('../../models/league-teams.model');
-const hooks = require('./league-teams.hooks');
+const { LeagueTeams } = require('./leagueTeams.class');
+const createModel = require('../../models/leagueTeams.model');
+const hooks = require('./leagueTeams.hooks');
 
 module.exports = function (app) {
   const options = {
@@ -10,10 +10,10 @@ module.exports = function (app) {
   };
 
   // Initialize our service with any options it requires
-  app.use('/league-teams', new LeagueTeams(options, app));
+  app.use('/leagueTeams', new LeagueTeams(options, app));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('league-teams');
+  const service = app.service('leagueTeams');
 
   service.hooks(hooks);
 };

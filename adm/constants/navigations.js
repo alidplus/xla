@@ -32,12 +32,12 @@ const navigations = [
   {
     label: 'League Teams',
     icon: TeamsIcon,
-    path: '/league-teams'
+    path: '/leagueTeams'
   },
   {
     label: 'League Players',
     icon: PlayersIcon,
-    path: '/league-players'
+    path: '/leaguePlayers'
   },
   {
     label: 'Matches',

@@ -7,9 +7,9 @@ import Remove from './screens/Remove'
 export default {
   Container,
   routes: [
-    { path: '/league-players/add/new', Screen: Add },
-    { path: '/league-players/edit/:id', Screen: Edit },
-    { path: '/league-players/view/:id', Screen: View },
-    { path: '/league-players/remove/:id', Screen: Remove },
+    { path: '/leaguePlayers/add/new', Screen: Add },
+    { path: '/leaguePlayers/edit/:id', Screen: Edit },
+    { path: '/leaguePlayers/view/:id', Screen: View },
+    { path: '/leaguePlayers/remove/:id', Screen: Remove },
   ]
 }

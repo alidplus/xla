@@ -23,7 +23,8 @@ module.exports = function (app) {
       yc: { type: Number, default: 0 }, // yellow card
     },
   }, {
-    timestamps: true
+    timestamps: true,
+    modelName,
   });
 
   // This is necessary to avoid model compilation errors in watch mode

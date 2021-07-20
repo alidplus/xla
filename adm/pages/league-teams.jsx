@@ -2,8 +2,8 @@ import React from 'react';
 
 import MainLayout from '../layout/MainLayout';
 import HeadDefault from '../layout/head/HeadDefault';
-import PaginatedListContainer from "../src/league-teams/containers/PaginatedList";
-import TableScreen from "../src/league-teams/screens/Table";
+import PaginatedListContainer from "../src/leagueTeams/containers/PaginatedList";
+import TableScreen from "../src/leagueTeams/screens/Table";
 
 class LeagueTeams extends React.Component {
   constructor(props) {

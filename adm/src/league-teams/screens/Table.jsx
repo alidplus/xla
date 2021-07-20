@@ -37,7 +37,7 @@ const tableMap = [
 const TopBar = function TopBar({force}) {
   const hash = useHash()
   const createdRoute = {
-    pathname: '/league-teams/add/new',
+    pathname: '/leagueTeams/add/new',
     state: { force }
   }
   return (
