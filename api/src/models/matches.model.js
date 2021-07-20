@@ -10,14 +10,27 @@ module.exports = function (app) {
     sid: {type: Number, unique: true},
 
     time: { type: Date, required: true },
-    results: Schema.Types.Mixed,
+    result: {
+      home: {
+        goal: { type:Number, default: 0 },
+        rc: { type:Number, default: 0 }, // red card
+        yc: { type:Number, default: 0 }, // yelllow card
+      },
+      away: {
+        goal: { type:Number, default: 0 },
+        rc: { type:Number, default: 0 },
+        yc: { type:Number, default: 0 },
+      }
+    },
+    timeUp: { type: Schema.Types.ObjectId, ref: 'events'},
 
     home: { type: Schema.Types.ObjectId, ref: 'teams', autopopulate: true },
-    homeCp: Schema.Types.Mixed,
+    // homeCp: Schema.Types.Mixed,
     away: { type: Schema.Types.ObjectId, ref: 'teams', autopopulate: true },
-    awayCp: Schema.Types.Mixed,
+    // awayCp: Schema.Types.Mixed,
     league: { type: Schema.Types.ObjectId, ref: 'leagues', autopopulate: true },
     referee: { type: Schema.Types.ObjectId, ref: 'referees', autopopulate: true },
+    MOTM: { type: Schema.Types.ObjectId, ref: 'players', autopopulate: true },
   }, {
     modelName,
     strict: true,

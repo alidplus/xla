@@ -6,28 +6,28 @@ import SingleLayout from '../layout/SingleLayout';
 import HeadDefault from '../layout/head/HeadDefault';
 
 import LoadUserContainer from "../src/users/containers/Load";
-import InlineUserScreen from "../src/users/screens/Inline";
+import InlineUserScreen from "../src/users/screens/Card";
 
 import LoadTeamContainer from "../src/teams/containers/Load";
-import InlineTeamScreen from "../src/teams/screens/Inline";
+import InlineTeamScreen from "../src/teams/screens/Card";
 
 import LoadLeagueContainer from "../src/leagues/containers/Load";
-import InlineLeagueScreen from "../src/leagues/screens/Inline";
+import InlineLeagueScreen from "../src/leagues/screens/Card";
 
 import LoadMatchContainer from "../src/matches/containers/Load";
-import InlineMatchScreen from "../src/matches/screens/Inline";
+import InlineMatchScreen from "../src/matches/screens/Card";
 
 import LoadPlayerContainer from "../src/players/containers/Load";
-import InlinePlayerScreen from "../src/players/screens/Inline";
+import InlinePlayerScreen from "../src/players/screens/Card";
 
 import LoadRefereeContainer from "../src/referees/containers/Load";
-import InlineRefereeScreen from "../src/referees/screens/Inline";
+import InlineRefereeScreen from "../src/referees/screens/Card";
 
 import LoadSponsorContainer from "../src/sponsors/containers/Load";
-import InlineSponsorScreen from "../src/sponsors/screens/Inline";
+import InlineSponsorScreen from "../src/sponsors/screens/Card";
 
 import LoadFsContainer from "../src/fs/containers/Load";
-import InlineFsScreen from "../src/fs/screens/Inline";
+import InlineFsScreen from "../src/fs/screens/Card";
 
 class Index extends React.Component {
   constructor(props) {

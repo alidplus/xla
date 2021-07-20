@@ -3,31 +3,25 @@
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
-  const modelName = 'leagueParticipants';
+  const modelName = 'leaguePlayers';
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
 
-  const player = new Schema({
-    name: { type: String, required: true },
-    no: { type: Number, required: true }
-  },
-  {
-    timestamps: false
-  })
 
   const schema = new Schema({
-    team: { type: Schema.Types.ObjectId, ref: 'teams', autopopulate: true },
-    league: { type: Schema.Types.ObjectId, ref: 'leagues', autopopulate: true },
-    form: {
-      gk: player,
-      ca: player,
-      p1: player,
-      p2: player,
-      p3: player,
-      s1: player,
-      s2: player,
-      s3: player
-    }
+    team: { type: Schema.Types.ObjectId, ref: 'teams' },
+    league: { type: Schema.Types.ObjectId, ref: 'leagues' },
+    leagueTeam: { type: Schema.Types.ObjectId, ref: 'leagueTeams' },
+    player: { type: Schema.Types.ObjectId, ref: 'players' },
+    name: { type: String, required: true },
+    no: { type: Number, required: true },
+    statistics: { 
+      played: { type: Number, default: 0 },
+      goal: { type: Number, default: 0 },
+      assist: { type: Number, default: 0 },
+      rc: { type: Number, default: 0 }, // red card
+      yc: { type: Number, default: 0 }, // yellow card
+    },
   }, {
     timestamps: true
   });
