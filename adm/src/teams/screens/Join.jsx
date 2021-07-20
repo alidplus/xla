@@ -2,7 +2,19 @@ import React, { useState, useMemo } from 'react'
 import withCommonViewScreen from "lib/withCommonViewScreen";
 import Actions from './Actions'
 import TeamInline from './Inline'
-import {Input, Row, Col, Card, CardImg, CardImgOverlay, ButtonGroup, Button} from 'atoms'
+import {
+  Input,
+  Row,
+  Col,
+  Card,
+  CardImg,
+  CardImgOverlay,
+  ButtonGroup,
+  Button,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
+} from 'atoms'
 import Pagination from "components/Pagination";
 import CustomSelectField from "components/form/CustomSelectField";
 import useLeagueOptionsProvider from "src/leagues/hooks/useOptionsProvider";
@@ -13,8 +25,10 @@ import LeagueCardScreen from "src/leagues/screens/Card";
 import usePlayersOptionsProvider from "src/players/hooks/useOptionsProvider";
 import classnames from "classnames";
 import { Random, Eraser } from "atoms/icons";
+import Id from "../../../components/Id";
+import ControlToolbar from "../../../components/ControlToolbar";
 
-const Join = ({ data }) => {
+const Join = ({ data, toggleFullBtn, closeBtn }) => {
   if (!data) return null
   const [league, setLeague] = useState(null)
   const playerQuery = useMemo(() => ({ team: data._id }), [data._id])
@@ -87,79 +101,92 @@ const Join = ({ data }) => {
 
   return (
     <div className="h-100 d-flex flex-column">
-      <div className="d-flex justify-content-between align-items-start">
-        <div>
-          <TeamInline data={data}/>
-          <hr/>
-          {league ? (
-            <LeagueLoadContainer id={league}>
-              <LeagueCardScreen/>
-            </LeagueLoadContainer>
-          ) : (
-            <CustomSelectField label="Owner" provider={useLeagueOptionsProvider} getValues={() => league} setValue={(n, v) => (setLeague(v))}/>
-          )}
+      <ModalHeader className="d-block p-0" tag="div">
+        <div className="d-flex justify-content-between align-items-center">
+          {toggleFullBtn}
+          <span>Join a league <Id type="event" data={data}/></span>
+          {closeBtn}
         </div>
-        <div className="px-2">
-          <Input placeholder="Search" className="mb-2" {...inpProps}/>
-          <div className="mb-2">
-            <Button className="btn-icon" onClick={handleShuffle}>
-              <Random fw/>
-            </Button>
-            <Button className="btn-icon" onClick={e => setTeamForm({})}>
-              <Eraser fw/>
-            </Button>
+      </ModalHeader>
+      <ModalBody className="p-0 flex-grow-1 -d-flex justify-content-center align-items-center">
+        <div className="h-100 d-flex flex-column">
+          <div className="d-flex justify-content-between align-items-start">
+            <div>
+              <TeamInline data={data}/>
+              <hr/>
+              {league ? (
+                <LeagueLoadContainer id={league}>
+                  <LeagueCardScreen/>
+                </LeagueLoadContainer>
+              ) : (
+                <CustomSelectField label="Owner" provider={useLeagueOptionsProvider} getValues={() => league} setValue={(n, v) => (setLeague(v))}/>
+              )}
+            </div>
+            <div className="px-2">
+              <Input placeholder="Search" className="mb-2" {...inpProps}/>
+              <div className="mb-2">
+                <Button className="btn-icon" onClick={handleShuffle}>
+                  <Random fw/>
+                </Button>
+                <Button className="btn-icon" onClick={e => setTeamForm({})}>
+                  <Eraser fw/>
+                </Button>
+              </div>
+              {players.map(plyr => {
+                return (
+                  <div
+                    key={plyr.value}
+                    className={classnames(
+                      "player-box p-2 mb-2 cursor-pointer",
+                      { 'border-info text-info': selectedPlayerId === plyr._id },
+                      { 'border-success text-success cursor-ban': teamFormPlayers.includes(plyr._id) }
+                    )}
+                    onClick={e => { handlePlayerClick(plyr._id) }}
+                  >
+                    {plyr.label}
+                  </div>
+                )
+              })}
+              <Pagination {...paginateProps} />
+            </div>
+            <div className="-flex-grow-1">
+              {positionBox('S1', 'w-100 mb-2')}
+              {positionBox('S2', 'w-100 mb-2')}
+              {positionBox('S3', 'w-100 mb-2')}
+              {positionBox('S4', 'w-100 mb-2')}
+              {positionBox('S5', 'w-100 mb-2')}
+            </div>
+            <div className="-flex-grow-1">
+              <Card className="bg-football-field h-100">
+                <CardImg src="/field.svg" className="card-img h-100"/>
+                <CardImgOverlay className="h-100 d-flex flex-column justify-content-between align-items-center">
+                  <div className="d-flex justify-content-evenly align-items-center w-100 mt-5">
+                    {positionBox('FL', '')}
+                    {positionBox('FR', '')}
+                  </div>
+                  <div className="d-flex justify-content-evenly align-items-center w-100">
+                    {positionBox('ML', '')}
+                    {positionBox('MR', '')}
+                  </div>
+                  <div className="d-flex justify-content-evenly align-items-center w-100">
+                    {positionBox('GK', '')}
+                  </div>
+                </CardImgOverlay>
+              </Card>
+            </div>
           </div>
-          {players.map(plyr => {
-            return (
-              <div
-                key={plyr.value}
-                className={classnames(
-                  "player-box p-2 mb-2 cursor-pointer",
-                  { 'border-info text-info': selectedPlayerId === plyr._id },
-                  { 'border-success text-success cursor-ban': teamFormPlayers.includes(plyr._id) }
-                )}
-                onClick={e => { handlePlayerClick(plyr._id) }}
-              >
-                {plyr.label}
-              </div>
-            )
-          })}
-          <Pagination {...paginateProps} />
         </div>
-        <div className="-flex-grow-1">
-          {positionBox('S1', 'w-100 mb-2')}
-          {positionBox('S2', 'w-100 mb-2')}
-          {positionBox('S3', 'w-100 mb-2')}
-          {positionBox('S4', 'w-100 mb-2')}
-          {positionBox('S5', 'w-100 mb-2')}
-        </div>
-        <div className="-flex-grow-1">
-          <Card className="bg-football-field h-100">
-            <CardImg src="/field.svg" className="card-img h-100"/>
-            <CardImgOverlay className="h-100 d-flex flex-column justify-content-between align-items-center">
-              <div className="d-flex justify-content-evenly align-items-center w-100 mt-5">
-                {positionBox('FL', '')}
-                {positionBox('FR', '')}
-              </div>
-              <div className="d-flex justify-content-evenly align-items-center w-100">
-                {positionBox('ML', '')}
-                {positionBox('MR', '')}
-              </div>
-              <div className="d-flex justify-content-evenly align-items-center w-100">
-                {positionBox('GK', '')}
-              </div>
-            </CardImgOverlay>
-          </Card>
-        </div>
-      </div>
-      <Button
-        color="primary"
-        className="w-75 mx-auto mt-auto"
-        disabled={!league || teamFormPlayers.length < 5}
-        onClick={handleSubmit}
-      >
-        Submit
-      </Button>
+      </ModalBody>
+      <ModalFooter className="p-0">
+        <Button
+          color="primary"
+          className="w-75 mx-auto mt-auto"
+          disabled={!league || teamFormPlayers.length < 5}
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+      </ModalFooter>
     </div>
   )
 }
