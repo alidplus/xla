@@ -20,6 +20,8 @@ import eventRoutes from 'src/events/routes'
 import playerRoutes from 'src/players/routes'
 import refereeRoutes from 'src/referees/routes'
 import sponsorRoutes from 'src/sponsors/routes'
+import leaguePlayersRoutes from 'src/league-players/routes'
+import leagueTeamsRoutes from 'src/league-teams/routes'
 import fsRoutes from 'src/fs/routes'
 
 const HModal = ({ children, match }) => {
@@ -75,7 +77,9 @@ const hashRoutes = [
   playerRoutes,
   refereeRoutes,
   sponsorRoutes,
-  fsRoutes
+  fsRoutes,
+  leaguePlayersRoutes,
+  leagueTeamsRoutes
 ]
 
 const HashRoutes = function HashRoutes({ children, routes }) {

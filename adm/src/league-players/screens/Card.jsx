@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Card } from 'atoms'
+import { Card, Row, Col, CardBody} from 'atoms'
+import { At, User, Mobile } from 'atoms/icons'
 import Fsloader from 'src/fs/containers/Load'
 import Avatar from "../../fs/screens/Avatar";
 

@@ -1,4 +1,4 @@
-import { schema, options } from '@xla/schemas/src/referee'
+import { schema, options } from '@xla/schemas/src/leagueTeam'
 import Form from './Form'
 import Card from './Card'
 import withCommonAddScreen from 'lib/withCommonAddScreen'

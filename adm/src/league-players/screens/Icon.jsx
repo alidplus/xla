@@ -1,2 +1,2 @@
-import {BalanceScale} from 'atoms/icons'
-export default BalanceScale
+import {User} from 'atoms/icons'
+export default User

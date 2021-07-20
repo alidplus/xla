@@ -2,8 +2,8 @@ import React from 'react';
 
 import MainLayout from '../layout/MainLayout';
 import HeadDefault from '../layout/head/HeadDefault';
-import PaginatedListContainer from "../src/leagues/containers/PaginatedList";
-import TableScreen from "../src/leagues/screens/Table";
+import PaginatedListContainer from "../src/league-teams/containers/PaginatedList";
+import TableScreen from "../src/league-teams/screens/Table";
 
 class LeagueTeams extends React.Component {
   constructor(props) {
@@ -20,10 +20,9 @@ class LeagueTeams extends React.Component {
           description="NextJS with Reactstrap components with SCSS library, a NextJS dashboard template."
         />
         <MainLayout dispatch={dispatch} storeLayout={storeLayout}>
-          {/*<PaginatedListContainer>
+          <PaginatedListContainer>
             <TableScreen/>
-          </PaginatedListContainer>*/}
-          <div>LeagueTeams</div>
+          </PaginatedListContainer>
         </MainLayout>
       </>
     );

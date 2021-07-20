@@ -1,6 +1,6 @@
 import React from 'react'
-import { refereesDuck as duck } from 'store/services'
+import { leaguePlayersDuck as duck } from 'store/services'
 import withCommonPaginateContainer from 'lib/withCommonPaginateContainer'
 import { queryBuilder } from '../hooks/useOptionsProvider'
 
-export default withCommonPaginateContainer(duck, queryBuilder, 'all-referees-table')
+export default withCommonPaginateContainer(duck, queryBuilder, 'all-leaguePlayers-table')

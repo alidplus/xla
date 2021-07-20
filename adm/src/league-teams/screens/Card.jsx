@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Card, Table } from 'atoms'
+import { Card, Table, Row, Col } from 'atoms'
 import Fsloader from 'src/fs/containers/Load'
+import Userloader from 'src/users/containers/Load'
+import InlineUser from 'src/users/screens/Inline'
 import Avatar from "../../fs/screens/Avatar";
 
 const LeagueTeams = ({ data }) => {

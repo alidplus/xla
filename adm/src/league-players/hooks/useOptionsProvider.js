@@ -13,6 +13,6 @@ export const queryBuilder = (keyword = '') => {
   }
 }
 
-export default optionsProvider.bind({}, 'referees', queryBuilder, Inline)
+export default optionsProvider.bind({}, 'leaguePlayers', queryBuilder, Inline)
 
 // returns { options, searchProps, paginateProps, selected }
