@@ -35,7 +35,7 @@ const navigations = [
     path: '/league-teams'
   },
   {
-    label: 'League Player',
+    label: 'League Players',
     icon: PlayersIcon,
     path: '/league-players'
   },
