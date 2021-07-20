@@ -10,8 +10,8 @@ import extendedUserDuck from './users.extends'
 // import extendedEventsDuck from './events.extends.js'
 // import extendedRefereesDuck from './referees.extends.js'
 // import extendedSponsorsDuck from './sponsors.extends.js'
-// import extendedLeaguePlayersDuck from './league-players.extends.js'
-// import extendedLeagueTeamsDuck from './league-teams.extends.js'
+// import extendedLeaguePlayersDuck from './leaguePlayers.extends.js'
+// import extendedLeagueTeamsDuck from './leagueTeams.extends.js'
 import extendedFsDuck from './fs.extends.js'
 import extendedCommonDuck from './common.extends.js'
 
@@ -54,12 +54,12 @@ const fs = (new Duck(emptyDuck('fs')))
   .extend(featherDuckGenerator.bind({}, 'fs'))
 ducks.fs = fs
 
-const leagueTeams = (new Duck(emptyDuck('league-teams')))
-  .extend(featherDuckGenerator.bind({}, 'league-teams'))
+const leagueTeams = (new Duck(emptyDuck('leagueTeams')))
+  .extend(featherDuckGenerator.bind({}, 'leagueTeams'))
 ducks.leagueTeams = leagueTeams
 
-const leaguePlayers = (new Duck(emptyDuck('league-players')))
-  .extend(featherDuckGenerator.bind({}, 'league-players'))
+const leaguePlayers = (new Duck(emptyDuck('leaguePlayers')))
+  .extend(featherDuckGenerator.bind({}, 'leaguePlayers'))
 ducks.leaguePlayers = leaguePlayers
 
 
@@ -71,8 +71,8 @@ ducks.users =     users.extend(extendedUserDuck(ducks, 'users'))
 // ducks.events =    events.extend(extendedEventsDuck(ducks, 'events'))
 // ducks.referees =  referees.extend(extendedRefereesDuck(ducks, 'referees'))
 // ducks.sponsors =  sponsors.extend(extendedSponsorsDuck(ducks, 'sponsors'))
-// ducks.leagueTeams =  leagueTeams.extend(extendedLeagueTeamsDuck(ducks, 'league-teams'))
-// ducks.leaguePlayers =  leaguePlayers.extend(extendedLeaguePlayersDuck(ducks, 'league-players'))
+// ducks.leagueTeams =  leagueTeams.extend(extendedLeagueTeamsDuck(ducks, 'leagueTeams'))
+// ducks.leaguePlayers =  leaguePlayers.extend(extendedLeaguePlayersDuck(ducks, 'leaguePlayers'))
 ducks.fs =        fs.extend(extendedFsDuck(ducks, 'fs'))
 
 
@@ -85,8 +85,8 @@ ducks.events =    ducks.events.extend(extendedCommonDuck(ducks, 'events'))
 ducks.referees =  ducks.referees.extend(extendedCommonDuck(ducks, 'referees'))
 ducks.sponsors =  ducks.sponsors.extend(extendedCommonDuck(ducks, 'sponsors'))
 ducks.fs =        ducks.fs.extend(extendedCommonDuck(ducks, 'fs'))
-ducks.leagueTeams = ducks.leagueTeams.extend(extendedCommonDuck(ducks, 'league-teams'))
-ducks.leaguePlayers = ducks.leaguePlayers.extend(extendedCommonDuck(ducks, 'league-players'))
+ducks.leagueTeams = ducks.leagueTeams.extend(extendedCommonDuck(ducks, 'leagueTeams'))
+ducks.leaguePlayers = ducks.leaguePlayers.extend(extendedCommonDuck(ducks, 'leaguePlayers'))
 
 export const usersDuck = ducks.users
 export const teamsDuck = ducks.teams

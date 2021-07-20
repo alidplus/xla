@@ -2,10 +2,10 @@ import React from 'react';
 
 import MainLayout from '../layout/MainLayout';
 import HeadDefault from '../layout/head/HeadDefault';
-import PaginatedListContainer from "../src/league-teams/containers/PaginatedList";
-import TableScreen from "../src/league-teams/screens/Table";
+import PaginatedListContainer from "../src/leaguePlayers/containers/PaginatedList";
+import TableScreen from "../src/leaguePlayers/screens/Table";
 
-class LeagueTeams extends React.Component {
+class LeaguePlayers extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isScrolled: false };
@@ -29,4 +29,4 @@ class LeagueTeams extends React.Component {
   }
 }
 
-export default LeagueTeams
+export default LeaguePlayers

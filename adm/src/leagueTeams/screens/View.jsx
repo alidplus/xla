@@ -3,4 +3,4 @@ import Card from './Card'
 import withCommonViewScreen from 'lib/withCommonViewScreen'
 import Actions from './Actions'
 
-export default withCommonViewScreen(Card, 'league-teams')
+export default withCommonViewScreen(Card, 'leagueTeams')

@@ -37,14 +37,14 @@ const tableMap = [
 const TopBar = function TopBar({force}) {
   const hash = useHash()
   const createdRoute = {
-    pathname: '/league-players/add/new',
+    pathname: '/leagueTeams/add/new',
     state: { force }
   }
   return (
     <div className="mb-2 d-flex align-items-center">
       <Icon size="2"/>
-      <h4 className="ms-2 me-auto mb-0">LeaguePlayers</h4>
-      <Button size="sm" onClick={e => hash.push(createdRoute)}><Plus/> Add LeaguePlayers</Button>
+      <h4 className="ms-2 me-auto mb-0">LeagueTeams</h4>
+      <Button size="sm" onClick={e => hash.push(createdRoute)}><Plus/> Add LeagueTeams</Button>
     </div>
   )
 }
