@@ -28,9 +28,10 @@ const HModal = ({ children, match }) => {
   const [full, setFull] = useState(true)
   function dismiss() { setShow(false) }
   function destroy () {
-    history.entries = [];
-    history.index = -1;
-    history.push('/')
+    // history.entries = [];
+    // history.index = -1;
+    // history.push('/')
+    history.goBack()
   }
   function toggleFullScreen () { setFull(prevState => !prevState) }
   const closeBtn = <Button color="" className="btn-close m-0" onClick={dismiss}/>

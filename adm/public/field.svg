@@ -3,7 +3,7 @@ viewBox="0 0 290 410" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
   <style type="text/css">
    <![CDATA[
-    .drawing {stroke:#ffffff;stroke-width:2;stroke-miterlimit:2,fill:none}
+    .drawing {stroke:#ffffff;stroke-width:2;stroke-miterlimit:2;fill:none}
    ]]>
   </style>
  </defs>

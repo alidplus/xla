@@ -20,19 +20,29 @@ const navigations = [
     path: '/teams'
   },
   {
+    label: 'Players',
+    icon: PlayersIcon,
+    path: '/players'
+  },
+  {
     label: 'Leagues',
     icon: LeaguesIcon,
     path: '/leagues'
   },
   {
+    label: 'League Teams',
+    icon: TeamsIcon,
+    path: '/league-teams'
+  },
+  {
+    label: 'League Player',
+    icon: PlayersIcon,
+    path: '/league-players'
+  },
+  {
     label: 'Matches',
     icon: MatchesIcon,
     path: '/matches'
-  },
-  {
-    label: 'Players',
-    icon: PlayersIcon,
-    path: '/players'
   },
   {
     label: 'Events',

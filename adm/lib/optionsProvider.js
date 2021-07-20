@@ -6,7 +6,7 @@ import ducks from "store/services";
 
 export const simpleQuery = kwd => ({ _id: kwd })
 
-export default function optionsProvider(serviceName, queryBuilder = simpleQuery, inline = Id, id = null) {
+export default function optionsProvider(serviceName, queryBuilder = simpleQuery, inline = Id, id = null, hardQuery = {}) {
   const uid = `${serviceName}-hook-adapter`
   const page = useSelector(state => ducks[serviceName].selectors.find(state, { uid }));
   const single = useSelector(state => ducks[serviceName].selectors.get(state, { id }));
@@ -18,7 +18,8 @@ export default function optionsProvider(serviceName, queryBuilder = simpleQuery,
 
   useEffect(() => {
     const { keyword, skip: $skip = 0, limit: $limit = 10 } = filters
-    const query = { /*...queryBuilder(keyword)*/ "$search": keyword, $skip, $limit }
+    console.log('apply keyword on option provider', keyword)
+    const query = { ...hardQuery, "$search": keyword, $skip, $limit }
     find(uid, query)
   }, [filters])
 

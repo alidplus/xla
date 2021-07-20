@@ -24,9 +24,9 @@ const CommonListContainer = function CommonListContainer
   }
 
   useEffect(() => {
-    const { keyword, skip: $skip = 0, limit: $limit = -1 } = router.query
+    const { keyword } = router.query
     // const searchQuery = queryBuilder(keyword)
-    const query = { $and: [propsQuery], "$search": keyword, $skip, $limit }
+    const query = { $and: [propsQuery], "$search": keyword, $skip: 0, $limit: -1 }
     list(uid, query)
   }, [router.query])
 

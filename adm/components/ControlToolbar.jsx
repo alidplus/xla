@@ -8,13 +8,13 @@ const ControlToolbar = function ControlToolbar({ children, data = null, classNam
   const { hideAdd = false, hideEdit = false, hideView = false, hideRemove = false } = configs
   const [isOpen, setOpen] = useState(false);
   const toggle = () => setOpen(!isOpen);
-  if (!data) return null
   const hash = useHash()
-  const model = (data.__model || '').replace('__', '')
+  const model = (data?.__model || '').replace('__', '')
   const r2new = `/${model}/add/new`
-  const r2edit = `/${model}/edit/${data._id}`
-  const r2view = `/${model}/view/${data._id}`
-  const r2remove = `/${model}/remove/${data._id}`
+  const r2edit = `/${model}/edit/${data?._id}`
+  const r2view = `/${model}/view/${data?._id}`
+  const r2remove = `/${model}/remove/${data?._id}`
+  if (!data) return null
   return (
     <ButtonGroup className={classnames('', className)}>
       {!children ? null : <ButtonGroup>
