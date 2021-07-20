@@ -7,8 +7,8 @@ const referees = require('./referees/referees.service.js');
 const sponsors = require('./sponsors/sponsors.service.js');
 const events = require('./events/events.service.js');
 const fs = require('./fs/fs.service.js');
-const leagueTeams = require('./league-teams/league-teams.service.js');
-const leaguePlayers = require('./league-players/league-players.service.js');
+const leagueTeams = require('./leagueTeams/leagueTeams.service.js');
+const leaguePlayers = require('./leaguePlayers/leaguePlayers.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
