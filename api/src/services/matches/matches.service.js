@@ -19,6 +19,7 @@ module.exports = function (app) {
 
   service.hooks(hooks);
   
-  app.service("events").on("created", calcRes());
+  app.service("events").on("created", calcRes(app, {diff: 1}));
+  app.service("events").on("removed", calcRes(app, {diff: -1}));
 
 };

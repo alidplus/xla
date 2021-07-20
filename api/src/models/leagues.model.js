@@ -10,13 +10,12 @@ module.exports = function (app) {
     sid: {type: Number, unique: true},
 
     title: { type: String, required: true },
-    text: { type: String },
+    description: { type: String },
     teams: { type: Number, default: 0 },
     homeAway: { type: Boolean, default: false },
-    results: Schema.Types.Mixed,
+    finalResults: { type: Schema.Types.Mixed },
 
     sponsor: { type: Schema.Types.ObjectId, ref: 'sponsors', autopopulate: true  },
-    participants: [{ type: Schema.Types.ObjectId, ref: 'teams', autopopulate: true  }]
   }, {
     modelName,
     strict: true,

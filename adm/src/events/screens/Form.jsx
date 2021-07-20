@@ -10,8 +10,8 @@ import usePlayerOptionsProvider from "src/players/hooks/useOptionsProvider";
 const eTypes = [
   { _id: 'goal', label: 'گل' },
   { _id: 'yellowCard', label: 'کارت زرد' },
-  { _id: 'redCard', label: 'کارت قرمز' },
-  { _id: 'MOTM', label: 'بهترین بازیکن مسابقه' }
+  { _id: 'redCard', label: 'کارت قرمز' }
+  // { _id: 'MOTM', label: 'بهترین بازیکن مسابقه' }
 ]
 
 const Form = ({ register, control, data, getValues }) => {
@@ -22,7 +22,7 @@ const Form = ({ register, control, data, getValues }) => {
       <CustomSelectField label="Match" {...register("match")} provider={useMatchOptionsProvider}/>
       <TextField label="Time" type="number" min="0" max="120s" {...register("time")} />
       <CustomSelectField label="Type" {...register("eType")} provider={arrayProvider(eTypes)}/>
-      <CustomSelectField label="Team" {...register("team")} provider={useTeamOptionsProvider}/>
+      <TextField label="Team" {...register("team")} />
       <CustomSelectField label="Player" {...register("player")} provider={usePlayerOptionsProvider}/>
       {/*<DevTool control={control} />*/}
     </>
