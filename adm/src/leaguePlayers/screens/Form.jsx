@@ -20,7 +20,6 @@ const Form = ({ register, control, data }) => {
      <CustomSelectField label="League" {...register("league")} provider={useLeagueOptionsProvider}/>
      <CustomSelectField label="Player" {...register("player")} provider={usePlayerOptionsProvider}/>
      <CustomSelectField label="LeagueTeam" {...register("leagueTeam")} provider={useLeagueTeamOptionsProvider}/>
-
     </>
   )
 }

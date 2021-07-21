@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react'
 import withCommonViewScreen from "lib/withCommonViewScreen";
 import Actions from './Actions'
 import TeamInline from './Inline'
+import client from 'store/api/feathersClient'
 import {
   Input,
   Row,
@@ -35,7 +36,7 @@ const Join = ({ data, toggleFullBtn, closeBtn }) => {
   const [selectedPlayerId, setSelectedPlayerId] = useState(null)
   const [selectedPosition, setSelectedPosition] = useState(null)
   const [teamForm, setTeamForm] = useState({})
-  const { options: players, inpProps, paginateProps, selected: selectedPlayer } = usePlayersOptionsProvider(selectedPlayerId, playerQuery)
+  const { options: players, searchProps, paginateProps, selected: selectedPlayer } = usePlayersOptionsProvider(playerQuery, selectedPlayerId)
 
   const teamFormPlayers = useMemo(() => Object.values(teamForm), [teamForm])
 
@@ -95,8 +96,15 @@ const Join = ({ data, toggleFullBtn, closeBtn }) => {
     )
   }
 
-  function handleSubmit() {
-    alert('submit')
+  async function handleSubmit() {
+    await client.service('team/actions').create({
+      action: 'joinLeague',
+      payload: {
+        team: data._id,
+        league,
+        teamForm
+      }
+    })
   }
 
   return (
@@ -123,7 +131,7 @@ const Join = ({ data, toggleFullBtn, closeBtn }) => {
               )}
             </div>
             <div className="px-2">
-              <Input placeholder="Search" className="mb-2" {...inpProps}/>
+              <Input placeholder="Search" className="mb-2" {...searchProps}/>
               <div className="mb-2">
                 <Button className="btn-icon" onClick={handleShuffle}>
                   <Random fw/>

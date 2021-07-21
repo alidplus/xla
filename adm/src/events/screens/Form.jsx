@@ -16,10 +16,12 @@ const eTypes = [
 
 const Form = ({ register, control, data, getValues }) => {
   const model = getValues('model')
+  const league = getValues('league')
+  const matchQuery = useMemo(() => ({ league }), [])
   return (
     <>
       <CustomSelectField label="League" {...register("league")} provider={useLeagueOptionsProvider}/>
-      <CustomSelectField label="Match" {...register("match")} provider={useMatchOptionsProvider}/>
+      <CustomSelectField label="Match" {...register("match")} provider={useMatchOptionsProvider.bind({}, matchQuery)}/>
       <TextField label="Time" type="number" min="0" max="120s" {...register("time")} />
       <CustomSelectField label="Type" {...register("eType")} provider={arrayProvider(eTypes)}/>
       <TextField label="Team" {...register("team")} />

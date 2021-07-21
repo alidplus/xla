@@ -4,6 +4,7 @@ const compress = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
 const logger = require('./logger');
+const extend = require('lodash/extend')
 
 const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
@@ -20,8 +21,13 @@ const authentication = require('./authentication');
 
 const mongoose = require('./mongoose');
 
+
 const app = express(feathers());
 
+app.use(function(req, res, next) {
+  extend(req.feathers, req.params);
+  next();
+})
 // Load app configuration
 app.configure(configuration());
 // Enable security, CORS, compression, favicon and body parsing
@@ -40,8 +46,6 @@ app.use('/fs', express.static(app.get('fsDir')));
 // Set up Plugins and providers
 app.configure(express.rest());
 app.configure(socketio());
-
-app.configure(mongoose);
 
 app.configure(mongoose);
 

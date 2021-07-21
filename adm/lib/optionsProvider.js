@@ -1,12 +1,15 @@
 import React, {useEffect, useMemo, useState} from "react";
-import omit from "lodash/omit";
+import pick from "lodash/pick";
 import { useDispatch, useSelector } from "react-redux";
 import Id from 'components/Id'
 import ducks from "store/services";
+import debounce from "lodash/debounce";
+
+const _hardQuery = {}
 
 export const simpleQuery = kwd => ({ _id: kwd })
 
-export default function optionsProvider(serviceName, queryBuilder = simpleQuery, inline = Id, id = null, hardQuery = {}) {
+export default function optionsProvider(serviceName, queryBuilder = simpleQuery, inline = Id, hardQuery = _hardQuery, id = null) {
   const uid = `${serviceName}-hook-adapter`
   const page = useSelector(state => ducks[serviceName].selectors.find(state, { uid }));
   const single = useSelector(state => ducks[serviceName].selectors.get(state, { id }));
@@ -18,8 +21,8 @@ export default function optionsProvider(serviceName, queryBuilder = simpleQuery,
 
   useEffect(() => {
     const { keyword, skip: $skip = 0, limit: $limit = 10 } = filters
-    console.log('apply keyword on option provider', keyword)
-    const query = { ...hardQuery, "$search": keyword, $skip, $limit }
+    const query = { ...hardQuery, $skip, $limit }
+    if (keyword) query.$search = keyword
     find(uid, query)
   }, [filters])
 
@@ -33,12 +36,17 @@ export default function optionsProvider(serviceName, queryBuilder = simpleQuery,
 
     const searchProps = {
       defaultValue: filters.keyword,
-      onChange: (e) => setFilters(prevState => ({...prevState, keyword: e.target.value}))
+      onChange: debounce((e) => {
+        console.log('apply keyword on option provider 0', e.target.value)
+        setFilters(prevState => ({...prevState, keyword: e.target.value}))
+      }, 500)
     }
 
     const paginateProps = {
-      ...omit(page, ['data']),
-      onChange: (paginate) => setFilters(prevState => ({ ...prevState, ...paginate }))
+      ...pick(page, ['skip', 'total', 'limit']),
+      onChange: (skip) => {
+        setFilters(prevState => ({ ...prevState, skip }))
+      }
     }
 
     const options = page.data.map(d => ({_id: d._id, label: <Inline type={serviceName} data={d}/> }))
@@ -61,7 +69,10 @@ export const arrayProvider = (allOptions) => (id = null) => {
     }
 
     const paginateProps = {
-      className: "d-none"
+      className: "d-none",
+      total: 0,
+      skip: 0,
+      limit: 0
     }
 
     const options = allOptions.filter(opt => !keyword || opt.label.includes(keyword))//.slice(skip, skip + limit)

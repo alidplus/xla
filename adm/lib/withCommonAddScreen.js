@@ -25,8 +25,6 @@ const withCommonAddScreen = function withCommonAddScreen (Card, Form, schema, sc
       resolver: joiResolver(schema, schemaOptions)
     });
 
-    console.log(">>>>>>>>>>", schema);
-
     useEffect(() => {
       reset(defaultValues)
     }, [defaultValues])

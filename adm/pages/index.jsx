@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import authDuck from '../store/auth'
-import SingleLayout from '../layout/SingleLayout';
-import HomeScreen from '../src/home/Container';
+import MainLayout from '../layout/MainLayout';
 import HeadDefault from '../layout/head/HeadDefault';
-import {NavbarBrand} from "../atoms";
+import LogoutBtn from "../src/auth/containers/Logout";
+import {Hash} from "../layout/HashRoutes";
+import {Container} from "../atoms";
 
 class Index extends React.Component {
   constructor(props) {
@@ -27,9 +27,13 @@ class Index extends React.Component {
           title="Home | Next.JS with Reactstrap (React dashboard web application)"
           description="NextJS with Reactstrap components with SCSS library, a NextJS dashboard template."
         />
-        <SingleLayout dispatch={dispatch} storeLayout={storeLayout}>
-          <img src="/logo.png" alt="Logo" className="w-50" />
-        </SingleLayout>
+        <MainLayout dispatch={dispatch} storeLayout={storeLayout}>
+          <Container fluid className="d-flex flex-column justify-content-center align-items-center h-100">
+            <img src="/logo.png" alt="Logo" className="w-50 mb-5" />
+            <hr className="w-50"/>
+            <Hash to="/login">Login</Hash>
+          </Container>
+        </MainLayout>
       </>
     );
   }

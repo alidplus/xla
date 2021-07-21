@@ -5,6 +5,7 @@ import {
   Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
   Button, Badge
 } from 'atoms';
+import Pagination from "../Pagination";
 import {Trash, Times} from 'atoms/icons'
 import { ErrorMessage } from '@hookform/error-message';
 import { nullProvider } from 'lib/optionsProvider'
@@ -19,7 +20,7 @@ const CustomSelectField = React.forwardRef(({label, icon: Icon, errors = {}, con
     setValue(name, id, { shouldValidate: true, shouldDirty: true, shouldTouch: true })
   }
 
-  const { options, inpProps, paginateProps, selected } = useProvider(getValues(name))
+  const { options, searchProps, paginateProps, selected } = useProvider(null, getValues(name))
   return (
     <FormGroup>
       <Label>{label}:</Label>
@@ -32,13 +33,14 @@ const CustomSelectField = React.forwardRef(({label, icon: Icon, errors = {}, con
               <Badge className="bg-success text-dark flex-grow-1">{selected.label}</Badge>
               <Badge className="bg-success text-dark"><Times/></Badge>
             </div>}
-            <Input placeholder="type to search" {...inpProps} onFocus={e => setSearchFocus(true)} onBlur={e => setSearchFocus(false)}/>
+            <Input placeholder="type to search" {...searchProps} onFocus={e => setSearchFocus(true)} onBlur={e => setSearchFocus(false)}/>
           </InputGroup>
         </DropdownToggle>
         <DropdownMenu className="shadow w-100">
           {options.map(opt => (
             <DropdownItem key={opt._id} onClick={setFieldValue.bind({}, opt._id)}>{opt.label}</DropdownItem>
           ))}
+          {paginateProps && <Pagination {...paginateProps} listClassName="mb-0 mx-2"/>}
         </DropdownMenu>
       </Dropdown>
       <ErrorMessage errors={errors} name={name} />

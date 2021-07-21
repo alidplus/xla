@@ -12,7 +12,6 @@ function NavLeft(props) {
   const { route: activeLink } = router
   return (
     <>
-      <h4 className="headline">Menu</h4>
       <div className="wrapper-list-group">
         <ListGroup flush className="list-group-nav-left" tag="div">
           {navigations.map((item, k) => {

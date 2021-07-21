@@ -17,11 +17,3 @@ function SingleLayout(props) {
     </Container>
   );
 }
-
-const mapStateToProps = (state) => ({
-  authUser: authDuck.selectors.authUser(state)
-});
-const mapActionsToProps = {
-  logout: authDuck.creators.logout
-}
-export default connect(mapStateToProps, mapActionsToProps)(SingleLayout)
