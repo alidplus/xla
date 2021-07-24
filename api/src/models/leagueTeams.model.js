@@ -11,7 +11,7 @@ module.exports = function (app) {
   const schema = new Schema({
     team: { type: Schema.Types.ObjectId, ref: 'teams', autopopulate: true, required: true },
     league: { type: Schema.Types.ObjectId, ref: 'leagues', autopopulate: true, required: true },
-    statistics: { 
+    statistics: {
       played: { type: Number, default: 0 },
       points: { type: Number, default: 0 },
       win: { type: Number, default: 0 },
@@ -25,6 +25,7 @@ module.exports = function (app) {
     },
   }, {
     timestamps: true,
+    strict: true,
     modelName,
   });
 
