@@ -31,7 +31,7 @@ class Index extends React.Component {
           <Container fluid className="d-flex flex-column justify-content-center align-items-center h-100">
             <img src="/logo.png" alt="Logo" className="w-50 mb-5" />
             <hr className="w-50"/>
-            <Hash to="/login">Login</Hash>
+            <Hash to="/login">Login 0</Hash>
           </Container>
         </MainLayout>
       </>
