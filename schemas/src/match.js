@@ -7,7 +7,7 @@ module.exports = {}
 
 const attrs = module.exports.attrs = {
 
-  time: futureDate.required(),
+  startTime: futureDate.required(),
   results: Joi.object(),
 
   home: ID,
