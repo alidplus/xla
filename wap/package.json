@@ -6,8 +6,6 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "bootstrap": "^5.0.2",
-    "bootswatch": "^5.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-drawer": "^1.3.4",
@@ -17,7 +15,12 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "node-sass": "node-sass src/assets/scss/main.scss src/assets/main.css",
+    "less-rtl": "rtlcss src/assets/main.css src/assets/main.rtl.css",
+    "css-watch": "nodemon --quiet --watch src/assets/scss/main.scss -x \\\"npm run prestart\\\"",
+    "prestart": "npm run node-sass && npm run less-rtl",
+    "prebuild": "npm run node-sass && npm run less-rtl",
+    "start": "concurrently --kill-others \"npm run css-watch\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -39,5 +42,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "bootstrap-extra-utilities": "^4.0.12",
+    "concurrently": "^6.2.0",
+    "node-sass": "4.14",
+    "nodemon": "^2.0.12",
+    "rtlcss": "^3.3.0",
+    "bootstrap": "^5.0.2",
+    "bootswatch": "^5.0.2"
   }
 }

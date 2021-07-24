@@ -1,6 +1,5 @@
-import logo from './logo.svg';
+import React from 'react';
 import Router from './router'
-// import './App.css';
 
 function App() {
   return (

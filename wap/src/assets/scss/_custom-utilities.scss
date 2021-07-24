@@ -1,0 +1,15 @@
+$utilities: map-merge(
+                $utilities,
+                (
+                        "flex-grow": (
+                                responsive: true,
+                                property: flex-grow,
+                                class: flex,
+                                values: (
+                                        grow-0: 0,
+                                        grow-1: 1,
+                                        grow-2: 2,
+                                )
+                        ),
+                )
+);

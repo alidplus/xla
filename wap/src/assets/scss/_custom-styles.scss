@@ -1,0 +1,47 @@
+
+.vertical-align-middle {
+  vertical-align: middle;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.cursor-ban {
+  cursor: not-allowed !important;
+}
+.tether-element {
+  z-index: 1050;
+}
+input.border-0 {
+  outline: none !important;
+}
+.fixed-loading {
+  background-color: #000000c7;
+}
+.bg-football-field {
+  background-color: #5cb85c;
+}
+.position-box {
+  border: 3px dashed #00000044;
+  background-color: #00000022;
+  width: 40%;
+  height: 60px;
+  color: #fff;
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+  span.position-box-label {
+    color: #fff6;
+    font-size: 60px;
+    line-height: 52px;
+    font-weight: 900;
+  }
+}
+.player-box {
+  border: 3px dashed #ffffff44;
+  background-color: #ffffff22;
+  height: 60px;
+  font-size: 40px;
+  color: #fff6;
+  overflow: hidden;
+  line-height: 32px;
+}

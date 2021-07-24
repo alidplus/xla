@@ -5,15 +5,18 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Home from './Home'
+import Home2 from './Home2'
+import Home3 from './Home3'
 import MainLayout from '../layouts/MainLayout'
 // import { connect } from "react-redux"
 const LayoutTag = ({ children }) => <div>{children}</div>
 const Spinner = () => <div>loading...</div>
 
 
-const Home = lazy(() => import('./Home'))
-const Home2 = lazy(() => import('./Home2'))
-const Home3 = lazy(() => import('./Home3'))
+// const Home = lazy(() => import('./Home'))
+// const Home2 = lazy(() => import('./Home2'))
+// const Home3 = lazy(() => import('./Home3'))
 
 const RouteConfig = ({ component: Component, layout = 'main', ...rest }) => (
   <Route
