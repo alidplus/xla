@@ -7,6 +7,10 @@ import {Plus} from "atoms/icons";
 import Icon from "./Icon";
 import withCommonTableScreen from 'lib/withCommonTableScreen'
 import {useHash} from "../../../layout/HashRoutes";
+import TeamInline from "../../teams/screens/Inline";
+import LeagueInline from "../../leagues/screens/Inline";
+import TeamLoadContainer from "../../teams/containers/Load";
+import LeagueLoadContainer from "../../leagues/containers/Load";
 
 const tableMap = [
   {
@@ -14,12 +18,12 @@ const tableMap = [
     render: data => (<Id data={data}/>),
   },
   {
-    title: 'Name',
-    key: 'name',
+    title: 'League',
+    render: data => (<LeagueLoadContainer id={data.league}><LeagueInline></LeagueInline></LeagueLoadContainer>),
   },
   {
-    title: 'Level',
-    key: 'lvl',
+    title: 'Team',
+    render: data => (<TeamLoadContainer id={data.team}><TeamInline></TeamInline></TeamLoadContainer>),
   },
   {
     title: 'date',

@@ -10,7 +10,8 @@ import usePlayerOptionsProvider from "src/players/hooks/useOptionsProvider";
 const eTypes = [
   { _id: 'goal', label: 'گل' },
   { _id: 'yellowCard', label: 'کارت زرد' },
-  { _id: 'redCard', label: 'کارت قرمز' }
+  { _id: 'redCard', label: 'کارت قرمز' },
+  { _id: 'timeUp', label: 'پایان بازی' }
   // { _id: 'MOTM', label: 'بهترین بازیکن مسابقه' }
 ]
 

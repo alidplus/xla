@@ -9,7 +9,7 @@ import useRefereeOptionsProvider from "src/referees/hooks/useOptionsProvider";
 const Form = ({ register, control, data }) => {
   return (
     <>
-      <JdateField label="Time" type="date" {...register("time")} />
+      <JdateField label="Time" type="date" {...register("startTime")} />
       <CustomSelectField label="Home" {...register("home")} provider={useTeamOptionsProvider}/>
       <CustomSelectField label="Away" {...register("away")} provider={useTeamOptionsProvider}/>
       <CustomSelectField label="League" {...register("league")} provider={useLeagueOptionsProvider}/>

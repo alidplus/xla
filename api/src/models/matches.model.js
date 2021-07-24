@@ -9,7 +9,7 @@ module.exports = function (app) {
   const schema = new Schema({
     sid: {type: Number, unique: true},
 
-    time: { type: Date, required: true },
+    startTime: { type: Date, required: true },
     result: {
       home: {
         goal: { type:Number, default: 0 },
