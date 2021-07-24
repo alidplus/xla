@@ -27,7 +27,7 @@ class Actions {
     }
     if (action && typeof action === 'function') {
       const ctx = await combine(...hooks).call(this, params._ctx)
-      return action.call(this, data.payload, ctx.params)
+      return action.call(this, data.payload, ctx.params, this.app)
     }
     throw new Error('bad action path')
   }
