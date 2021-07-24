@@ -29,6 +29,10 @@ exports.Events = class Events extends Service {
   
       if (data.eType === "timeUp") {
         await MatchService.patch(match._id, {timeUp: event._id});
+        MatchService.emit('timeUp', {
+          type: 'customEvent',
+          data: match
+        });
       }
   
       return event;

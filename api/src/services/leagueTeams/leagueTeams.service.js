@@ -2,6 +2,7 @@
 const { LeagueTeams } = require('./leagueTeams.class');
 const createModel = require('../../models/leagueTeams.model');
 const hooks = require('./leagueTeams.hooks');
+const updateLeagueTeams = require("./updateLeagueTeams");
 
 module.exports = function (app) {
   const options = {
@@ -15,6 +16,7 @@ module.exports = function (app) {
 
   // Get our initialized service so that we can register hooks
   const service = app.service('leagueTeams');
-
+  
+  app.service("matches").on("timeUp", updateLeagueTeams(app));
   service.hooks(hooks);
 };
