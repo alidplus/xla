@@ -1,9 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Card, Row, Col, CardBody} from 'atoms'
-import { At, User, Mobile } from 'atoms/icons'
+import { At, User, Mobile , Hashtag , Users , Trophy} from 'atoms/icons'
 import Fsloader from 'src/fs/containers/Load'
 import Avatar from "../../fs/screens/Avatar";
+import LoadTeamContainer from 'src/teams/containers/Load'
+import LoadLeagueContainer from 'src/leagues/containers/Load'
+import LoadPlayerContainer from 'src/players/containers/Load'
+import UserInlineScreen from 'src/users/screens/Inline'
+import LeagueInlineScreen from 'src/leagues/screens/Inline'
 
 const LeaguePlayers = ({ data }) => {
   if (!data) return null
@@ -13,23 +18,41 @@ const LeaguePlayers = ({ data }) => {
         {/* <pre>{JSON.stringify({data}, null, 2)}</pre> */}
         <Row className="justify-content-center">
           <Col md="auto">
-            <Fsloader id={data.avatar}>
-              <Avatar />
-            </Fsloader>
+            <LoadPlayerContainer id={data.player}>
+              {({ data }) => (
+                <Fsloader id={data.avatar}>
+                  <Avatar />
+                </Fsloader>
+              )}
+            </LoadPlayerContainer>
           </Col>
         </Row>
         <hr />
         <Row className="justify-content-center">
-          <Col className="text-center pb-20" sm="6">{data.name}</Col>
+          <Col className="text-center pb-2" sm="6">{data.name}</Col>
           <Col className="text-center" sm="6"><User/></Col>
         </Row>
         <Row className="justify-content-center">
-          <Col className="text-center pb-20" sm="6">{data.email}</Col>
-          <Col className="text-center" sm="6"><At/></Col>
+          <Col className="text-center pb-2" sm="6">{data.no}</Col>
+          <Col className="text-center" sm="6"><Hashtag/></Col>
         </Row>
         <Row className="justify-content-center">
-          <Col className="text-center pb-20" sm="6">{data.mobile}</Col>
-          <Col className="text-center" sm="6"><Mobile/></Col>
+          <Col className="text-center pb-2" sm="6">
+              <LoadTeamContainer id={data.team}>
+                {({data})=>(
+                  <span>{data.title.fa}</span>
+                )}
+              </LoadTeamContainer>
+          </Col>
+          <Col className="text-center" sm="6"><Users/></Col>
+        </Row>
+        <Row className="justify-content-center">
+          <Col className="text-center pb-2" sm="6">
+              <LoadLeagueContainer id={data.league}>
+                <LeagueInlineScreen/>
+              </LoadLeagueContainer>
+          </Col>
+          <Col className="text-center" sm="6"><Trophy/></Col>
         </Row>
       </CardBody>
     </Card>
