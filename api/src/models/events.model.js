@@ -15,6 +15,8 @@ module.exports = function (app) {
     team: { type: String, enum:['home', 'away'], required: true },
     player: { type: Schema.Types.ObjectId, ref: 'players' },
     time: { type: Number, required: true, default: 0 },
+
+    isChecked: { type: Boolean, default: false },
   }, {
     modelName,
     strict: true,

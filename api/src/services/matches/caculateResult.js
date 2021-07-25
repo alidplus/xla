@@ -5,6 +5,7 @@ module.exports = ( app, {diff = 1} ) => async ( event ) => {
   // console.log("log hereeeeeeeeeeee");
 
   const MatchService = app.service("matches");
+  const EventService = app.service("events");
   try {
     const match = await MatchService.get(event.match);
     const result = match.result || {};
@@ -15,6 +16,7 @@ module.exports = ( app, {diff = 1} ) => async ( event ) => {
     set(result, path, get(result, path, 0) + diff)
 
     await MatchService.patch(event.match, {result} );
+    await EventService.patch(event._id, {isChecked: true} );
   } catch(e) {
     console.log(">>>>>>>calculateRes: ", e.message);
   }
