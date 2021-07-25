@@ -28,11 +28,9 @@ exports.Events = class Events extends Service {
       const event = await super.create(data, params);
   
       if (data.eType === "timeUp") {
-        await MatchService.patch(match._id, {timeUp: event._id});
-        MatchService.emit('timeUp', {
-          type: 'customEvent',
-          data: match
-        });
+        const patchedMatch = await MatchService.patch(match._id, {timeUp: event._id});
+        // console.log("patchedMatch: \n" + patchedMatch);
+        MatchService.emit('timeUp', patchedMatch);
       }
   
       return event;

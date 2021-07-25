@@ -38,14 +38,15 @@ async function createLeagueTeamAndLeaguePlayers (data, params, app) {
         no: player.no,
       }
 
-      return leaguePlayersService.create(leaguePlayer);
+      const createdleaguePlayer = await leaguePlayersService.create(leaguePlayer);
+      return createdleaguePlayer;
     })
 
     await Promise.all(allPromises);
     
     return ({ action: 'done' })
   } catch(e) {
-    console.log(e.message);
+    console.log("team.actions.js: " + e.message);
     return ({ action: 'error' })
   }
 }
