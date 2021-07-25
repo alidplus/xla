@@ -35,11 +35,15 @@ const MainLayout = ({children}) => {
   const handleBack = () => {
     history.goBack()
   }
+
+  const handleReload = () => {
+    window.location.reload()
+  }
   return (
     <>
       <div className="d-flex flex-column h-100">
         <Navbar dark>
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <div className="p-1">reactstrap</div>
         </Navbar>
         <Navbar dark fixed="top" color="dark" className="bg-dark border border-2 border-top-0 border-end-0 border-secondary border-start-0">
           <Container fluid="xl">
@@ -110,7 +114,7 @@ const MainLayout = ({children}) => {
               <Link className="py-3" component={ListGroupItem} to="/">Vestibulum at eros</Link>
             </ListGroup>
             <ListGroup flush className="mt-auto">
-              <Link className="py-3" component={ListGroupItem} onClick={e => history.push('/')}>exigt</Link>
+              <Link className="py-3" component={ListGroupItem} onClick={handleReload}>Reload</Link>
             </ListGroup>
           </CardBody>
         </Card>

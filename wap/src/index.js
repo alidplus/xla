@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import initReactFastclick from 'react-fastclick';
 import './assets/main.rtl.css';
+initReactFastclick();
 
 ReactDOM.render(
   <React.StrictMode>

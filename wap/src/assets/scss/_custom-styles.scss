@@ -45,3 +45,6 @@ input.border-0 {
   overflow: hidden;
   line-height: 32px;
 }
+html, body {
+  -webkit-tap-highlight-color: transparent;
+}
