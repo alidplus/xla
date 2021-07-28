@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react"
+import React, { Suspense, lazy, useState, useEffect } from "react"
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,35 +18,35 @@ const Spinner = () => <div>loading...</div>
 // const Home2 = lazy(() => import('./Home2'))
 // const Home3 = lazy(() => import('./Home3'))
 
-const RouteConfig = ({ component: Component, layout = 'main', ...rest }) => (
-  <Route
-    {...rest}
-    render={props => {
-      // console.log('RouteConfig', rest, props);
-      return (
-        /*<ContextLayout.Consumer>
-          {context => {
-            let LayoutTag = context.VerticalLayout
-            if (fullLayout) LayoutTag = context.fullLayout;
-            else if (publicLayout) LayoutTag = context.publicLayout;
-            else if (emptyLayout) LayoutTag = context.emptyLayout;
-            else if (printLayout) LayoutTag = context.printLayout;
-            else if (context.state.activeLayout === "horizontal") LayoutTag = context.horizontalLayout;
-            else LayoutTag = context.VerticalLayout;
-            return (*/
-              <MainLayout {...props} permissions={rest.permissions} user={rest.user}>
-                <Suspense fallback={<Spinner />}>
-                  <Component {...props} permissions={rest.permissions} user={rest.user} />
-                  {/*<ToastContainer />*/}
-                </Suspense>
-              </MainLayout>
-            /*)
-          }}
-        </ContextLayout.Consumer>*/
-      )
-    }}
-  />
-)
+const RouteConfig = ({ component: Component, layout = 'main', ...rest }) => {
+  const [topNav, setTopNav] = useState({})
+
+  const subscribeTopNav = (items = []) => {
+    const state = {}
+    items.forEach(({ id, icon, onClick }) => {
+      state[id] = {
+        icon,
+        onClick
+      }
+    })
+    setTopNav(state)
+  }
+
+  return (
+    <Route
+      {...rest}
+      render={props => {
+        return (
+          <MainLayout {...props} topNav={topNav}>
+            <Suspense fallback={<Spinner />}>
+              <Component {...props} subscribeTopNav={subscribeTopNav} />
+            </Suspense>
+          </MainLayout>
+        )
+      }}
+    />
+  )
+}
 
 // const mapStateToProps = state => {
 //   return {
@@ -56,7 +56,7 @@ const RouteConfig = ({ component: Component, layout = 'main', ...rest }) => (
 // }
 
 // const AppRoute = connect(mapStateToProps)(RouteConfig)
-const AppRoute = (RouteConfig)
+const AppRoute = RouteConfig
 
 export default function AppRouter() {
   return (

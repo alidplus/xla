@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import classnames from 'classnames'
 import moment from 'moment-jalaali'
 import fa from "moment/locale/fa";
-import League from '../components/League'
+import MatchesListCard from '../components/MatchesListCard'
 import {Container, Button, TabContent, TabPane } from "reactstrap";
 import '../assets/scss/scrollbars.scss';
 
@@ -31,9 +31,9 @@ const tabs = (new Array(10)).fill(0).map((_, i) => i - 4)
     }
   })
 
-export default function Home() {
+export default function Home({ subscribeTopNav }) {
   const [activeTab, setActiveTab] = useState(0);
-
+  useEffect(subscribeTopNav.bind({}, []), [])
   useEffect(() => {
     const el = document.getElementById(`tab-id-${activeTab}`)
     if (el)
@@ -81,17 +81,17 @@ export default function Home() {
             tabId={a.n}
           >
             <h4>بازی های {a.label}</h4>
-            <League/>
-            <League/>
-            <League/>
-            <League/>
-            <League/>
-            <League/>
-            <League/>
-            <League/>
-            <League/>
-            <League/>
-            <League/>
+            <MatchesListCard/>
+            <MatchesListCard/>
+            <MatchesListCard/>
+            <MatchesListCard/>
+            <MatchesListCard/>
+            <MatchesListCard/>
+            <MatchesListCard/>
+            <MatchesListCard/>
+            <MatchesListCard/>
+            <MatchesListCard/>
+            <MatchesListCard/>
           </TabPane>
         ))}
         </TabContent>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
+import {useSwipeable} from 'react-swipeable'
 import classnames from 'classnames'
 import { useHistory } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
@@ -14,8 +15,42 @@ import 'react-drawer/lib/react-drawer.css';
 import '../assets/scss/react-drawer-drawer.scss';
 import '../assets/scss/burger-menu.scss';
 
+const MainNavTabs = () => {
+  return (
+    <React.Fragment>
+      <Nav justified className="bg-dark border border-2 border-bottom-0 border-end-0 border-secondary border-start-0">
+        <NavItem>
+          <NavLink activeClassName="active text-white" className="px-0 nav-link text-light" to="/" exact={true}>
+            <i className="fa fa-futbol d-block fa-2x"/>
+            <span>بازی ها</span>
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink activeClassName="active text-white" className="px-0 nav-link text-light" to="/home-2">
+            <i className="fa fa-newspaper d-block fa-2x"/>
+            <span>اخبار</span>
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink activeClassName="active text-white" className="px-0 nav-link text-light" to="/home-3">
+            <i className="fa fa-users d-block fa-2x"/>
+            <span>تیم ها</span>
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink activeClassName="active text-white" className="px-0 nav-link text-light" to="/home-3">
+            <i className="fa fa-trophy d-block fa-2x"/>
+            <span>لیگ</span>
+          </NavLink>
+        </NavItem>
+      </Nav>
+    </React.Fragment>
+  )
+}
 
-const MainLayout = ({children}) => {
+
+const MainLayout = ({children, topNav = {}}) => {
+
   const history = useHistory()
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -39,62 +74,49 @@ const MainLayout = ({children}) => {
   const handleReload = () => {
     window.location.reload()
   }
+
+  const topNavigation = useMemo(() => {
+    if (Object.keys(topNav).length) {
+      return Object.keys(topNav).map(id => (
+        <NavItem key={id} className="px-2 me-2" onClick={topNav[id].onClick}>
+          {topNav[id].icon}
+        </NavItem>
+      ))
+    }
+    return null
+  }, [topNav])
+
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: (swipe) => {
+      const initial = swipe.initial[0]
+      const boundary = window.innerWidth * 0.8
+      if (initial > boundary && !isOpen)
+        setIsOpen(true)
+    },
+    onSwipedRight: () => { if (isOpen) setIsOpen(false) },
+  });
+
   return (
-    <>
-      <div className="d-flex flex-column h-100">
-        <Navbar dark>
-          <div className="p-1">reactstrap</div>
-        </Navbar>
-        <Navbar dark fixed="top" color="dark" className="bg-dark border border-2 border-top-0 border-end-0 border-secondary border-start-0">
-          <Container fluid="xl">
-            <div id="nav-icon4" className={classnames("my-2 mx-2", { open: isOpen })} onClick={toggle}>
-              <span className="bg-white"/>
-              <span className="bg-white"/>
-              <span className="bg-white"/>
-            </div>
-            <Nav className="ms-auto">
-              <NavItem className="px-2 me-2">
-                <i className="fa fa-calendar-alt"/>
+    <div className="d-flex flex-column h-100" {...swipeHandlers}>
+      {topNavigation}
+      <div className="pt-5"/>
+      <Navbar dark fixed="top" color="dark" className="py-2 bg-dark border border-2 -border-top-0 border-end-0 border-secondary border-start-0">
+        <Container fluid="xl">
+          <div id="nav-icon4" className={classnames("my-2 mx-2", { open: isOpen })} onClick={toggle}>
+            <span className="bg-white"/>
+            <span className="bg-white"/>
+            <span className="bg-white"/>
+          </div>
+          <Nav className="ms-auto zoom-70">
+            {topNavigation}
+            {history.location.pathname !== '/' ? (
+              <NavItem onClick={handleBack} className="px-2">
+                <i className="fa fa-chevron-right"/>
               </NavItem>
-              <NavItem className="px-2 me-2">
-                <i className="fa fa-star"/>
-              </NavItem>
-              <NavItem className="px-2 me-2">
-                <i className="fa fa-search"/>
-              </NavItem>
-              <NavItem className="px-2 me-2">
-                <i className="fa fa-clock"/>
-              </NavItem>
-              {history.location.pathname !== '/' ? (
-                <NavItem onClick={handleBack} className="px-2">
-                  <i className="fa fa-chevron-right"/>
-                </NavItem>
-              ) : null}
-            </Nav>
-          </Container>
-        </Navbar>
-        <div className="flex-grow-1 overflow-scroll">{children}</div>
-        <Nav justified className="bg-dark border border-2 border-bottom-0 border-end-0 border-secondary border-start-0">
-          <NavItem>
-            <NavLink activeClassName="active text-white" className="nav-link text-light" to="/" exact={true}>
-              <i className="fa fa-user d-block fa-2x"/>
-              <span>salam</span>
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink activeClassName="active text-white" className="nav-link text-light" to="/home-2">
-              <i className="fa fa-home d-block fa-2x"/>
-              <span>salam</span>
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink activeClassName="active text-white" className="nav-link text-light" to="/home-3">
-              <i className="fa fa-cogs d-block fa-2x"/>
-              <span>salam</span>
-            </NavLink>
-          </NavItem>
-        </Nav>
-      </div>
+            ) : null}
+          </Nav>
+        </Container>
+      </Navbar>
       <Drawer
         open={isOpen}
         onClose={e => setIsOpen(false)}
@@ -119,7 +141,11 @@ const MainLayout = ({children}) => {
           </CardBody>
         </Card>
       </Drawer>
-    </>
+      <div className="flex-grow-1 overflow-scroll">
+        {children}
+      </div>
+      <MainNavTabs/>
+    </div>
   )
 }
 

@@ -9,7 +9,7 @@ module.exports = {
 }
 
 async function createLeagueTeamAndLeaguePlayers (data, params, app) {
-      
+
   try {
     const leagueTeamService = app.service("leagueTeams");
 
@@ -21,7 +21,7 @@ async function createLeagueTeamAndLeaguePlayers (data, params, app) {
     if(cnt > 0) {
       throw new Error("this teamLeague EXISTS!")
     }
-    const {_id: leagueTeamId} = await leagueTeamService.create(leagueTeam);
+    const { _id: leagueTeamId } = await leagueTeamService.create(leagueTeam);
 
     const leaguePlayersService = app.service("leaguePlayers");
     const playerService = app.service("players");
@@ -42,7 +42,7 @@ async function createLeagueTeamAndLeaguePlayers (data, params, app) {
     })
 
     await Promise.all(allPromises);
-    
+
     return ({ action: 'done' })
   } catch(e) {
     console.log(e.message);

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Card, CardHeader, CardBody, CardTitle} from "reactstrap";
 
-const League = () => {
+const MatchesListCard = () => {
   return (
     <Card className="mb-2">
       <CardHeader className="d-flex justify-content-between align-items-center">
@@ -30,4 +30,4 @@ const League = () => {
   )
 }
 
-export default League
+export default MatchesListCard

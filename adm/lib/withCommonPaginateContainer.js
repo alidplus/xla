@@ -24,12 +24,19 @@ const CommonPaginateContainer = function CommonPaginateContainer
     router.push({ pathname: router.pathname, query: filters }, undefined, { shallow: true })
   }
 
+  const handleFind = async (query) => {
+    try {
+      find(uid, query)
+    } catch (e) {
+      console.log('some error on CommonPaginateContainer', e.message)
+    }
+  }
+
   useEffect(() => {
     const { keyword, skip: $skip = 0, limit: $limit = 10 } = router.query
     // const searchQuery = queryBuilder(keyword)
     const query = { $and: [propsQuery], "$search": keyword, $skip, $limit }
-    console.log('qqq query', query)
-    find(uid, query)
+    handleFind(query)
   }, [router.query, propsQuery])
 
   const cloneProps = useMemo(

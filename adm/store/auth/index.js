@@ -22,6 +22,9 @@ export default new Duck({
     ],
     initialState,
     reducer: (state, action, duck) => {
+        if (action.type.includes('_REJECTED') && action.payload.name === 'NotAuthenticated') {
+            return duck.initialState;
+        }
         switch(action.type) {
             case duck.types.AUTH:
             case duck.types.AUTH_PENDING:
@@ -50,9 +53,14 @@ export default new Duck({
                 meta: {form},
                 payload: {
                     promise: (async () => {
-                        const auth = await client.authentication.authenticate({ strategy: 'local', ...form })
-                        await axios.post('/api/accessToken', {accessToken: auth.accessToken})
-                        return auth
+                        try {
+                            const auth = await client.authentication.authenticate({ strategy: 'local', ...form })
+                            await axios.post('/api/accessToken', {accessToken: auth.accessToken})
+                            return auth
+                        } catch (e) {
+                            console.log('authenticate failed')
+                            return {}
+                        }
                     })(),
                     data: {}
                 }
@@ -64,8 +72,13 @@ export default new Duck({
                 meta: {accessToken},
                 payload: {
                     promise: (async () => {
-                        client.authentication.setAccessToken(accessToken)
-                        return client.authentication.reAuthenticate()
+                        try {
+                            client.authentication.setAccessToken(accessToken)
+                            return client.authentication.reAuthenticate()
+                        } catch (e) {
+                            console.log('reAuthenticate failed')
+                            return {}
+                        }
                     })(),
                     data: {}
                 }
