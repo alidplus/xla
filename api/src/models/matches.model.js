@@ -31,6 +31,8 @@ module.exports = function (app) {
     league: { type: Schema.Types.ObjectId, ref: 'leagues', autopopulate: true },
     referee: { type: Schema.Types.ObjectId, ref: 'referees', autopopulate: true },
     MOTM: { type: Schema.Types.ObjectId, ref: 'players', autopopulate: true },
+
+    isChecked: { type: Boolean, default: false },
   }, {
     modelName,
     strict: true,
