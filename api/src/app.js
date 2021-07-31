@@ -22,6 +22,8 @@ const authentication = require('./authentication');
 const mongoose = require('./mongoose');
 
 
+const seeder = require('./seeder');
+
 const app = express(feathers());
 
 app.use(function(req, res, next) {
@@ -54,6 +56,8 @@ app.configure(middleware);
 app.configure(authentication);
 // Set up our services (see `services/index.js`)
 app.configure(services);
+
+app.configure(seeder);
 // Set up event channels (see channels.js)
 app.configure(channels);
 

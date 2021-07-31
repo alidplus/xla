@@ -6,12 +6,11 @@ module.exports = (app) => async (match) => {
   console.log("\n>>>>>>>>>>>>\nImHereeee\n<<<<<<<<<<<<<\n");
   const { homePerformance, awayPerformance } = performanceCalculator(match.result);
 
-  updateInformation(app, match.home, match.league, homePerformance);
-  updateInformation(app, match.away, match.league, awayPerformance);
+  updateInformation(app, match.home, homePerformance);
+  updateInformation(app, match.away, awayPerformance);
 
   const MatchServise = app.service('matches');
   await MatchServise.patch(match._id, { isChecked: true });
-
 
 }
 
@@ -61,14 +60,14 @@ function performanceCalculator(result) {
   }
 }
 
-async function updateInformation(app, teamId, leagueId, performance) {
+async function updateInformation(app, leagueTeamsId, performance) {
   try {
     const leagueTeamsServise = app.service('leagueTeams');
-    const searchOptions = {
-      team: teamId,
-      league: leagueId,
-    };
-    const findleagueTeam = await leagueTeamsServise.Model.findOne(searchOptions);
+    // const searchOptions = {
+    //   team: teamId,
+    //   league: leagueId,
+    // };
+    const findleagueTeam = await leagueTeamsServise.get(leagueTeamsId);
     
     if (!findleagueTeam) {
       console.log("can't find team league");
@@ -91,7 +90,7 @@ async function updateInformation(app, teamId, leagueId, performance) {
     }
 
 
-    await leagueTeamsServise.patch(findleagueTeam._id, { statistics: postStatistics });
+    await leagueTeamsServise.patch(leagueTeamsId, { statistics: postStatistics });
   } catch(e) {
     console.log("updateLeagueTeams.js/updateInformation \n" + e.message);
     throw new Error("can't Update Information");

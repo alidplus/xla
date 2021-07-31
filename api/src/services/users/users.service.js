@@ -7,7 +7,7 @@ module.exports = function (app) {
   const options = {
     Model: createModel(app),
     paginate: app.get('paginate'),
-    ...app.get('serviceOptions')
+    ...app.get('serviceOptions'),
   };
 
   // Initialize our service with any options it requires

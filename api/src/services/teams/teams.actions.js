@@ -11,17 +11,17 @@ module.exports = {
 async function createLeagueTeamAndLeaguePlayers (data, params, app) {
       
   try {
-    const leagueTeamService = app.service("leagueTeams");
+    const LeagueTeamService = app.service("leagueTeams");
 
     const leagueTeam = {
       team: data.team,
       league: data.league,
     }
-    const cnt = await leagueTeamService.Model.countDocuments(leagueTeam);
+    const cnt = await LeagueTeamService.Model.countDocuments(leagueTeam);
     if(cnt > 0) {
       throw new Error("this teamLeague EXISTS!")
     }
-    const {_id: leagueTeamId} = await leagueTeamService.create(leagueTeam);
+    const createdLeagueTeam = await LeagueTeamService.create(leagueTeam);
 
     const leaguePlayersService = app.service("leaguePlayers");
     const playerService = app.service("players");
@@ -32,21 +32,26 @@ async function createLeagueTeamAndLeaguePlayers (data, params, app) {
       const leaguePlayer = {
         team: data.team,
         league: data.league,
-        leagueTeam: leagueTeamId,
+        leagueTeam: createdLeagueTeam._id,
         player: playerId,
         name: player.name,
         no: player.no,
       }
 
       const createdleaguePlayer = await leaguePlayersService.create(leaguePlayer);
+      
       return createdleaguePlayer;
     })
-
-    await Promise.all(allPromises);
     
-    return ({ action: 'done' })
+    const leaguePlayers = await Promise.all(allPromises);
+    
+    return ({ 
+      action: 'done',
+      leaguePlayers,
+      leagueTeam: createdLeagueTeam,
+   })
   } catch(e) {
-    console.log("team.actions.js: " + e.message);
+    console.log("team.actions.js: ", e);
     return ({ action: 'error' })
   }
 }

@@ -22,6 +22,7 @@ module.exports = function (app) {
         yc: { type:Number, default: 0 },
       }
     },
+    matchDay: {type: Number, required: true},
     timeUp: { type: Schema.Types.ObjectId, ref: 'events'},
 
     home: { type: Schema.Types.ObjectId, ref: 'teams', autopopulate: true },

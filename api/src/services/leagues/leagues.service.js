@@ -2,6 +2,9 @@
 const { Leagues } = require('./leagues.class');
 const createModel = require('../../models/leagues.model');
 const hooks = require('./leagues.hooks');
+const leagueActions = require('./leagues.actions');
+const registerActions = require('../feathers-actions');
+
 
 module.exports = function (app) {
   const options = {
@@ -15,6 +18,8 @@ module.exports = function (app) {
 
   // Get our initialized service so that we can register hooks
   const service = app.service('leagues');
+  4
+  registerActions('/league/actions', leagueActions, app)
 
   service.hooks(hooks);
 };
