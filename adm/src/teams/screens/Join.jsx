@@ -17,7 +17,7 @@ import {
   ModalFooter
 } from 'atoms'
 import Pagination from "components/Pagination";
-import CustomSelectField from "components/form/CustomSelectField";
+import SelectField from "components/form/SelectField";
 import useLeagueOptionsProvider from "src/leagues/hooks/useOptionsProvider";
 import LeagueLoadContainer from 'src/leagues/containers/Load'
 import PlayerLoadContainer from 'src/players/containers/Load'
@@ -127,7 +127,7 @@ const Join = ({ data, toggleFullBtn, closeBtn }) => {
                   <LeagueCardScreen/>
                 </LeagueLoadContainer>
               ) : (
-                <CustomSelectField label="Owner" provider={useLeagueOptionsProvider} getValues={() => league} setValue={(n, v) => (setLeague(v))}/>
+                <SelectField label="Owner" provider={useLeagueOptionsProvider} getValues={() => league} setValue={(n, v) => (setLeague(v))}/>
               )}
             </div>
             <div className="px-2">

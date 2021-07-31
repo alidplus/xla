@@ -7,13 +7,16 @@ import TableSearch from "components/TableSearch";
 import Table from "components/Table";
 import Pagination from "components/Pagination";
 
-const withCommonTableScreen = function withCommonTableScreen (tableMap, TopBar) {
+const withCommonTableScreen = function withCommonTableScreen (tableMap, TopBar, AdvancedSearch) {
   return ({ page = {}, filters = {}, onChange, hardQuery }) => {
     const hash = useHash()
-    const handleSearch = e => {
-      e.preventDefault()
-      const keyword = e.currentTarget.keyword.value
-      onChange(Object.assign({}, filters, { keyword }))
+    const handleSearch = (data, e) => {
+      // console.log('handleSearch', data, e)
+      e && e.preventDefault()
+      if (e)
+        onChange(Object.assign({}, filters, data))
+      else
+        onChange(Object.assign({}, data))
     }
     const handlePaginate = skip => {
       onChange(Object.assign({}, filters, { skip }))
@@ -22,7 +25,7 @@ const withCommonTableScreen = function withCommonTableScreen (tableMap, TopBar) 
     return (
       <div>
         <TopBar force={hardQuery} />
-        <TableSearch keyword={filters.keyword} onSubmit={handleSearch}/>
+        <TableSearch filters={filters} onSubmit={handleSearch} Form={AdvancedSearch} />
         <Table
           data={page?.data ?? []}
           skip={page.skip}

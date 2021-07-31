@@ -4,7 +4,7 @@ import RateField from "components/form/RateField"
 import FsUploader from "components/FsUploader";
 import React, { useState } from "react";
 import classnames from "classnames";
-import CustomSelectField from "components/form/CustomSelectField";
+import SelectField from "components/form/SelectField";
 import useTeamOptionsProvider from "src/teams/hooks/useOptionsProvider";
 import useLeagueOptionsProvider from "src/leagues/hooks/useOptionsProvider";
 import usePlayerOptionsProvider from "src/players/hooks/useOptionsProvider";
@@ -16,10 +16,10 @@ const Form = ({ register, control, data }) => {
     <>
      <TextField label="Name" {...register("name")} />
      <TextField label="No#" {...register("no")} />
-     <CustomSelectField label="Team" {...register("team")} provider={useTeamOptionsProvider}/>
-     <CustomSelectField label="League" {...register("league")} provider={useLeagueOptionsProvider}/>
-     <CustomSelectField label="Player" {...register("player")} provider={usePlayerOptionsProvider}/>
-     <CustomSelectField label="LeagueTeam" {...register("leagueTeam")} provider={useLeagueTeamOptionsProvider}/>
+     <SelectField label="Team" {...register("team")} provider={useTeamOptionsProvider}/>
+     <SelectField label="League" {...register("league")} provider={useLeagueOptionsProvider}/>
+     <SelectField label="Player" {...register("player")} provider={usePlayerOptionsProvider}/>
+     <SelectField label="LeagueTeam" {...register("leagueTeam")} provider={useLeagueTeamOptionsProvider}/>
     </>
   )
 }

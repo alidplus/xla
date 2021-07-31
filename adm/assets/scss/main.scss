@@ -1,17 +1,5 @@
-// Imports SCSS theme
-// Vendors variables override and path
-$fa-font-path: "/webfonts" !default;
-$is-rtl: true !default;
-$enable-negative-margins: true !default;
-$enable-shadows: true !default;
-$enable-gradients: true !default;
 
-@import "node_modules/bootswatch/dist/darkly/variables";
-// Import variables
-@import "./bootstrap-extra-utilities/variables/variables";
-
-@import "node_modules/bootstrap/scss/functions";
-@import "node_modules/bootstrap/scss/variables";
+@import "./variables";
 @import "node_modules/bootstrap/scss/mixins";
 @import "node_modules/bootstrap/scss/utilities";
 
@@ -126,4 +114,23 @@ input.border-0 {
   color: #fff6;
   overflow: hidden;
   line-height: 32px;
+}
+.jalaali.calendarContainer{
+  zoom: 0.7;
+  .heading{
+    .title {
+      margin: 0!important;
+    }
+    .rc-time-picker, .title, >button {
+      padding: 0!important;
+    }
+  }
+}
+.rc-time-picker-panel-select {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  li {
+    color: black;
+  }
 }

@@ -7,7 +7,9 @@ import {Plus} from "atoms/icons";
 import Icon from "./Icon";
 import withCommonTableScreen from 'lib/withCommonTableScreen'
 import {useHash} from "../../../layout/HashRoutes";
-import InLine from './InLine'
+import InLine from './Inline'
+import Actions from "./Actions";
+import SearchForm from "./SearchForm";
 
 const tableMap = [
   {
@@ -28,7 +30,7 @@ const tableMap = [
     title: 'Actions',
     width: 140,
     className: 'text-center',
-    render: (data) => (<ControlToolbar data={data} hideAdd/>),
+    render: (data) => (<ControlToolbar data={data} hideAdd><Actions /></ControlToolbar>),
   }
 ]
 
@@ -47,4 +49,4 @@ const TopBar = function TopBar({force}) {
   )
 }
 
-export default withCommonTableScreen(tableMap, TopBar)
+export default withCommonTableScreen(tableMap, TopBar, SearchForm)

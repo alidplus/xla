@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import Card, {ModalHeader, ModalBody, ModalFooter, Col, Button} from "atoms";
+import {ModalHeader, ModalBody, ModalFooter, Col, Button} from "atoms";
 import {useForm} from "react-hook-form";
 import {joiResolver} from "@hookform/resolvers/joi";
 import {options, schema} from "@xla/schemas/src/user";
@@ -35,6 +35,8 @@ const withCommonAddScreen = function withCommonAddScreen (Card, Form, schema, sc
       control,
       setValue,
       getValues,
+      watch,
+      disabled: defaultValues.hasOwnProperty(name),
       ...formRegister(name)
     })
     const preview = watch()
@@ -53,7 +55,7 @@ const withCommonAddScreen = function withCommonAddScreen (Card, Form, schema, sc
             <Card data={preview}/>
           </Col>
           <Col sm="8">
-            <Form register={register} control={control} getValues={getValues}/>
+            <Form register={register} control={control} getValues={getValues} errors={errors}/>
           </Col>
         </ModalBody>
         <ModalFooter className="p-0">

@@ -53,6 +53,7 @@ const withCommonListContainer = function withCommonLoadContiner (duck, queryBuil
 
   const mapStateToProps = (state, { uid = _uid }) => {
     return {
+      ...duck.options.consts,
       array: duck.selectors.list(state, { uid }),
       uid,
       queryBuilder

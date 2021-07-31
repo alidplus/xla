@@ -12,7 +12,7 @@ module.exports = function (app) {
     eType: { type: String, enum: ['goal', 'rc', 'yc', 'timeUp'], required: true },
     league: { type: Schema.Types.ObjectId, ref: 'users' , required: true },
     match: { type: Schema.Types.ObjectId, ref: 'matches' , required: true },
-    team: { type: String, enum:['home', 'away'], required: true },
+    team: { type: String, enum:['home', 'away']},
     player: { type: Schema.Types.ObjectId, ref: 'players' },
     time: { type: Number, required: true, default: 0 },
 

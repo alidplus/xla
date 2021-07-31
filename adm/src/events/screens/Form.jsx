@@ -1,44 +1,49 @@
 import TextField from "components/form/TextField";
 import React, {useMemo} from "react";
-import CustomSelectField from "components/form/CustomSelectField";
+import SelectField from "components/form/SelectField";
 import SwitchField from "components/form/SwitchField";
 import {arrayProvider} from 'lib/optionsProvider'
 import useLeagueOptionsProvider from "src/leagues/hooks/useOptionsProvider";
 import useMatchOptionsProvider from "src/matches/hooks/useOptionsProvider";
-import useTeamOptionsProvider from "src/teams/hooks/useOptionsProvider";
 import usePlayerOptionsProvider from "src/players/hooks/useOptionsProvider";
+import useCommonGet from "lib/useCommonGet";
+import TeamInline from "src/teams/screens/Inline";
+import { eventsDuck } from 'store/services'
 
-const eTypes = [
-  { _id: 'goal', label: 'گل' },
-  { _id: 'yc', label: 'کارت زرد' },
-  { _id: 'rc', label: 'کارت قرمز' },
-  { _id: 'timeUp', label: 'پایان بازی' }
-  // { _id: 'MOTM', label: 'بهترین بازیکن مسابقه' }
-]
+const eTypes = eventsDuck.options.consts.eTypes
 
-
-const teamSwitchProps = {
-  trueLabel: 'میزبان',
-  falseLabel: 'میهمان',
-  trueValue: 'home',
-  falseValue: 'away'
-}
-
-const Form = ({ register, control, data, getValues }) => {
-  const model = getValues('model')
+const Form = ({ register, control, data, getValues, errors }) => {
   const league = getValues('league')
-  const matchQuery = useMemo(() => ({ league }), [])
+  const matchQuery = useMemo(() => ({ league }), [league])
+  const useCustomMatchOptionsProvider = useMemo(() => useMatchOptionsProvider.bind({}, matchQuery), [matchQuery])
+
+  const matchId = getValues('match')
+  const match = useCommonGet('matches', matchId)
+  const leagueHome = useCommonGet('leagueTeams', match?.home)
+  const leagueAway = useCommonGet('leagueTeams', match?.away)
+  const home = useCommonGet('teams', leagueHome?.team ?? match?.home)
+  const away = useCommonGet('teams', leagueAway?.team ?? match?.away)
+
+  const teamSwitchProps = useMemo(() => {
+    return {
+      trueLabel: home ? <TeamInline data={home}/> : 'میزبان',
+      falseLabel: away ? <TeamInline data={away}/> : 'میهمان',
+      trueValue: 'home',
+      falseValue: 'away'
+    }
+  }, [home, away])
+
   const eType = getValues('eType')
   return (
     <>
-      <CustomSelectField label="League" {...register("league")} provider={useLeagueOptionsProvider}/>
-      <CustomSelectField label="Match" {...register("match")} provider={useMatchOptionsProvider.bind({}, matchQuery)}/>
-      <CustomSelectField label="Type" {...register("eType")} provider={arrayProvider(eTypes)}/>
+      <SelectField label="League" {...register("league")} provider={useLeagueOptionsProvider}/>
+      <SelectField label="Match" {...register("match")} provider={useMatchOptionsProvider} query={matchQuery}/>
+      <SelectField label="Type" {...register("eType")} provider={arrayProvider(eTypes)}/>
       { (['goal','yc','rc']).includes(eType) ? (
         <>
           <TextField label="Time" type="number" min="0" max="120s" {...register("time")} />
           <SwitchField label="Team" {...register("team")} {...teamSwitchProps} />
-          <CustomSelectField label="Player" {...register("player")} provider={usePlayerOptionsProvider}/>
+          <SelectField label="Player" {...register("player")} provider={usePlayerOptionsProvider}/>
         </>
       ) : null}
       {/*<DevTool control={control} />*/}

@@ -34,7 +34,7 @@ const FsUploader = (allProps)=> {
             null
           }
         </div>
-        <FsGallery {...allProps}/>
+        <FsGallery {...allProps} queue/>
       </div>
     </FormGroup>
   )

@@ -86,7 +86,7 @@ export default Pagination
 
 Pagination.propTypes = {
   ...AtomPagination.propTypes,
-  children: PropTypes.ndoe,
+  children: PropTypes.node,
   total: PropTypes.number.isRequired,
   skip: PropTypes.number.isRequired,
   limit: PropTypes.number.isRequired,

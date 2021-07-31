@@ -1,29 +1,3 @@
-import classnames from 'classnames'
-
-const iconOptions = (p) => ({
-  'fa-stack-1x': p.stack === '1',
-  'fa-stack-2x': p.stack === '2',
-  'fa-lg': p.size === '1',
-  'fa-2x': p.size === '2',
-  'fa-3x': p.size === '3',
-  'fa-4x': p.size === '4',
-  'fa-5x': p.size === '5',
-  'fa-inverse': p.inverse,
-  'fa-fw': p.fw,
-  'fa-li': p.li,
-  'fa-spin': p.spin,
-  'fa-pulse': p.pulse,
-  'fa-border': p.border,
-  'fa-flip-horizontal': p.flip === 'horizontal',
-  'fa-flip-vertical': p.flip === 'vertical',
-  'fa-pull-right': p.pull === 'right',
-  'fa-pull-left': p.pull === 'left',
-  'fa-rotate-90': p.rotate === '90',
-  'fa-rotate-180': p.rotate === '180',
-  'fa-rotate-270': p.rotate === '270',
-})
-
-export default (p) => <i className={classnames("fab fa-font-awesome", iconOptions(p), p.className)}/>
 export const I500PxBrand = (p) => <i className={classnames("fab fa-500px", iconOptions(p), p.className)}/>
 export const AccessibleIconBrand = (p) => <i className={classnames("fab fa-accessible-icon", iconOptions(p), p.className)}/>
 export const AccusoftBrand = (p) => <i className={classnames("fab fa-accusoft", iconOptions(p), p.className)}/>
@@ -1633,6 +1607,3 @@ export const YoastBrand = (p) => <i className={classnames("fab fa-yoast", iconOp
 export const YoutubeBrand = (p) => <i className={classnames("fab fa-youtube", iconOptions(p), p.className)}/>
 export const YoutubeSquareBrand = (p) => <i className={classnames("fab fa-youtube-square", iconOptions(p), p.className)}/>
 export const ZhihuBrand = (p) => <i className={classnames("fab fa-zhihu", iconOptions(p), p.className)}/>
-
-export const FaStack = (p) => <span className={classnames("fa-stack", iconOptions(p), p.className)}>{p.children}</span>
-export const FaUl = (p) => <ul className={classnames("fa-ul", p.className)}>{p.children}</ul>

@@ -29,6 +29,7 @@ const withCommonEditScreen = function withCommonEditScreen (Card, Form, schema, 
       control,
       setValue,
       getValues,
+      watch,
       ...formRegister(name)
     })
     const preview = watch()
@@ -37,7 +38,7 @@ const withCommonEditScreen = function withCommonEditScreen (Card, Form, schema, 
         <ModalHeader className="d-block p-0" tag="div">
           <div className="d-flex justify-content-between align-items-center">
             {toggleFullBtn}
-            <span>Edit new {title}</span>
+            <span>Edit {title}</span>
             {closeBtn}
           </div>
         </ModalHeader>

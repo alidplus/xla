@@ -9,6 +9,7 @@ import withCommonTableScreen from 'lib/withCommonTableScreen'
 import {useHash} from "../../../layout/HashRoutes";
 import LeagueLoadContainer from "../../leagues/containers/Load";
 import LeagueInline from "../../leagues/screens/Inline";
+import Actions from "./Actions";
 
 const tableMap = [
   {
@@ -32,7 +33,7 @@ const tableMap = [
     title: 'Actions',
     width: 140,
     className: 'text-center',
-    render: (data) => (<ControlToolbar data={data} hideAdd></ControlToolbar>),
+    render: (data) => (<ControlToolbar data={data} hideAdd><Actions /></ControlToolbar>),
   }
 ]
 

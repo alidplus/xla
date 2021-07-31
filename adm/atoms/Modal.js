@@ -11,7 +11,9 @@ import {
   omit,
   focusableElements,
   TransitionTimeouts,
-  keyCodes
+  keyCodes,
+  targetPropType,
+  getTarget
 } from './utils';
 
 function noop() { }
@@ -57,7 +59,9 @@ const propTypes = {
     PropTypes.func,
   ]),
   unmountOnClose: PropTypes.bool,
-  returnFocusAfterClose: PropTypes.bool
+  returnFocusAfterClose: PropTypes.bool,
+  container: targetPropType,
+  trapFocus: PropTypes.bool
 };
 
 const propsToOmit = Object.keys(propTypes);
@@ -82,7 +86,9 @@ const defaultProps = {
     timeout: TransitionTimeouts.Fade, // uses standard fade transition
   },
   unmountOnClose: true,
-  returnFocusAfterClose: true
+  returnFocusAfterClose: true,
+  container: 'body',
+  trapFocus: false
 };
 
 class Modal extends React.Component {
@@ -101,6 +107,7 @@ class Modal extends React.Component {
     this.onClosed = this.onClosed.bind(this);
     this.manageFocusAfterClose = this.manageFocusAfterClose.bind(this);
     this.clearBackdropAnimationTimeout = this.clearBackdropAnimationTimeout.bind(this);
+    this.trapFocus = this.trapFocus.bind(this);
 
     this.state = {
       isOpen: false,
@@ -122,6 +129,9 @@ class Modal extends React.Component {
     if (onEnter) {
       onEnter();
     }
+
+    // traps focus inside the Modal, even if the browser address bar is focused
+    document.addEventListener('focus', this.trapFocus, true);
 
     this._isMounted = true;
   }
@@ -153,12 +163,41 @@ class Modal extends React.Component {
 
     if (this._element) {
       this.destroy();
-      if (this.props.isOpen) {
+      if (this.props.isOpen || this.state.isOpen) {
         this.close();
       }
     }
 
+    document.removeEventListener('focus', this.trapFocus, true);
     this._isMounted = false;
+  }
+
+  trapFocus (ev) {
+    if (!this.props.trapFocus) {
+      return;
+    }
+
+    if (!this._element) //element is not attached
+      return;
+
+    if (this._dialog && this._dialog.parentNode === ev.target) // initial focus when the Modal is opened
+      return;
+
+    if (this.modalIndex < (Modal.openCount - 1)) // last opened modal
+      return;
+
+    const children = this.getFocusableChildren();
+
+    for (let i = 0; i < children.length; i++) { // focus is already inside the Modal
+      if (children[i] === ev.target)
+        return;
+    }
+
+    if (children.length > 0) { // otherwise focus the first focusable element in the Modal
+      ev.preventDefault();
+      ev.stopPropagation();
+      children[0].focus();
+    }
   }
 
   onOpened(node, isAppearing) {
@@ -225,6 +264,7 @@ class Modal extends React.Component {
 
   handleTab(e) {
     if (e.which !== 9) return;
+    if (this.modalIndex < (Modal.openCount - 1)) return; // last opened modal
 
     const focusableChildren = this.getFocusableChildren();
     const totalFocusable = focusableChildren.length;
@@ -264,7 +304,7 @@ class Modal extends React.Component {
       else if (this.props.backdrop === 'static') {
         e.preventDefault();
         e.stopPropagation();
-        
+
         this.handleStaticBackdropAnimation();
       }
     }
@@ -290,7 +330,8 @@ class Modal extends React.Component {
       this._element.setAttribute('tabindex', '-1');
       this._element.style.position = 'relative';
       this._element.style.zIndex = this.props.zIndex;
-      document.body.appendChild(this._element);
+      this._mountContainer = getTarget(this.props.container);
+      this._mountContainer.appendChild(this._element);
     }
 
     this._originalBodyPadding = getOriginalBodyPadding();
@@ -303,12 +344,13 @@ class Modal extends React.Component {
       );
     }
 
+    this.modalIndex = Modal.openCount;
     Modal.openCount += 1;
   }
 
   destroy() {
     if (this._element) {
-      document.body.removeChild(this._element);
+      this._mountContainer.removeChild(this._element);
       this._element = null;
     }
 

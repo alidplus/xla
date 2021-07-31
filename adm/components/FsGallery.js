@@ -48,7 +48,6 @@ const FsGallery = ({ target, pathname, model, requestList, list, thumbNail, requ
       })}
     </div>
   )
-  return
 }
 
 FsGallery.propTypes = {

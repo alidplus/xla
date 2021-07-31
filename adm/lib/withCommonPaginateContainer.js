@@ -5,6 +5,8 @@ import {usersDuck} from "../store/services";
 import {connect} from "react-redux";
 import {queryBuilder} from "../src/users/hooks/useOptionsProvider";
 import {Spinner} from "../atoms";
+import getByDot from "lodash/get";
+import setByDot from "lodash/set";
 
 const defaultPropsQuery = {}
 
@@ -15,13 +17,23 @@ const CommonPaginateContainer = function CommonPaginateContainer
     page,
     queryBuilder,
     query: propsQuery = defaultPropsQuery,
-    children
+    children,
+    textSearch = false
   }) {
   const router = useRouter()
   const hash = useHash()
 
-  const setFilters = filters => {
-    router.push({ pathname: router.pathname, query: filters }, undefined, { shallow: true })
+  const setFilters = (filters) => {
+    // e.preventDefault()
+    const routerQuery = {}
+    for (const routerQueryElement in filters) {
+      if (filters.hasOwnProperty(routerQueryElement)) {
+        const value = getByDot(filters, routerQueryElement, null)
+        if (value)
+          setByDot(routerQuery, routerQueryElement, value)
+      }
+    }
+    router.push({ pathname: router.pathname, query: routerQuery }, undefined, { shallow: true })
   }
 
   const handleFind = async (query) => {
@@ -33,9 +45,19 @@ const CommonPaginateContainer = function CommonPaginateContainer
   }
 
   useEffect(() => {
-    const { keyword, skip: $skip = 0, limit: $limit = 10 } = router.query
+    const { keyword, skip: $skip = 0, limit: $limit = 10, ...restQuery } = router.query
     // const searchQuery = queryBuilder(keyword)
-    const query = { $and: [propsQuery], "$search": keyword, $skip, $limit }
+    const routerRestQuery = {}
+    for (const restQueryElement in restQuery) {
+      if (restQuery.hasOwnProperty(restQueryElement)) {
+        console.log('handleSearch restQueryElement', restQueryElement)
+        const value = getByDot(restQuery, restQueryElement, null)
+        if (value)
+          setByDot(routerRestQuery, restQueryElement.replace('__', '.'), value)
+      }
+    }
+    const query = { $and: [propsQuery, routerRestQuery], $skip, $limit }
+    if (textSearch) query.$search = keyword
     handleFind(query)
   }, [router.query, propsQuery])
 
@@ -55,9 +77,9 @@ const CommonPaginateContainer = function CommonPaginateContainer
 }
 
 const withCommonPaginateContainer = function withCommonLoadContiner (duck, queryBuilder, _uid, Component = CommonPaginateContainer) {
-
   const mapStateToProps = (state, { uid = _uid }) => {
     return {
+      ...duck.options.consts,
       page: duck.selectors.find(state, { uid }),
       uid,
       queryBuilder
