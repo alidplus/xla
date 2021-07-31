@@ -7,6 +7,7 @@ import {Plus} from "atoms/icons";
 import Icon from "./Icon";
 import withCommonTableScreen from 'lib/withCommonTableScreen'
 import {useHash} from "../../../layout/HashRoutes";
+import Actions from "./Actions";
 
 const tableMap = [
   {
@@ -26,7 +27,7 @@ const tableMap = [
     title: 'Actions',
     width: 140,
     className: 'text-center',
-    render: (data) => (<ControlToolbar data={data} hideAdd></ControlToolbar>),
+    render: (data) => (<ControlToolbar data={data} hideAdd><Actions /></ControlToolbar>),
   }
 ]
 
