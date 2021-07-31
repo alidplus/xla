@@ -3,7 +3,7 @@ module.exports = (app) => async (match) => {
   if (!match.timeUp)
     throw new Error("match hasn't finished yet");
   
-  console.log("\n>>>>>>>>>>>>\nImHereeee\n<<<<<<<<<<<<<\n");
+  // console.log("\n>>>>>>>>>>>>\nImHereeee\n<<<<<<<<<<<<<\n");
   const { homePerformance, awayPerformance } = performanceCalculator(match.result);
 
   updateInformation(app, match.home, homePerformance);

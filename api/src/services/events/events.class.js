@@ -7,7 +7,13 @@ exports.Events = class Events extends Service {
   }
 
   async create(data, params) {
-    
+    if(Array.isArray(data)) {
+      return data.reduce( async (p, d) => {
+        if(p)
+          await p;
+        return this.create(d, params)
+      }, null)
+    }
     try {
       const app = this.app;
       const MatchService = app.service("matches");
@@ -35,7 +41,7 @@ exports.Events = class Events extends Service {
   
       return event;
     } catch(e) {
-      console.log("eventCreation: " + e.message);
+      console.log("eventCreation: " + e);
       throw new Error("failed to create event")
     }
   }

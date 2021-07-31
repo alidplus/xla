@@ -13,7 +13,7 @@ module.exports = function (app) {
     league: { type: Schema.Types.ObjectId, ref: 'users' , required: true },
     match: { type: Schema.Types.ObjectId, ref: 'matches' , required: true },
     team: { type: String, enum:['home', 'away']},
-    player: { type: Schema.Types.ObjectId, ref: 'players' },
+    player: { type: Schema.Types.ObjectId, ref: 'leaguePlayers' },
     time: { type: Number, required: true, default: 0 },
 
     isChecked: { type: Boolean, default: false },

@@ -14,22 +14,19 @@ module.exports = (app) => async (match) => {
     const groupedData = groupBy(findMatchesEvents.data, "player")
     
     const LeaguePlayersService = app.service("leaguePlayers");
-    for(playerId in groupedData) {
-      const findLeaguePlayer = await LeaguePlayersService.Model.findOne({
-        player: playerId,
-        league: match.league,
-      });
+    for(leaguePlayerId in groupedData) {
+      const findLeaguePlayer = await LeaguePlayersService.get(leaguePlayerId);
       statistics = findLeaguePlayer.statistics || {};
-      groupedData[playerId].forEach(event => {
+      groupedData[leaguePlayerId].forEach(event => {
         const eType = event.eType;
         set(statistics, eType, get(statistics, eType, 0) + 1);        
       })
-      console.log(statistics);
+      // console.log(statistics);
       await LeaguePlayersService.patch(findLeaguePlayer._id, {statistics});
     }
 
   } catch(e) {
-    console.log("updateLeagueplayers.js: " + e.message);
+    console.log("updateLeagueplayers.js: " + e);
     throw new Error("can't updateLeagueplayers");
   }
 }
