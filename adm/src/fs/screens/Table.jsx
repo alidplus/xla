@@ -15,6 +15,7 @@ const tableMap = [
   },
   {
     title: 'File Name',
+    className: 'text-truncate',
     key: 'fileName',
   },
   {

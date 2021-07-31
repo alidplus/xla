@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useRef } from 'react'
-import PropTypes from 'prop-types'
 import {
   FormGroup, Input, InputGroup, InputGroupAddon, Label, InputGroupText,
   Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
@@ -9,23 +8,53 @@ import Pagination from "../Pagination";
 import {Trash, Times} from 'atoms/icons'
 import { ErrorMessage } from '@hookform/error-message';
 import { nullProvider } from 'lib/optionsProvider'
+import Select from 'react-select';
 
-const CustomSelectField = React.forwardRef(({label, icon: Icon, errors = {}, control, setValue, getValues, provider : useProvider = nullProvider, name }, ref) => {
+const colourStyles = {
+  option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+    // const color = chroma(data.color);
+    return {
+      ...styles,
+      backgroundColor: isDisabled
+        ? '#111111'
+        : isSelected
+          ? '#375a7f'
+          : isFocused
+            ? '#375a7f'
+            : '#111111',
+    };
+  }
+};
+
+const SelectField = React.forwardRef(({label, icon: Icon, errors = {}, control, setValue, getValues, provider : useProvider = nullProvider, name, query = null, disabled }, ref) => {
   const invalid = useMemo(() => errors[name], [errors, name])
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchFocus, setSearchFocus] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
-  const setFieldValue = async (id, e) => {
-    setValue(name, id, { shouldValidate: true, shouldDirty: true, shouldTouch: true })
+  const setFieldValue = async (opt, e) => {
+    setValue(name, opt.value, { shouldValidate: true, shouldDirty: true, shouldTouch: true })
   }
 
-  const { options, searchProps, paginateProps, selected } = useProvider(null, getValues(name))
+  const { options, searchProps, paginateProps, selected } = useProvider(query, getValues(name))
+
+  const loadOptions = useMemo(() => {
+    return options.map(o => ({ ...o, value: o._id }))//.concat(selected)
+  }, [options, selected])
   return (
     <FormGroup>
       <Label>{label}:</Label>
+      <Select
+        options={loadOptions}
+        defaultOptions
+        value={selected}
+        isDisabled={disabled}
+        onChange={setFieldValue}
+        styles={colourStyles}
+        onInputChange={searchProps.onChange}
+      />
       {/*<input {...props} ref={ref} type="text" className="d-none"/>*/}
-      <Dropdown isOpen={searchFocus || dropdownOpen} toggle={toggle} className="">
+      {/*<Dropdown isOpen={searchFocus || dropdownOpen} toggle={toggle} className="">
         <DropdownToggle tag="div">
           <InputGroup className="w-100 d-flex">
             {Icon && <InputGroupAddon addonType="prepend" className="d-flex justify-content-center align-items-center px-2 border"><Icon/></InputGroupAddon>}
@@ -33,7 +62,7 @@ const CustomSelectField = React.forwardRef(({label, icon: Icon, errors = {}, con
               <Badge className="bg-success text-dark flex-grow-1">{selected.label}</Badge>
               <Badge className="bg-success text-dark"><Times/></Badge>
             </div>}
-            <Input placeholder="type to search" {...searchProps} onFocus={e => setSearchFocus(true)} onBlur={e => setSearchFocus(false)}/>
+            <Input placeholder="type to search" {...searchProps} onFocus={e => setSearchFocus(true)} onBlur={e => setSearchFocus(false)} disabled={disabled}/>
           </InputGroup>
         </DropdownToggle>
         <DropdownMenu className="shadow w-100">
@@ -42,20 +71,20 @@ const CustomSelectField = React.forwardRef(({label, icon: Icon, errors = {}, con
           ))}
           {paginateProps && <Pagination {...paginateProps} listClassName="mb-0 mx-2"/>}
         </DropdownMenu>
-      </Dropdown>
+      </Dropdown>*/}
       <ErrorMessage errors={errors} name={name} />
     </FormGroup>
   )
 })
 
-CustomSelectField.propTypes = {
+SelectField.propTypes = {
   // ...FormGroup.propTypes,
   // onSubmit: PropTypes.func.isRequired,
   // keyword: PropTypes.string
 }
 
-CustomSelectField.defaultProps = {
+SelectField.defaultProps = {
   // ...FormGroup.defaultProps,
 }
 
-export default CustomSelectField
+export default SelectField

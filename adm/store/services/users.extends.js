@@ -7,6 +7,10 @@ export default (ducks, serviceName) => {
   return  {
     types: [],
 
+    consts: {
+      textSearch: true,
+    },
+
     reducer: (_state, action, duck) => {
       return _state
     },

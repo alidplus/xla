@@ -4,9 +4,12 @@ import TextField from "components/form/TextField";
 import FsUploader from "components/FsUploader";
 import React from "react";
 
-import CustomSelectField from "components/form/CustomSelectField";
+import SelectField from "components/form/SelectField";
 import useUserOptionsProvider from 'src/users/hooks/useOptionsProvider'
 import classnames from "classnames";
+
+const flagAvatar = <Avatar circle size="100px" className="mx-1"/>
+const galleryAvatar = <Avatar size="100px" className="mx-1"/>
 
 const Form = ({ register, control, data }) => {
   const [activeTab, setActiveTab] = useState('1')
@@ -36,7 +39,7 @@ const Form = ({ register, control, data }) => {
           <TextField label="Title Fa" {...register("title.fa")} />
           <TextField label="Title En" {...register("title.en")} />
           <TextField label="ABR" {...register("title.abr")} />
-          <CustomSelectField label="Owner" {...register("owner")} provider={useUserOptionsProvider}/>
+          <SelectField label="Owner" {...register("owner")} provider={useUserOptionsProvider}/>
         </TabPane>
         <TabPane tabId="2">
           <FsUploader
@@ -46,7 +49,7 @@ const Form = ({ register, control, data }) => {
             pathname="flag"
             count={1}
             accept="image/*"
-            thumbNail={<Avatar circle size="100px" className="mx-1"/>}
+            thumbNail={flagAvatar}
           />
           <FsUploader
             label="Gallery"
@@ -55,7 +58,7 @@ const Form = ({ register, control, data }) => {
             pathname="gallery"
             count={2}
             accept="image/*"
-            thumbNail={<Avatar size="100px" className="mx-1"/>}
+            thumbNail={galleryAvatar}
           />
         </TabPane>
       </TabContent>

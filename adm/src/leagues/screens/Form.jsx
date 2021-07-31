@@ -3,7 +3,7 @@ import TextField from "components/form/TextField";
 import SwitchField from "components/form/SwitchField";
 import FsUploader from "components/FsUploader";
 import React, { useState } from "react";
-import CustomSelectField from "components/form/CustomSelectField";
+import SelectField from "components/form/SelectField";
 import useSponsorOptionsProvider from "src/sponsors/hooks/useOptionsProvider";
 import classnames from "classnames";
 
@@ -35,7 +35,7 @@ const Form = ({ register, control, data }) => {
           <TextField label="Description" {...register("text")} />
           <SwitchField label="Home Away?" {...register("homeAway")} falseLabel="Single Match" trueLabel="Home Away"/>
           <TextField label="Teams" {...register("teams")} />
-          <CustomSelectField label="Sponsor" {...register("sponsor")} provider={useSponsorOptionsProvider}/>
+          <SelectField label="Sponsor" {...register("sponsor")} provider={useSponsorOptionsProvider}/>
         </TabPane>
         <TabPane tabId="2">
           <FsUploader

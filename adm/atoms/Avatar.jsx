@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react'
 import cn from 'classnames'
 const s2 = {objectFit: 'cover'}
-export default function ({ file, size = '20px', circle = false, className, ...props}) {
+
+const Avatar = function ({ file, size = '20px', circle = false, className, ...props}) {
   const s1 = useMemo(() => ({width: `${size}`}), [size])
   return (
     <div {...props} className={cn(className, "ratio ratio-1x1")} style={s1}>
@@ -13,3 +14,5 @@ export default function ({ file, size = '20px', circle = false, className, ...pr
     </div>
   )
 }
+
+export default Avatar

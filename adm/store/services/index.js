@@ -1,4 +1,6 @@
-import featherDuckGenerator from './featherDuckGenerator'
+import featherGetDuckGenerator from './featherGetDuckGenerator'
+import featherFindDuckGenerator from './featherFindDuckGenerator'
+import featherControlDuckGenerator from './featherControlDuckGenerator'
 import Duck from 'extensible-duck';
 import emptyDuck from './emptyDuck'
 
@@ -7,7 +9,7 @@ import extendedUserDuck from './users.extends'
 // import extendedLeaguesDuck from './leagues.extends.js'
 // import extendedMatchesDuck from './matches.extends.js'
 // import extendedPlayersDuck from './players.extends.js'
-// import extendedEventsDuck from './events.extends.js'
+import extendedEventsDuck from './events.extends.js'
 // import extendedRefereesDuck from './referees.extends.js'
 // import extendedSponsorsDuck from './sponsors.extends.js'
 // import extendedLeaguePlayersDuck from './leaguePlayers.extends.js'
@@ -19,47 +21,69 @@ import extendedCommonDuck from './common.extends.js'
 const ducks = {}
 
 const users = (new Duck(emptyDuck('users')))
-  .extend(featherDuckGenerator.bind({}, 'users'))
+  .extend(featherGetDuckGenerator.bind({}, 'users'))
+  .extend(featherFindDuckGenerator.bind({}, 'users'))
+  .extend(featherControlDuckGenerator.bind({}, 'users'))
 ducks.users = users
 
 const teams = (new Duck(emptyDuck('teams')))
-  .extend(featherDuckGenerator.bind({}, 'teams'))
+  .extend(featherGetDuckGenerator.bind({}, 'teams'))
+  .extend(featherFindDuckGenerator.bind({}, 'teams'))
+  .extend(featherControlDuckGenerator.bind({}, 'teams'))
 ducks.teams = teams
 
 const leagues = (new Duck(emptyDuck('leagues')))
-  .extend(featherDuckGenerator.bind({}, 'leagues'))
+  .extend(featherGetDuckGenerator.bind({}, 'leagues'))
+  .extend(featherFindDuckGenerator.bind({}, 'leagues'))
+  .extend(featherControlDuckGenerator.bind({}, 'leagues'))
 ducks.leagues = leagues
 
 const matches = (new Duck(emptyDuck('matches')))
-  .extend(featherDuckGenerator.bind({}, 'matches'))
+  .extend(featherGetDuckGenerator.bind({}, 'matches'))
+  .extend(featherFindDuckGenerator.bind({}, 'matches'))
+  .extend(featherControlDuckGenerator.bind({}, 'matches'))
 ducks.matches = matches
 
 const players = (new Duck(emptyDuck('players')))
-  .extend(featherDuckGenerator.bind({}, 'players'))
+  .extend(featherGetDuckGenerator.bind({}, 'players'))
+  .extend(featherFindDuckGenerator.bind({}, 'players'))
+  .extend(featherControlDuckGenerator.bind({}, 'players'))
 ducks.players = players
 
 const events = (new Duck(emptyDuck('events')))
-  .extend(featherDuckGenerator.bind({}, 'events'))
+  .extend(featherGetDuckGenerator.bind({}, 'events'))
+  .extend(featherFindDuckGenerator.bind({}, 'events'))
+  .extend(featherControlDuckGenerator.bind({}, 'events'))
 ducks.events = events
 
 const referees = (new Duck(emptyDuck('referees')))
-  .extend(featherDuckGenerator.bind({}, 'referees'))
+  .extend(featherGetDuckGenerator.bind({}, 'referees'))
+  .extend(featherFindDuckGenerator.bind({}, 'referees'))
+  .extend(featherControlDuckGenerator.bind({}, 'referees'))
 ducks.referees = referees
 
 const sponsors = (new Duck(emptyDuck('sponsors')))
-  .extend(featherDuckGenerator.bind({}, 'sponsors'))
+  .extend(featherGetDuckGenerator.bind({}, 'sponsors'))
+  .extend(featherFindDuckGenerator.bind({}, 'sponsors'))
+  .extend(featherControlDuckGenerator.bind({}, 'sponsors'))
 ducks.sponsors = sponsors
 
 const fs = (new Duck(emptyDuck('fs')))
-  .extend(featherDuckGenerator.bind({}, 'fs'))
+  .extend(featherGetDuckGenerator.bind({}, 'fs'))
+  .extend(featherFindDuckGenerator.bind({}, 'fs'))
+  .extend(featherControlDuckGenerator.bind({}, 'fs'))
 ducks.fs = fs
 
 const leagueTeams = (new Duck(emptyDuck('leagueTeams')))
-  .extend(featherDuckGenerator.bind({}, 'leagueTeams'))
+  .extend(featherGetDuckGenerator.bind({}, 'leagueTeams'))
+  .extend(featherFindDuckGenerator.bind({}, 'leagueTeams'))
+  .extend(featherControlDuckGenerator.bind({}, 'leagueTeams'))
 ducks.leagueTeams = leagueTeams
 
 const leaguePlayers = (new Duck(emptyDuck('leaguePlayers')))
-  .extend(featherDuckGenerator.bind({}, 'leaguePlayers'))
+  .extend(featherGetDuckGenerator.bind({}, 'leaguePlayers'))
+  .extend(featherFindDuckGenerator.bind({}, 'leaguePlayers'))
+  .extend(featherControlDuckGenerator.bind({}, 'leaguePlayers'))
 ducks.leaguePlayers = leaguePlayers
 
 
@@ -68,7 +92,7 @@ ducks.users =     users.extend(extendedUserDuck(ducks, 'users'))
 // ducks.leagues =   leagues.extend(extendedLeaguesDuck(ducks, 'leagues'))
 // ducks.matches =   matches.extend(extendedMatchesDuck(ducks, 'matches'))
 // ducks.players =   players.extend(extendedPlayersDuck(ducks, 'players'))
-// ducks.events =    events.extend(extendedEventsDuck(ducks, 'events'))
+ducks.events =    events.extend(extendedEventsDuck(ducks, 'events'))
 // ducks.referees =  referees.extend(extendedRefereesDuck(ducks, 'referees'))
 // ducks.sponsors =  sponsors.extend(extendedSponsorsDuck(ducks, 'sponsors'))
 // ducks.leagueTeams =  leagueTeams.extend(extendedLeagueTeamsDuck(ducks, 'leagueTeams'))

@@ -49,7 +49,10 @@ const CommonControlContainer = function CommonControlContainer ({ children, dism
 const withCommonControlContainer = function withCommonControlContiner (duck, Component = CommonControlContainer) {
 
   const mapStateToProps = (state, { id }) => {
-    return { data: duck.selectors.get(state, { id }) }
+    return {
+      ...duck.options.consts,
+      data: duck.selectors.get(state, { id })
+    }
   }
 
   const mapDispatchToProps = {

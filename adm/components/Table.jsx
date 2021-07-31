@@ -20,33 +20,35 @@ const TableConfig = {
 
 const Table = ({ data, map, index, skip, footer, ...tableProps }) => {
   return (
-    <AtomTable {...tableProps}>
-      <thead>
-        <tr>
-          {!index ? null : <th scope="col">#</th>}
-          {map.map((col, j) => (
-            <th scope="col" key={j} className={col.className} width={col.width || 'auto'}>{col.title}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-      {data.map((row, i) => (
-        <tr key={i}>
-          {!index ? null : <th scope="row" className="vertical-align-middle">{i + 1 + skip}</th>}
-          {map.map((col, j) => (
-            <td className={`vertical-align-middle ${col.className}`} key={j}><InnerTd col={col} row={row}/></td>
-          ))}
-        </tr>
-      ))}
-      </tbody>
-      {footer && (
-        <tfoot>
+    <div className="-table-responsive">
+      <AtomTable {...tableProps}>
+        <thead>
           <tr>
-            <td colspan={map.length + +index}>{footer}</td>
+            {!index ? null : <th scope="col">#</th>}
+            {map.map((col, j) => (
+              <th scope="col" key={j} className={col.className} width={col.width || 'auto'}>{col.title}</th>
+            ))}
           </tr>
-        </tfoot>
-      )}
-    </AtomTable>
+        </thead>
+        <tbody>
+        {data.map((row, i) => (
+          <tr key={i}>
+            {!index ? null : <th scope="row" className="vertical-align-middle">{i + 1 + skip}</th>}
+            {map.map((col, j) => (
+              <td className={`vertical-align-middle ${col.className}`} key={j}><InnerTd col={col} row={row}/></td>
+            ))}
+          </tr>
+        ))}
+        </tbody>
+        {footer && (
+          <tfoot>
+            <tr>
+              <td colspan={map.length + +index}>{footer}</td>
+            </tr>
+          </tfoot>
+        )}
+      </AtomTable>
+    </div>
   )
 }
 

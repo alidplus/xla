@@ -2,7 +2,7 @@ import {Avatar, Row, Col, Nav, NavItem, NavLink, TabContent, TabPane} from "atom
 import TextField from "components/form/TextField";
 import FsUploader from "components/FsUploader";
 import React, { useState } from "react";
-import CustomSelectField from "components/form/CustomSelectField";
+import SelectField from "components/form/SelectField";
 import useTeamOptionsProvider from "src/teams/hooks/useOptionsProvider";
 import JdateField from "components/form/JdateField";
 import classnames from "classnames";
@@ -39,7 +39,7 @@ const Form = ({ register, control, data }) => {
           <TextField label="Name" {...register("name")} />
           <TextField label="No#" {...register("no")} />
           <JdateField label="Birth Date" type="date" {...register("bDate")} />
-          <CustomSelectField label="Team" {...register("team")} provider={useTeamOptionsProvider}/>
+          <SelectField label="Team" {...register("team")} provider={useTeamOptionsProvider}/>
         </TabPane>
         <TabPane tabId="2">
           <FsUploader

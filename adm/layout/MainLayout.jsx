@@ -9,7 +9,7 @@ import NavLeft from './nav/NavLeft';
 import NavBar from './nav/NavBar';
 // import Footer from './foot/Footer';
 
-const fixedPositionStyle = {zIndex: 99, paddingTop: '75px'}
+const fixedPositionStyle = {zIndex: 99, paddingTop: '75px', width: '300px', maxWait: '100%'}
 
 function MainLayout(mainProps) {
   const { children, sideToggled, toggleSide, authUser, logout } = mainProps;
@@ -45,10 +45,10 @@ function MainLayout(mainProps) {
         <Row>
           {sideToggled ? (
             <Col className="flex-grow-0 p-0">
-              <div className="d-md-none position-fixed w-75 h-100 top-0 bg-dark" style={fixedPositionStyle}>
+              <div className="d-lg-none position-fixed h-100 top-0 bg-dark" style={fixedPositionStyle}>
                 <NavLeft/>
               </div>
-              <div className="d-none d-md-block">
+              <div className="d-none d-lg-block">
                 <NavLeft/>
               </div>
             </Col>

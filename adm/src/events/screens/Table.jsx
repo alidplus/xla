@@ -7,6 +7,9 @@ import {Plus} from "atoms/icons";
 import Icon from "./Icon";
 import withCommonTableScreen from 'lib/withCommonTableScreen'
 import {useHash} from "../../../layout/HashRoutes";
+import LeagueLoadContainer from "../../leagues/containers/Load";
+import LeagueInline from "../../leagues/screens/Inline";
+import Actions from "./Actions";
 
 const tableMap = [
   {
@@ -14,12 +17,12 @@ const tableMap = [
     render: data => (<Id data={data}/>),
   },
   {
-    title: 'Model',
-    key: 'model',
+    title: 'Type',
+    key: 'eType',
   },
   {
-    title: 'Type',
-    key: 'variety',
+    title: 'League',
+    render: data => (<LeagueLoadContainer id={data.league}><LeagueInline></LeagueInline></LeagueLoadContainer>),
   },
   {
     title: 'date',
@@ -30,7 +33,7 @@ const tableMap = [
     title: 'Actions',
     width: 140,
     className: 'text-center',
-    render: (data) => (<ControlToolbar data={data} hideAdd></ControlToolbar>),
+    render: (data) => (<ControlToolbar data={data} hideAdd><Actions /></ControlToolbar>),
   }
 ]
 

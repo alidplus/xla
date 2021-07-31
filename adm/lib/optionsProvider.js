@@ -37,8 +37,9 @@ export default function optionsProvider(serviceName, queryBuilder = simpleQuery,
     const searchProps = {
       defaultValue: filters.keyword,
       onChange: debounce((e) => {
-        console.log('apply keyword on option provider 0', e.target.value)
-        setFilters(prevState => ({...prevState, keyword: e.target.value}))
+        const v = typeof e === 'string' ? e : e.target.value
+        setFilters(prevState => ({...prevState, keyword: v}))
+        return v
       }, 500)
     }
 
@@ -57,7 +58,7 @@ export default function optionsProvider(serviceName, queryBuilder = simpleQuery,
   }, [page, single])
 }
 
-export const arrayProvider = (allOptions) => (id = null) => {
+export const arrayProvider = (allOptions) => (q = null, id = null) => {
   const [filters, setFilters] = useState({})
 
   return useMemo(() => {
@@ -65,7 +66,11 @@ export const arrayProvider = (allOptions) => (id = null) => {
 
     const searchProps = {
       defaultValue: filters.keyword,
-      onChange: (e) => setFilters(prevState => ({...prevState, keyword: e.target.value}))
+      onChange: (e) => {
+        const v = typeof e === 'string' ? e : e.target.value
+        setFilters(prevState => ({...prevState, keyword: v}))
+        return v
+      }
     }
 
     const paginateProps = {

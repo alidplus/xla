@@ -6,7 +6,24 @@ import {
 } from 'atoms';
 import { ErrorMessage } from '@hookform/error-message';
 
-const SwitchField = React.forwardRef(({ label, icon: Icon, errors = {}, control, setValue, getValues, name, trueLabel = 'Yes', falseLabel = 'No', ...props }, ref) => {
+const SwitchField = React.forwardRef(
+  (
+    {
+      label,
+      icon: Icon,
+      errors = {},
+      control,
+      setValue,
+      getValues,
+      name,
+      trueLabel = 'Yes',
+      falseLabel = 'No',
+      trueValue = true,
+      falseValue = false,
+      ...props
+    },
+    ref
+  ) => {
   const invalid = useMemo(() => errors[props.name], [errors, props.name])
   const setFieldValue = async (v, e) => {
     setValue(name, v, { shouldValidate: true, shouldDirty: true, shouldTouch: true })
@@ -18,10 +35,10 @@ const SwitchField = React.forwardRef(({ label, icon: Icon, errors = {}, control,
       <InputGroup>
         {Icon && <InputGroupAddon addonType="prepend"><Icon/></InputGroupAddon>}
         <ButtonGroup className="btn-group-sm w-100">
-          <Button outline={value === false} type="button" color="primary" onClick={setFieldValue.bind({}, true)}>
+          <Button outline={value !== trueValue} type="button" color="primary" onClick={setFieldValue.bind({}, trueValue)}>
             {trueLabel}
           </Button>
-          <Button outline={value === true} type="button" color="primary" onClick={setFieldValue.bind({}, false)}>
+          <Button outline={value !== falseValue} type="button" color="primary" onClick={setFieldValue.bind({}, falseValue)}>
             {falseLabel}
           </Button>
         </ButtonGroup>

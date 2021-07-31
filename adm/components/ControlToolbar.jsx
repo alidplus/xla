@@ -20,7 +20,7 @@ const ControlToolbar = function ControlToolbar({ children, data = null, classNam
       {!children ? null : <ButtonGroup>
         <ButtonDropdown color="" isOpen={isOpen} toggle={toggle} direction={openUp ? 'up' : 'down'}>
           <DropdownToggle color="" className="px-0">{openUp ? <AngleUp fw/> : <AngleDown fw/>}</DropdownToggle>
-          <DropdownMenu>
+          <DropdownMenu className="border-white">
             {React.cloneElement(children, { data })}
           </DropdownMenu>
         </ButtonDropdown>

@@ -1,5 +1,7 @@
+// import 'scripts/wdyr.js'
 import App from "next/app";
 import React from "react";
+import Router from 'next/router'
 import { Provider } from "react-redux";
 import withRedux from "next-redux-wrapper";
 import withReduxSaga from 'next-redux-saga';
@@ -32,6 +34,16 @@ class MyApp extends App {
     try {
       if (auth && auth.accessToken) await store.dispatch(authDuck.creators.reAuthenticate(auth.accessToken));
     } catch (e) {
+      if (req.url !== '/') {
+        if (res) { // server
+          res.writeHead(302, {
+            Location: '/'
+          });
+          res.end();
+        } else { // client
+          await Router.push('/');
+        }
+      }
     }
     const appProps = await App.getInitialProps({ Component, ctx });
     return { ...appProps, auth };
@@ -39,8 +51,13 @@ class MyApp extends App {
   async UNSAFE_componentWillMount(){
     const { auth } = this.props
     if (auth && auth.accessToken) {
-      await client.authentication.setAccessToken(auth.accessToken)
-      await client.authentication.reAuthenticate()
+      try {
+        await client.authentication.setAccessToken(auth.accessToken)
+        await client.authentication.reAuthenticate()
+      } catch (e) {
+        console.log('error in UNSAFE_componentWillMount', e.message, this.props)
+        // await Router.push('/');
+      }
     }
   }
   render() {

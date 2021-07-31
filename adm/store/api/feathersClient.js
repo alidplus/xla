@@ -15,4 +15,14 @@ client.configure(
   })
 )
 
+client.hooks({
+  error: {
+    all: [
+      (context) => {
+        console.error(`Error in '${context.path}' service method '${context.method}'`, context.error.message);
+      }
+    ]
+  }
+});
+
 export default client

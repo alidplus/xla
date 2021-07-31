@@ -18,10 +18,12 @@ const session = function session(handler) {
 
 export default session
 
-export const sessionMiddleware = function sessionMiddleware(req, res) {
+const ssnMiddle = function(req, res) {
   return new Promise((resolve) => {
     ironSession(sessionConfig)(req, res, resolve)
   })
 }
+
+export const sessionMiddleware = ssnMiddle
 
 

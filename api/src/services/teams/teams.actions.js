@@ -9,7 +9,7 @@ module.exports = {
 }
 
 async function createLeagueTeamAndLeaguePlayers (data, params, app) {
-      
+
   try {
     const LeagueTeamService = app.service("leagueTeams");
 
