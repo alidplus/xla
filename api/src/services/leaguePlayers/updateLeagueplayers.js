@@ -7,11 +7,12 @@ module.exports = (app) => async (match) => {
     const EventService = app.service("events");
     const searchOptions = {
       match: match._id,
+      player: { $exists: true }
     }
   
-    const findMatchesEvents = await EventService.find({query: searchOptions});
+    const findMatchesEvents = await EventService.find({query: searchOptions, paginate: false });
   
-    const groupedData = groupBy(findMatchesEvents.data, "player")
+    const groupedData = groupBy(findMatchesEvents, "player")
     
     const LeaguePlayersService = app.service("leaguePlayers");
     for(leaguePlayerId in groupedData) {
@@ -26,7 +27,7 @@ module.exports = (app) => async (match) => {
     }
 
   } catch(e) {
-    console.log("updateLeagueplayers.js: " + e);
+    console.log("updateLeagueplayers.js: ", e);
     throw new Error("can't updateLeagueplayers");
   }
 }

@@ -33,12 +33,6 @@ exports.Events = class Events extends Service {
       
       const event = await super.create(data, params);
   
-      if (data.eType === "timeUp") {
-        const patchedMatch = await MatchService.patch(match._id, {timeUp: event._id});
-        // console.log("patchedMatch: \n" + patchedMatch);
-        MatchService.emit('timeUp', patchedMatch);
-      }
-  
       return event;
     } catch(e) {
       console.log("eventCreation: " + e);

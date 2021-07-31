@@ -120,7 +120,7 @@ module.exports = async (app) => {
         const eTypes = ['goal', 'rc', 'yc'];
         const homeOrAway = ['home', 'away'];
         allMatches.forEach(match => {
-          for(j = 0; j < 10; j++) {
+          for(j = 0; j < 3; j++) {
             const event = {
               eType: eTypes[(~~(Math.random() * 100)) % 3],
               league: assets.leagues[0]._id,
@@ -136,7 +136,7 @@ module.exports = async (app) => {
             // console.log("assets.leagueTeams", assets.leagueTeams);
             const numOfTP = playersLeagueTeam.leaguePlayers.length;
             event.player = playersLeagueTeam.leaguePlayers[(~~(Math.random() * 100)) % numOfTP]
-            // console.log("event", event);
+            // console.log("event.player._id", event.player._id);
 
             assets.events.push(event);
           }
