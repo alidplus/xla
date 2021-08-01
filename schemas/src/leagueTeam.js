@@ -6,7 +6,7 @@ module.exports = {}
 
 
 const attrs = module.exports.attrs = {
-  
+
     team: ID,
     league: ID,
 
@@ -15,5 +15,7 @@ const attrs = module.exports.attrs = {
 const options = module.exports.options = { convert: true, abortEarly: false, allowUnknown: true }
 
 const schema = module.exports.schema = Joi.object().keys(attrs)
+
+const fields = module.exports.fields = Object.keys(attrs);
 
 

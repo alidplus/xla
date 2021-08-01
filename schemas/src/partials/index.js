@@ -1,21 +1,20 @@
 const Joi = require('joi')
-// const { objectId } = require('@feathers-plus/validate-joi-mongodb')
 
-const joiDefaults = {
-  abortEarly: true,
-  allowUnknown: false,
-  cache: true,
-  convert: true,
-  debug: false,
-  externals: true,
-  noDefaults: false,
-  nonEnumerables: false,
-  presence: 'optional',
-  skipFunctions: false,
-  stripUnknown: false,
-  getContext: undefined,
-  setContext: undefined,
-};
+// const joiDefaultOptions = {
+//   abortEarly: true,
+//   allowUnknown: false,
+//   cache: true,
+//   convert: true,
+//   debug: false,
+//   externals: true,
+//   noDefaults: false,
+//   nonEnumerables: false,
+//   presence: 'optional',
+//   skipFunctions: false,
+//   stripUnknown: false,
+//   getContext: undefined,
+//   setContext: undefined,
+// };
 
 module.exports = {}
 
