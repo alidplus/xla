@@ -2,6 +2,8 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 const { iff, isProvider, preventChanges, keep, debug } = require('feathers-hooks-common');
 const { hashPassword, protect } = require('@feathersjs/authentication-local').hooks;
 const search = require('feathers-mongodb-fuzzy-search');
+const validate = require('feathers-validate-joi');
+const { schema, options } = require('@xla/schemas/src/user')
 
 const keeper = () => iff(isProvider('external'), [
   keep("name", "email", "mobile")
@@ -18,9 +20,20 @@ module.exports = {
       search()
     ],
     get: [],
-    create: [ hashPassword('password')/*, e => { throw new Error('stop here') }*/ , keeper() ],
-    update: [ keeper() ],
-    patch: [ keeper() ],
+    create: [
+      keeper(),
+      validate.form(schema, options),
+      hashPassword('password')
+    ],
+    update: [
+      keeper(),
+      validate.form(schema, options)
+    ],
+    patch: [
+      keeper(),
+      debug('patch user'),
+      validate.validateProvidedData(schema, options)
+    ],
     remove: []
   },
 
