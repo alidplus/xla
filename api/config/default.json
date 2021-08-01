@@ -9,7 +9,7 @@
   },
   "serviceOptions": {
     "lean": false,
-    "whitelist": ["$and", "$options", "$regex", "$text", "$search"],
+    "whitelist": ["$and", "$options", "$regex", "$text", "$search", "$exists"],
     "multi": true
   },
   "authentication": {
@@ -52,5 +52,5 @@
     "API_URL": "https://s3.ir-thr-at1.arvanstorage.com"
   },
   "nedb": "../data",
-  "mongodb": "mongodb://localhost:27017/xla"
+  "mongodb": "mongodb://localhost:27017/xla2"
 }

@@ -1,17 +1,32 @@
-module.exports = (app) => async (match) => {
+const queue = require('async/cargoQueue')
+
+const q = queue(handleTimeUp, 1, 1)
+let counter = 0 
+
+module.exports = (app) => match => {
+  q.push({ match, app }, () => {
+    console.log('match process is done', match._id, counter++)
+  })
+}
+
+q.drain(function() {
+  console.log('all matches have been processed');
+});
+
+
+async function handleTimeUp ([{match, app}], cb)  {
 
   if (!match.timeUp)
     throw new Error("match hasn't finished yet");
   
-  console.log("\n>>>>>>>>>>>>\nImHereeee\n<<<<<<<<<<<<<\n");
+  // console.log("\n>>>>>>>>>>>>\nImHereeee\n<<<<<<<<<<<<<\n");
   const { homePerformance, awayPerformance } = performanceCalculator(match.result);
 
-  updateInformation(app, match.home, homePerformance);
-  updateInformation(app, match.away, awayPerformance);
+  updateInformation(app, match.home, homePerformance, match);
+  updateInformation(app, match.away, awayPerformance, match);
 
   const MatchServise = app.service('matches');
   await MatchServise.patch(match._id, { isChecked: true });
-
 }
 
 function performanceCalculator(result) {
@@ -60,13 +75,9 @@ function performanceCalculator(result) {
   }
 }
 
-async function updateInformation(app, leagueTeamsId, performance) {
+async function updateInformation(app, leagueTeamsId, performance, match) {
   try {
     const leagueTeamsServise = app.service('leagueTeams');
-    // const searchOptions = {
-    //   team: teamId,
-    //   league: leagueId,
-    // };
     const findleagueTeam = await leagueTeamsServise.get(leagueTeamsId);
     
     if (!findleagueTeam) {
@@ -82,7 +93,7 @@ async function updateInformation(app, leagueTeamsId, performance) {
       win: preStatistics.win + (performance.win || 0),
       draw: preStatistics.draw + (performance.draw || 0),
       loss: preStatistics.loss + (performance.loss || 0),
-      gf: preStatistics.gf + (performance.goal || 0), // goal for
+      gf: preStatistics.gf + (performance.gf || 0), // goal for
       ga: preStatistics.ga + (performance.ga || 0), // goal against
       gd: preStatistics.gd + (performance.gd || 0), // goal difference
       rc: preStatistics.rc + (performance.rc || 0), // red card
@@ -90,7 +101,7 @@ async function updateInformation(app, leagueTeamsId, performance) {
     }
 
 
-    await leagueTeamsServise.patch(leagueTeamsId, { statistics: postStatistics });
+    await leagueTeamsServise.patch(leagueTeamsId, { statistics: postStatistics, $addToSet: { statisticsMatchesLog: {match: match._id, pre: preStatistics.played, post: postStatistics.played} } });
   } catch(e) {
     console.log("updateLeagueTeams.js/updateInformation \n" + e.message);
     throw new Error("can't Update Information");

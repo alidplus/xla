@@ -1,8 +1,25 @@
 const set = require("lodash/set");
 const get = require("lodash/get");
+const queue = require('async/cargoQueue')
 
-module.exports = ( app, {diff = 1} ) => async ( event ) => {
-  // console.log("log hereeeeeeeeeeee");
+const q = queue(calculateResult, 1, 1)
+let counter = 0 
+module.exports = ( app, option ) => event => {
+  q.push({ event, option, app }, () => {
+    console.log('event process is done', event._id, counter++, q.length())
+  })
+}
+
+q.drain(function() {
+  console.log('all items have been processed');
+});
+q.error(function(e) {
+  console.log('q errrrr', e);
+});
+
+async function calculateResult ( [{ option, event, app }], cb ) {
+  console.log("log hereeeeeeeeeeee", option, event);
+  const { diff = 1 } = option
 
   const MatchService = app.service("matches");
   const EventService = app.service("events");
@@ -15,10 +32,13 @@ module.exports = ( app, {diff = 1} ) => async ( event ) => {
 
     set(result, path, get(result, path, 0) + diff)
 
-    await MatchService.patch(event.match, {result} );
     await EventService.patch(event._id, {isChecked: true} );
+    const patchedMatch = await MatchService.patch(event.match, {result, timeUp: (eventsType === "timeUp" ? event._id : null) } );
+    if (eventsType === "timeUp") {
+      MatchService.emit('timeUp', patchedMatch);
+    }
+
   } catch(e) {
     console.log(">>>>>>>calculateRes: ", e.message);
   }
-
 }

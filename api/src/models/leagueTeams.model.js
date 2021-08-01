@@ -23,6 +23,7 @@ module.exports = function (app) {
       rc: { type: Number, default: 0 }, // red card
       yc: { type: Number, default: 0 }, // yellow card
     },
+    statisticsMatchesLog: []
   }, {
     timestamps: true,
     strict: true,
