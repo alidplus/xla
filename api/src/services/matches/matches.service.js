@@ -18,7 +18,6 @@ module.exports = async function (app) {
   const service = app.service('matches');
 
   service.hooks(hooks);
-
   app.service("events").on("created", calcRes(app, {diff: 1}));
   app.service("events").on("removed", calcRes(app, {diff: -1}));
 };

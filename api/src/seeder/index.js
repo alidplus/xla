@@ -8,8 +8,6 @@ const seederFactory = require("./seedFactory");
 const moment = require('moment');
 moment().format();
 
-
-
 module.exports = async (app) => {
   try {
 
@@ -78,10 +76,6 @@ module.exports = async (app) => {
       }
     });
 
-
-
-
-
     await Promise.all(assets.teams.map(async team => {
       await seeder({
         path: 'team/actions',
@@ -103,7 +97,6 @@ module.exports = async (app) => {
         }
       })
     }))
-
 
     await seeder({
       path: 'league/actions',
@@ -149,7 +142,7 @@ module.exports = async (app) => {
           assets.events.push(endMatchEvent);
         });
         const EventsService = app.service("events");
-        
+
         await EventsService.create(assets.events);
         console.log("event Creation Finished");
       }

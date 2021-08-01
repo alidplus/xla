@@ -1,5 +1,5 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const { iff, isProvider, preventChanges, keep } = require('feathers-hooks-common');
+const { iff, isProvider, preventChanges, keep, debug } = require('feathers-hooks-common');
 
 module.exports = {
   before: {
@@ -20,7 +20,9 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [
+      (ctx) => { if(Array.isArray(ctx.result)) ctx.event = null; }
+    ],
     update: [],
     patch: [],
     remove: []

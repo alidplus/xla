@@ -1,11 +1,11 @@
-const queue = require('async/cargoQueue')
+const queue = require('async/queue')
 
-const q = queue(handleTimeUp, 1, 1)
-let counter = 0 
+const q = queue(handleTimeUp, 1)
+let counter = 0
 
 module.exports = (app) => match => {
   q.push({ match, app }, () => {
-    console.log('match process is done', match._id, counter++)
+    console.log('match process is done', match._id, counter++, 'remained:', q.length())
   })
 }
 
@@ -13,13 +13,10 @@ q.drain(function() {
   console.log('all matches have been processed');
 });
 
-
-async function handleTimeUp ([{match, app}], cb)  {
-
+async function handleTimeUp ({match, app}, cb)  {
   if (!match.timeUp)
     throw new Error("match hasn't finished yet");
-  
-  // console.log("\n>>>>>>>>>>>>\nImHereeee\n<<<<<<<<<<<<<\n");
+
   const { homePerformance, awayPerformance } = performanceCalculator(match.result);
 
   updateInformation(app, match.home, homePerformance, match);
@@ -33,10 +30,10 @@ function performanceCalculator(result) {
   try {
     const { home: homeRes, away: awayRes } = result;
     const gd = homeRes.goal - awayRes.goal;
-  
+
     const homePerformance = {};
     const awayPerformance = {};
-  
+
     if (gd > 0) {
       homePerformance.win = 1;
       awayPerformance.loss = 1;
@@ -49,22 +46,22 @@ function performanceCalculator(result) {
       homePerformance.loss = 1;
       awayPerformance.win = 1;
     }
-  
+
     homePerformance.gf = homeRes.goal;
     awayPerformance.gf = awayRes.goal;
-  
+
     homePerformance.ga = awayRes.goal;
     awayPerformance.ga = homeRes.goal;
-  
+
     homePerformance.gd = gd;
     awayPerformance.gd = -gd;
-  
+
     homePerformance.yc = homeRes.yc;
     awayPerformance.yc = awayRes.yc;
-  
+
     homePerformance.rc = homeRes.rc;
     awayPerformance.rc = awayRes.rc;
-  
+
     return {
       homePerformance,
       awayPerformance,
@@ -79,12 +76,12 @@ async function updateInformation(app, leagueTeamsId, performance, match) {
   try {
     const leagueTeamsServise = app.service('leagueTeams');
     const findleagueTeam = await leagueTeamsServise.get(leagueTeamsId);
-    
+
     if (!findleagueTeam) {
       console.log("can't find team league");
       throw new Error("wrong teamId or leagueId");
     }
-    
+
     const preStatistics = findleagueTeam.statistics;
 
     const postStatistics = {

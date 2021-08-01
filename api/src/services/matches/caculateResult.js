@@ -1,12 +1,12 @@
 const set = require("lodash/set");
 const get = require("lodash/get");
-const queue = require('async/cargoQueue')
+const queue = require('async/queue')
 
-const q = queue(calculateResult, 1, 1)
-let counter = 0 
+const q = queue(calculateResult, 1)
+let counter = 0
 module.exports = ( app, option ) => event => {
   q.push({ event, option, app }, () => {
-    console.log('event process is done', event._id, counter++, q.length())
+    console.log('event process is done', event._id, counter++, 'remained:', q.length())
   })
 }
 
@@ -17,8 +17,7 @@ q.error(function(e) {
   console.log('q errrrr', e);
 });
 
-async function calculateResult ( [{ option, event, app }], cb ) {
-  console.log("log hereeeeeeeeeeee", option, event);
+async function calculateResult ( { option, event, app }, cb ) {
   const { diff = 1 } = option
 
   const MatchService = app.service("matches");
