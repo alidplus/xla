@@ -25,9 +25,9 @@ module.exports = function (app) {
     matchDay: {type: Number, required: true},
     timeUp: { type: Schema.Types.ObjectId, ref: 'events'},
 
-    home: { type: Schema.Types.ObjectId, ref: 'teams', autopopulate: true },
+    home: { type: Schema.Types.ObjectId, ref: 'leagueTeams', autopopulate: true },
     // homeCp: Schema.Types.Mixed,
-    away: { type: Schema.Types.ObjectId, ref: 'teams', autopopulate: true },
+    away: { type: Schema.Types.ObjectId, ref: 'leagueTeams', autopopulate: true },
     // awayCp: Schema.Types.Mixed,
     league: { type: Schema.Types.ObjectId, ref: 'leagues', autopopulate: true },
     referee: { type: Schema.Types.ObjectId, ref: 'referees', autopopulate: true },

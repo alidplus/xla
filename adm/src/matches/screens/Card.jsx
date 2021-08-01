@@ -13,6 +13,7 @@ import LeaguesInlineScreen from 'src/leagues/screens/Inline'
 import RefereeInlineScreen from 'src/referees/screens/Inline'
 import SponsorInlineScreen from 'src/sponsors/screens/Inline'
 import FormattedDate from "components/FormattedDate";
+import LoadLeagueTeamContainer from "../../leagueTeams/containers/Load";
 
 const MatcheCard = ({ data }) => {
   if (!data) return null
@@ -24,17 +25,25 @@ const MatcheCard = ({ data }) => {
       <div><FormattedDate data={data} name="time"/></div>
       <div className="d-flex w-100 justify-content-evenly">
         <div>
-          <LoadTeamContainer id={data.home}>
-            <TeamInlineScreen fa icon="flag" />
-          </LoadTeamContainer>
+          <LoadLeagueTeamContainer id={data.home}>
+            {({ data }) => (
+              <LoadTeamContainer id={data.team}>
+                <TeamInlineScreen fa icon="flag" />
+              </LoadTeamContainer>
+            )}
+          </LoadLeagueTeamContainer>
         </div>
         <div>0</div>
         <div>-</div>
         <div>0</div>
         <div>
-          <LoadTeamContainer id={data.away}>
-            <TeamInlineScreen fa icon="flag" away/>
-          </LoadTeamContainer>
+          <LoadLeagueTeamContainer id={data.away}>
+            {({ data }) => (
+              <LoadTeamContainer id={data.team}>
+                <TeamInlineScreen fa icon="flag" away/>
+              </LoadTeamContainer>
+            )}
+          </LoadLeagueTeamContainer>
         </div>
       </div>
       <LoadRefereeContainer id={data.referee}>
