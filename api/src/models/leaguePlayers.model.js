@@ -16,9 +16,8 @@ module.exports = function (app) {
     name: { type: String, required: true },
     no: { type: Number, required: true },
     statistics: {
-      played: { type: Number, default: 0 },
+      // played: { type: Number, default: 0 },
       goal: { type: Number, default: 0 },
-      assist: { type: Number, default: 0 },
       rc: { type: Number, default: 0 }, // red card
       yc: { type: Number, default: 0 }, // yellow card
     },

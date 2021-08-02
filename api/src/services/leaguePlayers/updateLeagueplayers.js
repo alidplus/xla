@@ -17,12 +17,11 @@ module.exports = (app) => async (match) => {
     const LeaguePlayersService = app.service("leaguePlayers");
     for(leaguePlayerId in groupedData) {
       const findLeaguePlayer = await LeaguePlayersService.get(leaguePlayerId);
-      statistics = findLeaguePlayer.statistics || {};
+      const statistics = findLeaguePlayer.statistics || {};
       groupedData[leaguePlayerId].forEach(event => {
         const eType = event.eType;
         set(statistics, eType, get(statistics, eType, 0) + 1);        
       })
-      // console.log(statistics);
       await LeaguePlayersService.patch(findLeaguePlayer._id, {statistics});
     }
 
