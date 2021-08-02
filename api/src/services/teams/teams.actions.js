@@ -1,4 +1,5 @@
 const Actions = require('../feathers-actions')
+const moment = require('moment')
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
 module.exports = {
@@ -36,16 +37,17 @@ async function createLeagueTeamAndLeaguePlayers (data, params, app) {
         player: playerId,
         name: player.name,
         no: player.no,
+        age: Math.ceil( moment.duration( moment().diff( moment(player.bDate) ) ).asYears() )
       }
 
       const createdleaguePlayer = await leaguePlayersService.create(leaguePlayer);
-      
+
       return createdleaguePlayer;
     })
-    
+
     const leaguePlayers = await Promise.all(allPromises);
-    
-    return ({ 
+
+    return ({
       action: 'done',
       leaguePlayers,
       leagueTeam: createdLeagueTeam,

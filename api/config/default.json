@@ -18,8 +18,14 @@
     "secret": "hEeRc5UAc+JZvheLSCmoy5SyWHI=",
     "authStrategies": [
       "jwt",
-      "local"
+      "local",
+      "apiKey"
     ],
+    "apiKey": {
+      "allowedKeys": [ "62646bfb6c7167680343fed1d8a10ecf" ],
+      "header": "x-access-token",
+      "urlParam": "token"
+    },
     "jwtOptions": {
       "header": {
         "typ": "access"

@@ -1,9 +1,12 @@
 // Application hooks that run for every service
 const { debug, iff, isProvider, disallow } = require('feathers-hooks-common')
+const allowApiKey = require('./hooks/allowApiKey')
+
 module.exports = {
   before: {
     all: [],
     find: [
+      allowApiKey(),
       hook => {
         if(hook.params.query.$limit === -1) {
           hook.params.paginate = false;
@@ -12,7 +15,9 @@ module.exports = {
       },
       // debug('app: before find')
     ],
-    get: [],
+    get: [
+      allowApiKey(),
+    ],
     create: [],
     update: [
       disallow("external")

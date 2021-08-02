@@ -15,6 +15,7 @@ module.exports = function (app) {
     player: { type: Schema.Types.ObjectId, ref: 'players' },
     name: { type: String, required: true },
     no: { type: Number, required: true },
+    age: { type: Number, required: true },
     statistics: {
       played: { type: Number, default: 0 },
       goal: { type: Number, default: 0 },

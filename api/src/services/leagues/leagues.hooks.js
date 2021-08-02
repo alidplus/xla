@@ -6,7 +6,7 @@ module.exports = {
   before: {
     all: [
       iff(isProvider("external"), [
-        authenticate('jwt')
+        authenticate('jwt', 'apiKey')
       ])
     ],
     find: [

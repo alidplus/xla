@@ -29,6 +29,14 @@ module.exports = function (app) {
     }
   )
 
+  schema.virtual('leagueTeams', {
+    ref: 'leagueTeams',
+    localField: '_id',
+    foreignField: 'league',
+    justOne: false,
+    autopopulate: false
+  });
+
   // This is necessary to avoid model compilation errors in watch mode
   // see https://mongoosejs.com/docs/api/connection.html#connection_Connection-deleteModel
   if (mongooseClient.modelNames().includes(modelName)) {
