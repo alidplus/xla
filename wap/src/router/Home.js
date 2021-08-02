@@ -2,7 +2,21 @@ import React, { useState, useEffect } from 'react'
 import classnames from 'classnames'
 import moment from 'moment-jalaali'
 import fa from "moment/locale/fa";
+
+import BestPlayersCard from '../components/BestPlayersCard'
+import LeagueOverallCard from '../components/LeagueOverallCard'
+import MatchDetailCard from '../components/MatchDetailCard'
 import MatchesListCard from '../components/MatchesListCard'
+import MatchHeadCard from '../components/MatchHeadCard'
+import MatchLast5Card from '../components/MatchLast5Card'
+import NewsDetailsPage from '../components/NewsDetailsPage'
+import NewsListItem from '../components/NewsListItem'
+import NewsSpecialListItem from '../components/NewsSpecialListItem'
+import TableCard from '../components/TableCard'
+import TeamFormCard from '../components/TeamFormCard'
+import TeamHeadCard from '../components/TeamHeadCard'
+import TeamNextMatchCard from '../components/TeamNextMatchCard'
+
 import {Container, Button, TabContent, TabPane } from "reactstrap";
 import '../assets/scss/scrollbars.scss';
 
@@ -73,7 +87,7 @@ export default function Home({ subscribeTopNav }) {
           ))}
         </div>
       </div>
-      <Container className="mt-5">
+      <Container className="mt-5" fluid>
         <TabContent activeTab={activeTab}>
         {tabs.map((a, i) => (
           <TabPane
@@ -81,17 +95,57 @@ export default function Home({ subscribeTopNav }) {
             tabId={a.n}
           >
             <h4>بازی های {a.label}</h4>
-            <MatchesListCard/>
-            <MatchesListCard/>
-            <MatchesListCard/>
-            <MatchesListCard/>
-            <MatchesListCard/>
-            <MatchesListCard/>
-            <MatchesListCard/>
-            <MatchesListCard/>
-            <MatchesListCard/>
-            <MatchesListCard/>
-            <MatchesListCard/>
+            <h6 className="text-center">BestPlayersCard</h6>
+            <BestPlayersCard />
+            <hr/>
+
+            <h6 className="text-center">LeagueOverallCard</h6>
+            <LeagueOverallCard />
+            <hr/>
+
+            <h6 className="text-center">MatchDetailCard</h6>
+            <MatchDetailCard />
+            <hr/>
+
+            <h6 className="text-center">MatchesListCard</h6>
+            <MatchesListCard />
+            <hr/>
+
+            <h6 className="text-center">MatchHeadCard</h6>
+            <MatchHeadCard />
+            <hr/>
+
+            <h6 className="text-center">MatchLast5Card</h6>
+            <MatchLast5Card />
+            <hr/>
+
+            <h6 className="text-center">NewsDetailsPage</h6>
+            <NewsDetailsPage />
+            <hr/>
+
+            <h6 className="text-center">NewsListItem</h6>
+            <NewsListItem />
+            <hr/>
+
+            <h6 className="text-center">NewsSpecialListItem</h6>
+            <NewsSpecialListItem />
+            <hr/>
+
+            <h6 className="text-center">TableCard</h6>
+            <TableCard />
+            <hr/>
+
+            <h6 className="text-center">TeamFormCard</h6>
+            <TeamFormCard />
+            <hr/>
+
+            <h6 className="text-center">TeamHeadCard</h6>
+            <TeamHeadCard />
+            <hr/>
+
+            <h6 className="text-center">TeamNextMatchCard</h6>
+            <TeamNextMatchCard />
+            <hr/>
           </TabPane>
         ))}
         </TabContent>
