@@ -113,7 +113,7 @@ module.exports = async (app) => {
         const eTypes = ['goal', 'rc', 'yc'];
         const homeOrAway = ['home', 'away'];
         allMatches.forEach(match => {
-          for(j = 0; j < 3; j++) {
+          for(j = 0; j < 10; j++) {
             const event = {
               eType: eTypes[(~~(Math.random() * 100)) % 3],
               league: assets.leagues[0]._id,
