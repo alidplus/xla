@@ -20,4 +20,6 @@ const options = module.exports.options = { convert: true, abortEarly: false, all
 
 const schema = module.exports.schema = Joi.object().keys(attrs)
 
+const fields = module.exports.fields = Object.keys(attrs);
+
 

@@ -1,5 +1,21 @@
 const Joi = require('joi')
 
+// const joiDefaultOptions = {
+//   abortEarly: true,
+//   allowUnknown: false,
+//   cache: true,
+//   convert: true,
+//   debug: false,
+//   externals: true,
+//   noDefaults: false,
+//   nonEnumerables: false,
+//   presence: 'optional',
+//   skipFunctions: false,
+//   stripUnknown: false,
+//   getContext: undefined,
+//   setContext: undefined,
+// };
+
 module.exports = {}
 
 const title = module.exports.title = Joi.string().trim().min(3).max(30)
