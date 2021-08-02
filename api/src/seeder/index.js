@@ -54,7 +54,7 @@ module.exports = async (app) => {
 
     await seeder({
       path: 'users',
-      count: 10,
+      count: 20,
       template: userTemplate({}),
       callback: async (user) => {
         assets.users.push(user)
@@ -113,7 +113,7 @@ module.exports = async (app) => {
         const eTypes = ['goal', 'rc', 'yc'];
         const homeOrAway = ['home', 'away'];
         allMatches.forEach(match => {
-          for(j = 0; j < 10; j++) {
+          for(j = 0; j < 30; j++) {
             const event = {
               eType: eTypes[(~~(Math.random() * 100)) % 3],
               league: assets.leagues[0]._id,

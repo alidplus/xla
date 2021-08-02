@@ -1,7 +1,7 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const { iff, isProvider, preventChanges, keep, debug } = require('feathers-hooks-common');
 const validate = require('feathers-validate-joi');
-const { schema, options, fields } = require('@xla/schemas/src/leaguePlayer');
+const { schema, options, fields } = require('@xla/schemas/src/leagueTeam');
 
 const keeper = () => iff(isProvider('external'), keep(...fields));
 

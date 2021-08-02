@@ -3,5 +3,5 @@ module.exports = ({sponsor}) => ({
   description: '{{lorem.text}}',
   teams: 10,
   homeAway: false,
-  sponsor: sponsor._id,
+  sponsor: String(sponsor._id),
 });

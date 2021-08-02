@@ -1,9 +1,13 @@
 module.exports = ({sponsor, owner}) => ({
   title: {
-    fa: '{{name.title}}فارسی ',
+    fa: '{{name.title}}',
     en: '{{name.title}}',
-    abr: 'abr' + ~~(Math.random() * 100)
+    abr: createAbr(),
   },
-  owner: owner._id,
-  sponsor: sponsor._id,
+  owner: String(owner._id),
+  sponsor: String(sponsor._id),
 });
+
+function createAbr() {
+  return String(~~(Math.random() * 1000));
+}

@@ -2,7 +2,7 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 const { iff, isProvider, preventChanges, keep } = require('feathers-hooks-common');
 const search = require('feathers-mongodb-fuzzy-search');
 const validate = require('feathers-validate-joi');
-const { schema, options, fields } = require('@xla/schemas/src/user');
+const { schema, options, fields } = require('@xla/schemas/src/player');
 
 const keeper = () => iff(isProvider('external'), keep(...fields));
 
