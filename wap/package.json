@@ -22,7 +22,7 @@
     "css-watch": "nodemon --quiet --watch src/assets/scss/main.scss -x \\\"npm run prestart\\\"",
     "prestart": "npm run node-sass && npm run less-rtl",
     "prebuild": "npm run node-sass && npm run less-rtl",
-    "start": "concurrently --kill-others \"npm run css-watch\" \"react-scripts start\"",
+    "dev": "concurrently --kill-others \"npm run css-watch\" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

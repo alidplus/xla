@@ -1,5 +1,5 @@
 const traverse = require("traverse");
-const faker = require("faker");
+const faker = require("faker/locale/fa");
 
 
 module.exports = (app) => async ({ path, count = 1, template = {}, callback, del = true }) => {
