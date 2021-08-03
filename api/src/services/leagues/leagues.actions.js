@@ -23,10 +23,10 @@ async function generator (data, params, app) {
     const LeagueTeamService = app.service("leagueTeams");
     const leagueTeamsArr = await LeagueTeamService.Model.find({league: leagueId});
     const shuffledLeagueTeamsArr = leagueTeamsArr
-                  .map((value) => ({ value, sort: Math.random() }))
-                  .sort((a, b) => a.sort - b.sort)
-                  .map(({ value }) => value);
-
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+    
     const arrLen = shuffledLeagueTeamsArr.length;
     const allMatches = [];
 
@@ -39,15 +39,19 @@ async function generator (data, params, app) {
           away: null,
           league: leagueId,
         };
-        match.home = shuffledLeagueTeamsArr[j];
-        match.away = shuffledLeagueTeamsArr[arrLen - j - 1];
+        // console.log(shuffledLeagueTeamsArr[j]);
+        match.home = shuffledLeagueTeamsArr[j]._id;
+        match.away = shuffledLeagueTeamsArr[arrLen - j - 1]._id;
         match.matchDay = i;
         allMatches.push(match);
       }
       const lastOne = shuffledLeagueTeamsArr.pop();
       shuffledLeagueTeamsArr.splice(1, 0, lastOne);
     }
-
+    // console.log(">>>>>>>>>>>>>>>>allMatches\n", allMatches);
+    
+    // console.log(">>>>>>>>>>>>>>>>", allMatches[0].home, "<<<<<<<<<<<<<<<<<<");
+    // console.log(">>>>>>>>>>>>>>>>", allMatches[0].away, "<<<<<<<<<<<<<<<<<<");
     const insertedMatches = await MatchService.create(allMatches);
     // console.log(">>>>>>", insertedMatches);
     return insertedMatches;

@@ -1,5 +1,5 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const { iff, isProvider, preventChanges, keep } = require('feathers-hooks-common');
+const { iff, isProvider, preventChanges, keep, alterItems  } = require('feathers-hooks-common');
 const search = require('feathers-mongodb-fuzzy-search');
 const validate = require('feathers-validate-joi');
 const { schema, options, fields } = require('@xla/schemas/src/match');
@@ -19,15 +19,21 @@ module.exports = {
     get: [],
     create: [
       keeper(),
-      validate.form(schema, options),
+      iff(isProvider("external"), [
+        validate.form(schema, options)
+      ])
     ],
     update: [
       keeper(),
-      validate.form(schema, options)
+      iff(isProvider("external"), [
+        validate.form(schema, options)
+      ])
     ],
     patch: [
       keeper(),
-      validate.validateProvidedData(schema, options)
+      iff(isProvider("external"), [
+        validate.validateProvidedData(schema, options)
+      ])
     ],
     remove: []
   },

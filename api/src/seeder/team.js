@@ -1,13 +1,15 @@
 module.exports = ({sponsor, owner}) => ({
   title: {
-    fa: '{{name.title}}',
-    en: '{{name.title}}',
-    abr: createAbr(),
+    fa: '{{name.firstName}}',
+    en: '{{address.cityName}} team',
+    abr: createAbr,
   },
-  owner: String(owner._id),
-  sponsor: String(sponsor._id),
+  owner: owner._id,
+  sponsor: sponsor._id,
 });
 
 function createAbr() {
-  return String(~~(Math.random() * 1000));
+  const rndThreeDigitNumber = Math.floor(100 + Math.random() * 900);
+  // console.log(rndThreeDigitNumber);
+  return String(rndThreeDigitNumber);
 }

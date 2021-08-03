@@ -1,21 +1,17 @@
 const Joi = require('joi')
-const { ID, title, playerNo, futureDate, mobile } = require('./partials')
+const { ID, title} = require('./partials')
 
 module.exports = {}
 
 
 
 const attrs = module.exports.attrs = {
-
   title: title.required(),
-  text: title,
+  description: title,
   teams: Joi.number(),
   homeAway: Joi.bool(),
 
-  results: Joi.object(),
-
   sponsor: ID,
-  participants: Joi.array().items(ID),
 }
 
 const options = module.exports.options = { convert: true, abortEarly: false, allowUnknown: true }
