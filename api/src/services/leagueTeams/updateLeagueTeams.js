@@ -98,7 +98,7 @@ async function updateInformation(app, leagueTeamsId, performance, match) {
     }
 
 
-    await leagueTeamsServise.patch(leagueTeamsId, { statistics: postStatistics, $addToSet: { statisticsMatchesLog: {match: match._id, pre: preStatistics.played, post: postStatistics.played} } });
+    await leagueTeamsServise.patch(leagueTeamsId, { statistics: postStatistics});
   } catch(e) {
     console.log("updateLeagueTeams.js/updateInformation \n" + e.message);
     throw new Error("can't Update Information");

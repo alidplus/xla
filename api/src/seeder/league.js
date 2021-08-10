@@ -1,7 +1,7 @@
 module.exports = ({sponsor}) => ({
   title: '{{commerce.productName}}',
-  description: '{{lorem.text}}',
-  teams: 10,
+  description: 'this desc',
+  teams: 20,
   homeAway: false,
   sponsor: sponsor._id,
 });

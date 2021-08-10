@@ -1,5 +1,6 @@
 import React from 'react'
 import {Card, CardHeader, CardBody, CardTitle} from "reactstrap";
+import { LargeAvatar, SmallAvatar, SquareAvatar } from './Avatar';
 
 const MatchesListCard = () => {
   return (
@@ -10,20 +11,24 @@ const MatchesListCard = () => {
       </CardHeader>
       <div className="pt-3">
         <div className="d-flex justify-content-center align-items-center mb-3">
-          <span className="w-25 text-end">پرسپولیس</span>
+          <span className="text-end me-2">پرسپولیس</span>
+          <SmallAvatar/>
           <span className="w-25 d-inline-flex justify-content-evenly align-items-center">
             <strong>0</strong>
             <small>-</small>
             <strong>0</strong>
           </span>
-          <span className="w-25">استقلال</span>
+          <SmallAvatar/>
+          <span className="ms-2">استقلال</span>
         </div>
         <div className="d-flex justify-content-center align-items-center mb-3">
-          <span className="w-25 text-end">گچ میانه</span>
+          <span className="text-end me-2">گچ میانه</span>
+          <SmallAvatar/>
           <span className="w-25 d-inline-flex justify-content-evenly align-items-center">
             <small dir="ltr">20 : 15</small>
           </span>
-          <span className="w-25">فولاد</span>
+          <SmallAvatar/>
+          <span className="ms-2">فولاد</span>
         </div>
       </div>
     </Card>

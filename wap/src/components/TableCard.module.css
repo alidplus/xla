@@ -1,0 +1,11 @@
+.avatar {
+  height: 20px !important;
+  width: 20px !important;
+}
+.table td, .table th {
+  vertical-align: middle;
+}
+
+.formRow {
+  white-space: nowrap;
+}

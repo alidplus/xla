@@ -132,7 +132,7 @@ export default function Home({ subscribeTopNav }) {
             <hr/>
 
             <h6 className="text-center">TableCard</h6>
-            <TableCard />
+            <TableCard defaultView="all" />
             <hr/>
 
             <h6 className="text-center">TeamFormCard</h6>
