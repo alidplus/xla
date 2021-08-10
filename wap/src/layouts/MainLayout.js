@@ -101,7 +101,7 @@ const MainLayout = ({children, topNav = {}}) => {
       {topNavigation}
       <div className="pt-5"/>
       <Navbar dark fixed="top" color="dark" className="py-2 bg-dark border border-2 -border-top-0 border-end-0 border-secondary border-start-0">
-        <Container fluid="xl">
+        <Container fluid>
           <div id="nav-icon4" className={classnames("my-2 mx-2", { open: isOpen })} onClick={toggle}>
             <span className="bg-white"/>
             <span className="bg-white"/>
