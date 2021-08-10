@@ -3,7 +3,7 @@ const { iff, isProvider, preventChanges, keep, debug } = require('feathers-hooks
 const { hashPassword, protect } = require('@feathersjs/authentication-local').hooks;
 const search = require('feathers-mongodb-fuzzy-search');
 const validate = require('feathers-validate-joi');
-const { schema, options, fields } = require('@xla/schemas/src/user')
+const { schema, options, fields } = require('@xla/schemas/src/user');
 
 const keeper = () => iff(isProvider('external'), keep(...fields));
 
@@ -29,7 +29,6 @@ module.exports = {
     ],
     patch: [
       keeper(),
-      debug('patch user'),
       validate.validateProvidedData(schema, options)
     ],
     remove: []

@@ -1,5 +1,9 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const { iff, isProvider, preventChanges, keep, debug } = require('feathers-hooks-common');
+const { iff, isProvider, preventChanges, keep, debug, alterItems } = require('feathers-hooks-common');
+const validate = require('feathers-validate-joi');
+const { schema, options, fields } = require('@xla/schemas/src/event');
+
+const keeper = () => iff(isProvider('external'), keep(...fields));
 
 module.exports = {
   before: {
@@ -10,9 +14,25 @@ module.exports = {
     ],
     find: [],
     get: [],
-    create: [],
-    update: [],
-    patch: [],
+    get: [],
+    create: [
+      keeper(),
+      iff(isProvider("external"), [
+        validate.form(schema, options)
+      ])
+    ],
+    update: [
+      keeper(),
+      iff(isProvider("external"), [
+        validate.form(schema, options)
+      ])
+    ],
+    patch: [
+      keeper(),
+      iff(isProvider("external"), [
+        validate.validateProvidedData(schema, options)
+      ])
+    ],
     remove: []
   },
 

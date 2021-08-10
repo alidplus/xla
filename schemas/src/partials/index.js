@@ -31,10 +31,11 @@ const email = module.exports.email = Joi.string()//.email({ tlds: { allow: false
 
 const mobile = module.exports.mobile = Joi.string()
 
-const ID = module.exports.ID = Joi.any().custom((value, helper) => {
-  if (ObjectID.isValid(value)) return true
-  return helper.message("Invalid ObjectID")
-})
+const ID = module.exports.ID = Joi.any()
+// .custom((value, helper) => {
+//   if (ObjectID.isValid(value)) return true
+//   return helper.message("Invalid ObjectID")
+// })
 
 const rate = module.exports.rate = Joi.number().min(0).max(5)
 const playerNo = module.exports.playerNo = Joi.number().min(0).max(99)

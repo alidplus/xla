@@ -22,8 +22,7 @@ module.exports = function (app) {
       gd: { type: Number, default: 0 }, // goal difference
       rc: { type: Number, default: 0 }, // red card
       yc: { type: Number, default: 0 }, // yellow card
-    },
-    statisticsMatchesLog: []
+    }
   }, {
     timestamps: true,
     strict: true,

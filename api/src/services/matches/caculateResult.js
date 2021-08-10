@@ -38,6 +38,6 @@ async function calculateResult ( { option, event, app }, cb ) {
     }
 
   } catch(e) {
-    console.log(">>>>>>>calculateRes: ", e.message);
+    console.log(">>>>>>>calculateRes: ", e);
   }
 }
