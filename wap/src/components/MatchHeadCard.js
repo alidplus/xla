@@ -1,5 +1,6 @@
 import React from 'react'
 import {Card, CardHeader, CardBody, CardTitle} from "reactstrap";
+import { LargeAvatar } from './Avatar';
 
 const MatchHeadCard = () => {
   return (
@@ -9,7 +10,20 @@ const MatchHeadCard = () => {
         <i className="fa fa-ellipsis-v"/>
       </CardHeader>
       <CardBody className="text-center">
-        MatchHeadCard
+        <div className="d-flex justify-content-between align-items-center">
+          <div>
+            <LargeAvatar/>
+            <div>استقلال</div>
+          </div>
+          <div>
+            <div>9:15</div>
+            <div>زمان مانده به بازی</div>
+          </div>
+          <div>
+          <LargeAvatar/>
+            <div>پرسپولیس</div>
+          </div>
+        </div>
       </CardBody>
     </Card>
   )

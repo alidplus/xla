@@ -58,7 +58,7 @@
 body {
   margin: 0;
   font-family: "Sahel";
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.5;
   color: #fff;
@@ -101,13 +101,13 @@ h3, .h3 {
       font-size: 2rem; } }
 
 h4, .h4 {
-  font-size: 1.2rem; }
+  font-size: 1.05rem; }
 
 h5, .h5 {
-  font-size: 1rem; }
+  font-size: 0.875rem; }
 
 h6, .h6 {
-  font-size: 0.8rem; }
+  font-size: 0.7rem; }
 
 p {
   margin-top: 0;
@@ -377,7 +377,7 @@ progress {
   display: none !important; }
 
 .lead {
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 300; }
 
 .display-1 {
@@ -447,7 +447,7 @@ progress {
 
 .blockquote {
   margin-bottom: 1rem;
-  font-size: 1rem; }
+  font-size: 0.875rem; }
   .blockquote > :last-child {
     margin-bottom: 0; }
 
@@ -1508,12 +1508,12 @@ progress {
 .col-form-label-lg {
   padding-top: calc(0.5rem + 1px);
   padding-bottom: calc(0.5rem + 1px);
-  font-size: 1rem; }
+  font-size: 0.875rem; }
 
 .col-form-label-sm {
   padding-top: calc(0.25rem + 1px);
   padding-bottom: calc(0.25rem + 1px);
-  font-size: 0.7rem; }
+  font-size: 0.6125rem; }
 
 .form-text {
   margin-top: 0.25rem;
@@ -1524,7 +1524,7 @@ progress {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.5;
   color: #303030;
@@ -1612,7 +1612,7 @@ progress {
 .form-control-sm {
   min-height: calc(1.5em + (0.5rem + 2px));
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   border-radius: 0.2rem; }
   .form-control-sm::file-selector-button {
     padding: 0.25rem 0.5rem;
@@ -1626,7 +1626,7 @@ progress {
 .form-control-lg {
   min-height: calc(1.5em + (1rem + 2px));
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   border-radius: 0.3rem; }
   .form-control-lg::file-selector-button {
     padding: 0.5rem 1rem;
@@ -1664,7 +1664,7 @@ textarea.form-control-lg {
   width: 100%;
   padding: 0.375rem 0.75rem 0.375rem 2.25rem;
   -moz-padding-start: calc(0.75rem - 3px);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.5;
   color: #303030;
@@ -1698,17 +1698,17 @@ textarea.form-control-lg {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   padding-right: 0.5rem;
-  font-size: 0.7rem; }
+  font-size: 0.6125rem; }
 
 .form-select-lg {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-right: 1rem;
-  font-size: 1rem; }
+  font-size: 0.875rem; }
 
 .form-check {
   display: block;
-  min-height: 1.2rem;
+  min-height: 1.05rem;
   padding-right: 1.5em;
   margin-bottom: 0.125rem; }
   .form-check .form-check-input {
@@ -1924,7 +1924,7 @@ textarea.form-control-lg {
   display: flex;
   align-items: center;
   padding: 0.375rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.5;
   color: #adb5bd;
@@ -1939,7 +1939,7 @@ textarea.form-control-lg {
 .input-group-lg > .input-group-text,
 .input-group-lg > .btn {
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   border-radius: 0.3rem; }
 
 .input-group-sm > .form-control,
@@ -1947,7 +1947,7 @@ textarea.form-control-lg {
 .input-group-sm > .input-group-text,
 .input-group-sm > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   border-radius: 0.2rem; }
 
 .input-group-lg > .form-select,
@@ -1984,7 +1984,7 @@ textarea.form-control-lg {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   color: #fff;
   background-color: rgba(0, 188, 140, 0.9);
   border-radius: 0.25rem; }
@@ -2057,7 +2057,7 @@ textarea.form-control-lg {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   color: #fff;
   background-color: rgba(231, 76, 60, 0.9);
   border-radius: 0.25rem; }
@@ -2128,7 +2128,7 @@ textarea.form-control-lg {
   background-color: transparent;
   border: 1px solid transparent;
   padding: 0.375rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
   @media (prefers-reduced-motion: reduce) {
@@ -2602,12 +2602,12 @@ textarea.form-control-lg {
 
 .btn-lg, .btn-group-lg > .btn {
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   border-radius: 0.3rem; }
 
 .btn-sm, .btn-group-sm > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   border-radius: 0.2rem; }
 
 .fade {
@@ -2656,7 +2656,7 @@ textarea.form-control-lg {
   min-width: 10rem;
   padding: 0.5rem 0;
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #fff;
   text-align: right;
   list-style: none;
@@ -2855,7 +2855,7 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   color: #888;
   white-space: nowrap; }
 
@@ -3071,10 +3071,10 @@ textarea.form-control-lg {
     justify-content: space-between; }
 
 .navbar-brand {
-  padding-top: 0.35rem;
-  padding-bottom: 0.35rem;
+  padding-top: 0.36875rem;
+  padding-bottom: 0.36875rem;
   margin-left: 1rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   text-decoration: none;
   white-space: nowrap; }
 
@@ -3101,7 +3101,7 @@ textarea.form-control-lg {
 
 .navbar-toggler {
   padding: 0.25rem 0.75rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1;
   background-color: transparent;
   border: 1px solid transparent;
@@ -3441,7 +3441,7 @@ textarea.form-control-lg {
   align-items: center;
   width: 100%;
   padding: 1rem 1.25rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #fff;
   text-align: right;
   background-color: #222;
@@ -3598,7 +3598,7 @@ textarea.form-control-lg {
 
 .pagination-lg .page-link {
   padding: 0.75rem 1.5rem;
-  font-size: 1rem; }
+  font-size: 0.875rem; }
 
 .pagination-lg .page-item:first-child .page-link {
   border-top-right-radius: 0.3rem;
@@ -3610,7 +3610,7 @@ textarea.form-control-lg {
 
 .pagination-sm .page-link {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem; }
+  font-size: 0.6125rem; }
 
 .pagination-sm .page-item:first-child .page-link {
   border-top-right-radius: 0.2rem;
@@ -3733,7 +3733,7 @@ textarea.form-control-lg {
   display: flex;
   height: 1rem;
   overflow: hidden;
-  font-size: 0.6rem;
+  font-size: 0.525rem;
   background-color: #444;
   border-radius: 0.25rem;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075); }
@@ -4330,7 +4330,7 @@ textarea.form-control-lg {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   word-wrap: break-word;
   opacity: 0; }
   .tooltip.show {
@@ -4415,7 +4415,7 @@ textarea.form-control-lg {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   word-wrap: break-word;
   background-color: #303030;
   background-clip: padding-box;
@@ -4495,7 +4495,7 @@ textarea.form-control-lg {
 .popover-header {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   background-color: #444;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   border-top-right-radius: calc(0.3rem - 1px);
@@ -5773,13 +5773,13 @@ textarea.form-control-lg {
   font-size: calc(1.325rem + 0.9vw) !important; }
 
 .fs-4 {
-  font-size: 1.2rem !important; }
+  font-size: 1.05rem !important; }
 
 .fs-5 {
-  font-size: 1rem !important; }
+  font-size: 0.875rem !important; }
 
 .fs-6 {
-  font-size: 0.8rem !important; }
+  font-size: 0.7rem !important; }
 
 .fst-italic {
   font-style: italic !important; }
@@ -8166,7 +8166,7 @@ textarea.form-control-lg {
 body {
   margin: 0;
   font-family: "Sahel";
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.5;
   color: #fff;
@@ -8209,13 +8209,13 @@ h3, .h3 {
       font-size: 2rem; } }
 
 h4, .h4 {
-  font-size: 1.2rem; }
+  font-size: 1.05rem; }
 
 h5, .h5 {
-  font-size: 1rem; }
+  font-size: 0.875rem; }
 
 h6, .h6 {
-  font-size: 0.8rem; }
+  font-size: 0.7rem; }
 
 p {
   margin-top: 0;
@@ -8485,7 +8485,7 @@ progress {
   display: none !important; }
 
 .lead {
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 300; }
 
 .display-1 {
@@ -8555,7 +8555,7 @@ progress {
 
 .blockquote {
   margin-bottom: 1rem;
-  font-size: 1rem; }
+  font-size: 0.875rem; }
   .blockquote > :last-child {
     margin-bottom: 0; }
 
@@ -9616,12 +9616,12 @@ progress {
 .col-form-label-lg {
   padding-top: calc(0.5rem + 1px);
   padding-bottom: calc(0.5rem + 1px);
-  font-size: 1rem; }
+  font-size: 0.875rem; }
 
 .col-form-label-sm {
   padding-top: calc(0.25rem + 1px);
   padding-bottom: calc(0.25rem + 1px);
-  font-size: 0.7rem; }
+  font-size: 0.6125rem; }
 
 .form-text {
   margin-top: 0.25rem;
@@ -9632,7 +9632,7 @@ progress {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.5;
   color: #303030;
@@ -9720,7 +9720,7 @@ progress {
 .form-control-sm {
   min-height: calc(1.5em + (0.5rem + 2px));
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   border-radius: 0.2rem; }
   .form-control-sm::file-selector-button {
     padding: 0.25rem 0.5rem;
@@ -9734,7 +9734,7 @@ progress {
 .form-control-lg {
   min-height: calc(1.5em + (1rem + 2px));
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   border-radius: 0.3rem; }
   .form-control-lg::file-selector-button {
     padding: 0.5rem 1rem;
@@ -9772,7 +9772,7 @@ textarea.form-control-lg {
   width: 100%;
   padding: 0.375rem 0.75rem 0.375rem 2.25rem;
   -moz-padding-start: calc(0.75rem - 3px);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.5;
   color: #303030;
@@ -9806,17 +9806,17 @@ textarea.form-control-lg {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   padding-right: 0.5rem;
-  font-size: 0.7rem; }
+  font-size: 0.6125rem; }
 
 .form-select-lg {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-right: 1rem;
-  font-size: 1rem; }
+  font-size: 0.875rem; }
 
 .form-check {
   display: block;
-  min-height: 1.2rem;
+  min-height: 1.05rem;
   padding-right: 1.5em;
   margin-bottom: 0.125rem; }
   .form-check .form-check-input {
@@ -10032,7 +10032,7 @@ textarea.form-control-lg {
   display: flex;
   align-items: center;
   padding: 0.375rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.5;
   color: #adb5bd;
@@ -10047,7 +10047,7 @@ textarea.form-control-lg {
 .input-group-lg > .input-group-text,
 .input-group-lg > .btn {
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   border-radius: 0.3rem; }
 
 .input-group-sm > .form-control,
@@ -10055,7 +10055,7 @@ textarea.form-control-lg {
 .input-group-sm > .input-group-text,
 .input-group-sm > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   border-radius: 0.2rem; }
 
 .input-group-lg > .form-select,
@@ -10092,7 +10092,7 @@ textarea.form-control-lg {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   color: #fff;
   background-color: rgba(0, 188, 140, 0.9);
   border-radius: 0.25rem; }
@@ -10165,7 +10165,7 @@ textarea.form-control-lg {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   color: #fff;
   background-color: rgba(231, 76, 60, 0.9);
   border-radius: 0.25rem; }
@@ -10236,7 +10236,7 @@ textarea.form-control-lg {
   background-color: transparent;
   border: 1px solid transparent;
   padding: 0.375rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
   @media (prefers-reduced-motion: reduce) {
@@ -10710,12 +10710,12 @@ textarea.form-control-lg {
 
 .btn-lg, .btn-group-lg > .btn {
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   border-radius: 0.3rem; }
 
 .btn-sm, .btn-group-sm > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   border-radius: 0.2rem; }
 
 .fade {
@@ -10764,7 +10764,7 @@ textarea.form-control-lg {
   min-width: 10rem;
   padding: 0.5rem 0;
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #fff;
   text-align: right;
   list-style: none;
@@ -10963,7 +10963,7 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   color: #888;
   white-space: nowrap; }
 
@@ -11179,10 +11179,10 @@ textarea.form-control-lg {
     justify-content: space-between; }
 
 .navbar-brand {
-  padding-top: 0.35rem;
-  padding-bottom: 0.35rem;
+  padding-top: 0.36875rem;
+  padding-bottom: 0.36875rem;
   margin-left: 1rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   text-decoration: none;
   white-space: nowrap; }
 
@@ -11209,7 +11209,7 @@ textarea.form-control-lg {
 
 .navbar-toggler {
   padding: 0.25rem 0.75rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1;
   background-color: transparent;
   border: 1px solid transparent;
@@ -11549,7 +11549,7 @@ textarea.form-control-lg {
   align-items: center;
   width: 100%;
   padding: 1rem 1.25rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #fff;
   text-align: right;
   background-color: #222;
@@ -11706,7 +11706,7 @@ textarea.form-control-lg {
 
 .pagination-lg .page-link {
   padding: 0.75rem 1.5rem;
-  font-size: 1rem; }
+  font-size: 0.875rem; }
 
 .pagination-lg .page-item:first-child .page-link {
   border-top-right-radius: 0.3rem;
@@ -11718,7 +11718,7 @@ textarea.form-control-lg {
 
 .pagination-sm .page-link {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem; }
+  font-size: 0.6125rem; }
 
 .pagination-sm .page-item:first-child .page-link {
   border-top-right-radius: 0.2rem;
@@ -11841,7 +11841,7 @@ textarea.form-control-lg {
   display: flex;
   height: 1rem;
   overflow: hidden;
-  font-size: 0.6rem;
+  font-size: 0.525rem;
   background-color: #444;
   border-radius: 0.25rem;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075); }
@@ -12438,7 +12438,7 @@ textarea.form-control-lg {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   word-wrap: break-word;
   opacity: 0; }
   .tooltip.show {
@@ -12523,7 +12523,7 @@ textarea.form-control-lg {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   word-wrap: break-word;
   background-color: #303030;
   background-clip: padding-box;
@@ -12603,7 +12603,7 @@ textarea.form-control-lg {
 .popover-header {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   background-color: #444;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   border-top-right-radius: calc(0.3rem - 1px);
@@ -13881,13 +13881,13 @@ textarea.form-control-lg {
   font-size: calc(1.325rem + 0.9vw) !important; }
 
 .fs-4 {
-  font-size: 1.2rem !important; }
+  font-size: 1.05rem !important; }
 
 .fs-5 {
-  font-size: 1rem !important; }
+  font-size: 0.875rem !important; }
 
 .fs-6 {
-  font-size: 0.8rem !important; }
+  font-size: 0.7rem !important; }
 
 .fst-italic {
   font-style: italic !important; }
@@ -20890,7 +20890,7 @@ readers do not read off random characters that represent icons */
 body {
   margin: 0;
   font-family: "Sahel";
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.5;
   color: #fff;
@@ -20933,13 +20933,13 @@ h3, .h3 {
       font-size: 2rem; } }
 
 h4, .h4 {
-  font-size: 1.2rem; }
+  font-size: 1.05rem; }
 
 h5, .h5 {
-  font-size: 1rem; }
+  font-size: 0.875rem; }
 
 h6, .h6 {
-  font-size: 0.8rem; }
+  font-size: 0.7rem; }
 
 p {
   margin-top: 0;
@@ -21209,7 +21209,7 @@ progress {
   display: none !important; }
 
 .lead {
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 300; }
 
 .display-1 {
@@ -21279,7 +21279,7 @@ progress {
 
 .blockquote {
   margin-bottom: 1rem;
-  font-size: 1rem; }
+  font-size: 0.875rem; }
   .blockquote > :last-child {
     margin-bottom: 0; }
 
@@ -22340,12 +22340,12 @@ progress {
 .col-form-label-lg {
   padding-top: calc(0.5rem + 1px);
   padding-bottom: calc(0.5rem + 1px);
-  font-size: 1rem; }
+  font-size: 0.875rem; }
 
 .col-form-label-sm {
   padding-top: calc(0.25rem + 1px);
   padding-bottom: calc(0.25rem + 1px);
-  font-size: 0.7rem; }
+  font-size: 0.6125rem; }
 
 .form-text {
   margin-top: 0.25rem;
@@ -22356,7 +22356,7 @@ progress {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.5;
   color: #303030;
@@ -22444,7 +22444,7 @@ progress {
 .form-control-sm {
   min-height: calc(1.5em + (0.5rem + 2px));
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   border-radius: 0.2rem; }
   .form-control-sm::file-selector-button {
     padding: 0.25rem 0.5rem;
@@ -22458,7 +22458,7 @@ progress {
 .form-control-lg {
   min-height: calc(1.5em + (1rem + 2px));
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   border-radius: 0.3rem; }
   .form-control-lg::file-selector-button {
     padding: 0.5rem 1rem;
@@ -22496,7 +22496,7 @@ textarea.form-control-lg {
   width: 100%;
   padding: 0.375rem 0.75rem 0.375rem 2.25rem;
   -moz-padding-start: calc(0.75rem - 3px);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.5;
   color: #303030;
@@ -22530,17 +22530,17 @@ textarea.form-control-lg {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   padding-right: 0.5rem;
-  font-size: 0.7rem; }
+  font-size: 0.6125rem; }
 
 .form-select-lg {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-right: 1rem;
-  font-size: 1rem; }
+  font-size: 0.875rem; }
 
 .form-check {
   display: block;
-  min-height: 1.2rem;
+  min-height: 1.05rem;
   padding-right: 1.5em;
   margin-bottom: 0.125rem; }
   .form-check .form-check-input {
@@ -22756,7 +22756,7 @@ textarea.form-control-lg {
   display: flex;
   align-items: center;
   padding: 0.375rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.5;
   color: #adb5bd;
@@ -22771,7 +22771,7 @@ textarea.form-control-lg {
 .input-group-lg > .input-group-text,
 .input-group-lg > .btn {
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   border-radius: 0.3rem; }
 
 .input-group-sm > .form-control,
@@ -22779,7 +22779,7 @@ textarea.form-control-lg {
 .input-group-sm > .input-group-text,
 .input-group-sm > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   border-radius: 0.2rem; }
 
 .input-group-lg > .form-select,
@@ -22816,7 +22816,7 @@ textarea.form-control-lg {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   color: #fff;
   background-color: rgba(0, 188, 140, 0.9);
   border-radius: 0.25rem; }
@@ -22889,7 +22889,7 @@ textarea.form-control-lg {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   color: #fff;
   background-color: rgba(231, 76, 60, 0.9);
   border-radius: 0.25rem; }
@@ -22960,7 +22960,7 @@ textarea.form-control-lg {
   background-color: transparent;
   border: 1px solid transparent;
   padding: 0.375rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
   @media (prefers-reduced-motion: reduce) {
@@ -23434,12 +23434,12 @@ textarea.form-control-lg {
 
 .btn-lg, .btn-group-lg > .btn {
   padding: 0.5rem 1rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   border-radius: 0.3rem; }
 
 .btn-sm, .btn-group-sm > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   border-radius: 0.2rem; }
 
 .fade {
@@ -23488,7 +23488,7 @@ textarea.form-control-lg {
   min-width: 10rem;
   padding: 0.5rem 0;
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #fff;
   text-align: right;
   list-style: none;
@@ -23687,7 +23687,7 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   color: #888;
   white-space: nowrap; }
 
@@ -23903,10 +23903,10 @@ textarea.form-control-lg {
     justify-content: space-between; }
 
 .navbar-brand {
-  padding-top: 0.35rem;
-  padding-bottom: 0.35rem;
+  padding-top: 0.36875rem;
+  padding-bottom: 0.36875rem;
   margin-left: 1rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   text-decoration: none;
   white-space: nowrap; }
 
@@ -23933,7 +23933,7 @@ textarea.form-control-lg {
 
 .navbar-toggler {
   padding: 0.25rem 0.75rem;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1;
   background-color: transparent;
   border: 1px solid transparent;
@@ -24273,7 +24273,7 @@ textarea.form-control-lg {
   align-items: center;
   width: 100%;
   padding: 1rem 1.25rem;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #fff;
   text-align: right;
   background-color: #222;
@@ -24430,7 +24430,7 @@ textarea.form-control-lg {
 
 .pagination-lg .page-link {
   padding: 0.75rem 1.5rem;
-  font-size: 1rem; }
+  font-size: 0.875rem; }
 
 .pagination-lg .page-item:first-child .page-link {
   border-top-right-radius: 0.3rem;
@@ -24442,7 +24442,7 @@ textarea.form-control-lg {
 
 .pagination-sm .page-link {
   padding: 0.25rem 0.5rem;
-  font-size: 0.7rem; }
+  font-size: 0.6125rem; }
 
 .pagination-sm .page-item:first-child .page-link {
   border-top-right-radius: 0.2rem;
@@ -24565,7 +24565,7 @@ textarea.form-control-lg {
   display: flex;
   height: 1rem;
   overflow: hidden;
-  font-size: 0.6rem;
+  font-size: 0.525rem;
   background-color: #444;
   border-radius: 0.25rem;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075); }
@@ -25162,7 +25162,7 @@ textarea.form-control-lg {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   word-wrap: break-word;
   opacity: 0; }
   .tooltip.show {
@@ -25247,7 +25247,7 @@ textarea.form-control-lg {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.7rem;
+  font-size: 0.6125rem;
   word-wrap: break-word;
   background-color: #303030;
   background-clip: padding-box;
@@ -25327,7 +25327,7 @@ textarea.form-control-lg {
 .popover-header {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   background-color: #444;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   border-top-right-radius: calc(0.3rem - 1px);
@@ -26605,13 +26605,13 @@ textarea.form-control-lg {
   font-size: calc(1.325rem + 0.9vw) !important; }
 
 .fs-4 {
-  font-size: 1.2rem !important; }
+  font-size: 1.05rem !important; }
 
 .fs-5 {
-  font-size: 1rem !important; }
+  font-size: 0.875rem !important; }
 
 .fs-6 {
-  font-size: 0.8rem !important; }
+  font-size: 0.7rem !important; }
 
 .fst-italic {
   font-style: italic !important; }
