@@ -25,7 +25,7 @@ const TableCard = ({ defaultView = 'short'}) => {
             <DropdownItem disabled={viewType==="form"} onClick={e => setViewType('form')}>جدول فرم</DropdownItem>
           </DropdownMenu>
         </Dropdown>
-           
+
       </CardHeader>
       <CardBody className="p-1 text-center">
         <Table striped size="sm" className={styles.table}>
@@ -58,7 +58,7 @@ const TableCard = ({ defaultView = 'short'}) => {
           </thead>
           <tbody>
             {(['تراختور', 'سپاهان', 'پرسپولیس', 'استقلال', 'تراختور', 'سپاهان', 'پرسپولیس', 'استقلال', 'تراختور', 'سپاهان', 'پرسپولیس', 'استقلال']).map((name, i) => (
-              <tr key={name}>
+              <tr key={i}>
                 <th className="px-0">{i + 1}</th>
                 <td>
                   <div className="d-flex align-items-center">

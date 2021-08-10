@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react'
+import useCommonList from '../lib/useCommonList'
+import LeagueOverallCard from '../components/LeagueOverallCard'
+import {Container} from "reactstrap";
+
+const useLeaguesList = useCommonList.bind({}, 'leagues', 'leagues-list-page')
+
+const leagueQuery = {
+  $populate: 'leagueTeams'
+}
+
 export default function Home({ subscribeTopNav }) {
   const [c, count] = useState(0)
+  const leagues = useLeaguesList(leagueQuery)
 
   useEffect(() => {
     subscribeTopNav([
@@ -21,9 +32,11 @@ export default function Home({ subscribeTopNav }) {
     ])
   }, [])
 
-  return <div>
-    <h2>Home 333 with user</h2>
-    <button onClick={e => { count(c + 1) }}>add</button>
-    <p>{c}</p>
-  </div>;
+  return (
+    <Container className="mt-2" fluid>
+      {leagues.map(league => (
+        <LeagueOverallCard key={league._id} data={league}/>
+      ))}
+    </Container>
+  );
 }

@@ -3,27 +3,25 @@ const { debug, iff, isProvider, disallow } = require('feathers-hooks-common')
 const allowApiKey = require('./hooks/allowApiKey');
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
-
 module.exports = {
   before: {
     all: [],
     find: [
       iff(isProvider("external"), [
         allowApiKey(),
-        authenticate('jwt', 'apiKey'),
+        authenticate('jwt', 'origin'),
       ]),
       hook => {
-        if(hook.params.query.$limit === -1) {
+        if(+hook.params.query.$limit === -1) {
           hook.params.paginate = false;
           delete hook.params.query.$limit;
         }
       },
-      // debug('app: before find')
     ],
     get: [
       iff(isProvider("external"), [
         allowApiKey(),
-        authenticate('jwt', 'apiKey'),
+        authenticate('jwt', 'origin'),
       ]),
     ],
     create: [],
@@ -45,7 +43,7 @@ module.exports = {
   },
 
   error: {
-    all: [],
+    all: [/*debug('aftre all app errors', 'headers')*/],
     find: [],
     get: [],
     create: [],

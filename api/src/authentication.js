@@ -3,17 +3,17 @@ const { LocalStrategy } = require('@feathersjs/authentication-local');
 const { expressOauth } = require('@feathersjs/authentication-oauth');
 const { NotAuthenticated } = require('@feathersjs/errors');
 
-class ApiKeyStrategy extends AuthenticationBaseStrategy {
+class OriginStrategy extends AuthenticationBaseStrategy {
   async authenticate(authentication) {
-    const { token = '' } = authentication;
+    const { origin = '' } = authentication;
 
     const config = this.authentication.configuration[this.name];
+    const match = config.allowedOrigins.map(a => new RegExp(a)).reduce((acc, regex) => acc || regex.test(origin), false);
 
-    const match = config.allowedKeys.includes(token);
-    if (!match) throw new NotAuthenticated('Incorrect API Key');
+    if (!match) throw new NotAuthenticated('Incorrect Origin');
 
     return {
-      apiKey: true
+      origin
     }
   }
 }
@@ -23,7 +23,7 @@ module.exports = app => {
 
   authentication.register('jwt', new JWTStrategy());
   authentication.register('local', new LocalStrategy());
-  authentication.register('apiKey', new ApiKeyStrategy());
+  authentication.register('origin', new OriginStrategy());
 
   app.use('/authentication', authentication);
   app.configure(expressOauth());

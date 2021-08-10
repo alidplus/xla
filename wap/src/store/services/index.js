@@ -13,7 +13,7 @@ import extendedEventsDuck from './events.extends.js'
 // import extendedSponsorsDuck from './sponsors.extends.js'
 // import extendedLeaguePlayersDuck from './leaguePlayers.extends.js'
 // import extendedLeagueTeamsDuck from './leagueTeams.extends.js'
-import extendedFsDuck from './fs.extends.js'
+// import extendedFsDuck from './fs.extends.js'
 import extendedCommonDuck from './common.extends.js'
 
 
@@ -85,7 +85,7 @@ ducks.events =    events.extend(extendedEventsDuck(ducks, 'events'))
 // ducks.sponsors =  sponsors.extend(extendedSponsorsDuck(ducks, 'sponsors'))
 // ducks.leagueTeams =  leagueTeams.extend(extendedLeagueTeamsDuck(ducks, 'leagueTeams'))
 // ducks.leaguePlayers =  leaguePlayers.extend(extendedLeaguePlayersDuck(ducks, 'leaguePlayers'))
-ducks.fs =        fs.extend(extendedFsDuck(ducks, 'fs'))
+// ducks.fs =        fs.extend(extendedFsDuck(ducks, 'fs'))
 
 
 ducks.users =     ducks.users.extend(extendedCommonDuck(ducks, 'users'))

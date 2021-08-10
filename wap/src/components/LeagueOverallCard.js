@@ -1,13 +1,12 @@
 import React from 'react'
 import {Card, CardHeader, CardBody, CardTitle} from "reactstrap";
 
-const LeagueOverallCard = () => {
+const LeagueOverallCard = ({ data }) => {
   return (
     <Card className="mb-2">
       <CardHeader className="d-flex justify-content-between align-items-center">
         <CardTitle className="mb-0">
-          <div>لیگ ازادگان</div>
-          <div>میانه</div>
+          <h1 className="h5 mb-0">{data.title} <small className="text-muted">میانه</small></h1>
         </CardTitle>
         <i className="fa fa-ellipsis-v"/>
       </CardHeader>

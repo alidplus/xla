@@ -98,7 +98,7 @@ const MainLayout = ({children, topNav = {}}) => {
 
   return (
     <div className="d-flex flex-column h-100" {...swipeHandlers}>
-      {topNavigation}
+      {/*{topNavigation}*/}
       <div className="pt-5"/>
       <Navbar dark fixed="top" color="dark" className="py-2 bg-dark border border-2 -border-top-0 border-end-0 border-secondary border-start-0">
         <Container fluid>
@@ -136,7 +136,7 @@ const MainLayout = ({children, topNav = {}}) => {
               <Link className="py-3" component={ListGroupItem} to="/">Vestibulum at eros</Link>
             </ListGroup>
             <ListGroup flush className="mt-auto">
-              <Link className="py-3" component={ListGroupItem} onClick={handleReload}>Reload</Link>
+              <ListGroupItem className="py-3" onClick={handleReload}>Reload</ListGroupItem>
             </ListGroup>
           </CardBody>
         </Card>

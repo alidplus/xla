@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Home from './Home'
 import Home2 from './Home2'
-import Home3 from './Home3'
+import Leagues from './Leagues'
 import MainLayout from '../layouts/MainLayout'
 // import { connect } from "react-redux"
 const LayoutTag = ({ children }) => <div>{children}</div>
@@ -16,7 +16,7 @@ const Spinner = () => <div>loading...</div>
 
 // const Home = lazy(() => import('./Home'))
 // const Home2 = lazy(() => import('./Home2'))
-// const Home3 = lazy(() => import('./Home3'))
+// const Leagues = lazy(() => import('./Leagues'))
 
 const RouteConfig = ({ component: Component, layout = 'main', ...rest }) => {
   const [topNav, setTopNav] = useState({})
@@ -64,7 +64,7 @@ export default function AppRouter() {
         <Switch>
           <AppRoute exact path="/" component={Home} />
           <AppRoute exact path="/home-2" component={Home2} />
-          <AppRoute exact path="/home-3" component={Home3} />
+          <AppRoute exact path="/home-3" component={Leagues} />
         </Switch>
     </Router>
   )

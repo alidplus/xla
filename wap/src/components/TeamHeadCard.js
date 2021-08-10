@@ -17,29 +17,29 @@ const TeamHeadCard = () => {
             <div>ایران</div>
           </div>
           <div>
-            <i class="fas fa-share-alt"></i>
+            <i className="fas fa-share-alt"></i>
           </div>
         </div>
         <hr />
         <div className="d-flex justify-content-center align-items-center">
           <div className="d-flex flex-column align-items-center">
-            <div class="badge bg-light mx-1 p-2 mb-1">1 - 1</div>
+            <div className="badge bg-light mx-1 p-2 mb-1">1 - 1</div>
             <SmallAvatar/>
           </div>
           <div className="d-flex flex-column align-items-center">
-            <div class="badge bg-light mx-1 p-2 mb-1">2 - 2</div>
+            <div className="badge bg-light mx-1 p-2 mb-1">2 - 2</div>
             <SmallAvatar/>
           </div>
           <div className="d-flex flex-column align-items-center">
-            <div class="badge bg-success mx-1 p-2 mb-1">3 - 1</div>
+            <div className="badge bg-success mx-1 p-2 mb-1">3 - 1</div>
             <SmallAvatar/>
           </div>
           <div className="d-flex flex-column align-items-center">
-            <div class="badge bg-light mx-1 p-2 mb-1">0 - 0</div>
+            <div className="badge bg-light mx-1 p-2 mb-1">0 - 0</div>
             <SmallAvatar/>
           </div>
           <div className="d-flex flex-column align-items-center">
-            <div class="badge bg-danger mx-1 p-2 mb-1">0 - 1</div>
+            <div className="badge bg-danger mx-1 p-2 mb-1">0 - 1</div>
             <SmallAvatar/>
           </div>
         </div>

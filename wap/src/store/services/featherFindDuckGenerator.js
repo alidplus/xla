@@ -1,6 +1,3 @@
-// In your application's entrypoint
-// import { enableMapSet } from "immer"
-// enableMapSet()
 import Duck from 'extensible-duck';
 import {createCachedSelector} from 're-reselect';
 import produce from "immer";
@@ -12,6 +9,7 @@ import pick from "lodash/pick";
 import cloneDeep from "lodash/cloneDeep";
 import client from '../api/feathersClient';
 import extractPopulatedFields from './extractPopulatedFields';
+
 
 const OPERATORS = ['$sort', '$limit', '$skip', '$select', '$search']
 

@@ -1,6 +1,3 @@
-// In your application's entrypoint
-// import { enableMapSet } from "immer"
-// enableMapSet()
 import Duck from 'extensible-duck';
 import {createCachedSelector} from 're-reselect';
 import produce from "immer";

@@ -25,7 +25,7 @@ const MatchLast5Card = () => {
 
               <div className="d-inline-flex align-items-center">
                 <i className="fas fa-futbol me-1" />
-                <span className="me-1">28</span> 
+                <span className="me-1">28</span>
                 <i className="fa px-1 py-2 me-1 bg-danger" />
                 <span className="me-1">2</span>
                 <i className="fa px-1 py-2 me-1 bg-warning" />
@@ -34,7 +34,7 @@ const MatchLast5Card = () => {
 
               <div className="d-inline-flex align-items-center flex-row-reverse">
                 <i className="fas fa-futbol ms-1" />
-                <span className="ms-1">20</span> 
+                <span className="ms-1">20</span>
                 <i className="fa px-1 py-2 ms-1 bg-danger" />
                 <span className="ms-1">4</span>
                 <i className="fa px-1 py-2 ms-1 bg-warning" />
@@ -43,26 +43,26 @@ const MatchLast5Card = () => {
 
             </div>
           </div>
-         
+
           <LargeAvatar/>
         </div>
         <hr />
         <div className="d-flex justify-content-between align-items-center">
           <div>
-            <span class="badge bg-light me-1 font-monospace">D</span>
-            <span class="badge bg-light me-1 font-monospace">D</span>
-            <span class="badge bg-success me-1 font-monospace">W</span>
-            <span class="badge bg-light me-1 font-monospace">D</span>
-            <span class="badge bg-danger me-1 font-monospace">L</span>
+            <span className="badge bg-light me-1 font-monospace">D</span>
+            <span className="badge bg-light me-1 font-monospace">D</span>
+            <span className="badge bg-success me-1 font-monospace">W</span>
+            <span className="badge bg-light me-1 font-monospace">D</span>
+            <span className="badge bg-danger me-1 font-monospace">L</span>
           </div>
           <div>
-            <span class="badge bg-success me-1 font-monospace">W</span>
-            <span class="badge bg-light me-1 font-monospace">D</span>
-            <span class="badge bg-success me-1 font-monospace">W</span>
-            <span class="badge bg-light me-1 font-monospace">D</span>
-            <span class="badge bg-danger me-1 font-monospace">L</span>
+            <span className="badge bg-success me-1 font-monospace">W</span>
+            <span className="badge bg-light me-1 font-monospace">D</span>
+            <span className="badge bg-success me-1 font-monospace">W</span>
+            <span className="badge bg-light me-1 font-monospace">D</span>
+            <span className="badge bg-danger me-1 font-monospace">L</span>
           </div>
-          
+
         </div>
       </CardBody>
     </Card>

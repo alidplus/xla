@@ -3,7 +3,11 @@
 import feathers from '@feathersjs/client'
 import io from 'socket.io-client'
 // import cookieStorage from './cookieStorage'
-const socket = io(process.env.XLA_API_URL)
+const socket = io('', {
+  path: '/socket',
+  transports:	['websocket']
+})
+
 const client = feathers()
 client.configure(feathers.socketio(socket, {
   timeout: 80000
