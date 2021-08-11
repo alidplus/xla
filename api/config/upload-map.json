@@ -28,5 +28,8 @@
   },
   "matches":  {
     "gallery": { "count": 1 }
+  },
+  "news":  {
+    "cover": { "count": 1 }
   }
 }
