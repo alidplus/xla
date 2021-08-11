@@ -12,6 +12,8 @@ export default function* rootSaga() {
       ...ducks.leagues.takes,
       ...ducks.matches.takes,
       ...ducks.players.takes,
+      ...ducks.categories.takes,
+      ...ducks.notices.takes,
       ...ducks.events.takes,
       ...ducks.referees.takes,
       ...ducks.sponsors.takes,
