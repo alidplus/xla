@@ -10,6 +10,7 @@ const fs = require('./fs/fs.service.js');
 const leagueTeams = require('./leagueTeams/leagueTeams.service.js');
 const leaguePlayers = require('./leaguePlayers/leaguePlayers.service.js');
 const notices = require('./notices/notices.service.js');
+const categories = require('./categories/categories.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -24,4 +25,5 @@ module.exports = function (app) {
   app.configure(leagueTeams);
   app.configure(leaguePlayers);
   app.configure(notices);
+  app.configure(categories);
 };
