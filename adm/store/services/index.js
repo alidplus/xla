@@ -86,12 +86,26 @@ const leaguePlayers = (new Duck(emptyDuck('leaguePlayers')))
   .extend(featherControlDuckGenerator.bind({}, 'leaguePlayers'))
 ducks.leaguePlayers = leaguePlayers
 
+const categories = (new Duck(emptyDuck('categories')))
+  .extend(featherGetDuckGenerator.bind({}, 'categories'))
+  .extend(featherFindDuckGenerator.bind({}, 'categories'))
+  .extend(featherControlDuckGenerator.bind({}, 'categories'))
+ducks.categories = categories
+
+const notices = (new Duck(emptyDuck('notices')))
+  .extend(featherGetDuckGenerator.bind({}, 'notices'))
+  .extend(featherFindDuckGenerator.bind({}, 'notices'))
+  .extend(featherControlDuckGenerator.bind({}, 'notices'))
+ducks.notices = notices
+
 
 ducks.users =     users.extend(extendedUserDuck(ducks, 'users'))
 // ducks.teams =     teams.extend(extendedTeamsDuck(ducks, 'teams'))
 // ducks.leagues =   leagues.extend(extendedLeaguesDuck(ducks, 'leagues'))
 // ducks.matches =   matches.extend(extendedMatchesDuck(ducks, 'matches'))
 // ducks.players =   players.extend(extendedPlayersDuck(ducks, 'players'))
+// ducks.categories =   categories.extend(extendedCaregoriesDuck(ducks, 'categories'))
+// ducks.notices =   notices.extend(extendedNoticesDuck(ducks, 'notices'))
 ducks.events =    events.extend(extendedEventsDuck(ducks, 'events'))
 // ducks.referees =  referees.extend(extendedRefereesDuck(ducks, 'referees'))
 // ducks.sponsors =  sponsors.extend(extendedSponsorsDuck(ducks, 'sponsors'))
@@ -111,6 +125,8 @@ ducks.sponsors =  ducks.sponsors.extend(extendedCommonDuck(ducks, 'sponsors'))
 ducks.fs =        ducks.fs.extend(extendedCommonDuck(ducks, 'fs'))
 ducks.leagueTeams = ducks.leagueTeams.extend(extendedCommonDuck(ducks, 'leagueTeams'))
 ducks.leaguePlayers = ducks.leaguePlayers.extend(extendedCommonDuck(ducks, 'leaguePlayers'))
+ducks.categories = ducks.categories.extend(extendedCommonDuck(ducks, 'categories'))
+ducks.notices = ducks.notices.extend(extendedCommonDuck(ducks, 'notices'))
 
 export const usersDuck = ducks.users
 export const teamsDuck = ducks.teams
@@ -123,5 +139,7 @@ export const sponsorsDuck = ducks.sponsors
 export const fsDuck = ducks.fs
 export const leagueTeamsDuck = ducks.leagueTeams
 export const leaguePlayersDuck = ducks.leaguePlayers
+export const categoriesDuck = ducks.categories
+export const noticesDuck = ducks.notices
 export default ducks;
 

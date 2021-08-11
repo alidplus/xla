@@ -7,6 +7,8 @@ import EventsIcon from 'src/events/screens/Icon'
 import RefereesIcon from 'src/referees/screens/Icon'
 import SponsorsIcon from 'src/sponsors/screens/Icon'
 import FilesIcon from 'src/fs/screens/Icon'
+import CategoriesIcon from 'src/categories/screens/Icon'
+import NoticesIcon from 'src/notices/screens/Icon'
 
 const navigations = [
   {
@@ -63,6 +65,16 @@ const navigations = [
     label: 'Files',
     icon: FilesIcon,
     path: '/fs'
+  },
+  {
+    label: 'Categories',
+    icon: CategoriesIcon,
+    path: '/categories'
+  },
+  {
+    label: 'Notices',
+    icon: NoticesIcon,
+    path: '/notices'
   }
 ]
 

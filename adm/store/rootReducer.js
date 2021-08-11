@@ -23,6 +23,8 @@ export default combineReducers({
   [ducks.leagues.store]: prepareReducer(['xcollection'], ducks.leagues),
   [ducks.matches.store]: prepareReducer(['xcollection'], ducks.matches),
   [ducks.players.store]: prepareReducer(['xcollection'], ducks.players),
+  [ducks.categories.store]: prepareReducer(['xcollection'], ducks.categories),
+  [ducks.notices.store]: prepareReducer(['xcollection'], ducks.notices),
   [ducks.events.store]: prepareReducer(['xcollection'], ducks.events),
   [ducks.referees.store]: prepareReducer(['xcollection'], ducks.referees),
   [ducks.sponsors.store]: prepareReducer(['xcollection'], ducks.sponsors),
