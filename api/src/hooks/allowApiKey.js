@@ -2,22 +2,20 @@
 const getByDot = require('lodash/get')
 module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
   return async context => {
-    const { params, app } = context;
-    const configuration = app.get('authentication')
-
-    const headerTokenKey = getByDot(configuration, 'apiKey.header', '____')
-    const headerToken = getByDot(params, `headers.${headerTokenKey}`, null)
-    const paramsTokenKey = getByDot(configuration, 'apiKey.urlParam', '____')
-    const paramsToken = getByDot(params, `query.${paramsTokenKey}`, null)
-      const token = paramsToken || headerToken || null
-
+    const { params } = context;
+    let token = null
+    const referer = getByDot(params, `headers.referer`, null)
+    const origin = getByDot(params, `headers.origin`, referer)
+    if (origin) {
+      const q = new URL(origin);
+      token = q.hostname
+    }
     if (token && params.provider && !params.authentication) {
-      delete params.query[configuration.apiKey.urlParam]
       context.params = {
         ...params,
         authentication: {
-          strategy: 'apiKey',
-          token
+          strategy: 'origin',
+          origin: token
         }
       };
     }

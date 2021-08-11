@@ -1,0 +1,11 @@
+.smallAvatar {
+    height: 20px !important;
+    width: 20px !important;
+}
+.largeAvatar {
+    height: 40px !important;
+    width: 40px !important;
+}
+.squareAvatar {
+    width: 25% !important;
+}

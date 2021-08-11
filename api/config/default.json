@@ -19,10 +19,10 @@
     "authStrategies": [
       "jwt",
       "local",
-      "apiKey"
+      "origin"
     ],
-    "apiKey": {
-      "allowedKeys": [ "62646bfb6c7167680343fed1d8a10ecf" ],
+    "origin": {
+      "allowedOrigins": [ "127.0.0.1", "localhost", "192\\.168\\.\\d+\\.\\d+" ],
       "header": "x-access-token",
       "urlParam": "token"
     },

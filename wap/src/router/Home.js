@@ -20,6 +20,20 @@ import TeamNextMatchCard from '../components/TeamNextMatchCard'
 import {Container, Button, TabContent, TabPane } from "reactstrap";
 import '../assets/scss/scrollbars.scss';
 
+import useCommonList from '../lib/useCommonList'
+// hook customization
+const useUsersSampleList = useCommonList.bind({}, 'users', 'users-list-sample', {})
+const useTeamsSampleList = useCommonList.bind({}, 'teams', 'teams-list-sample', {})
+const useLeaguesSampleList = useCommonList.bind({}, 'leagues', 'leagues-list-sample', {})
+const useMatchesSampleList = useCommonList.bind({}, 'matches', 'matches-list-sample', {})
+const usePlayersSampleList = useCommonList.bind({}, 'players', 'players-list-sample', {})
+const useEventsSampleList = useCommonList.bind({}, 'events', 'events-list-sample', {})
+const useRefereesSampleList = useCommonList.bind({}, 'referees', 'referees-list-sample', {})
+const useSponsorsSampleList = useCommonList.bind({}, 'sponsors', 'sponsors-list-sample', {})
+const useFsSampleList = useCommonList.bind({}, 'fs', 'fs-list-sample', {})
+const useLeagueTeamsSampleList = useCommonList.bind({}, 'leagueTeams', 'leagueTeams-list-sample', {})
+const useLeaguePlayersSampleList = useCommonList.bind({}, 'leaguePlayers', 'leaguePlayers-list-sample', {})
+
 moment.locale("fa", fa);
 moment.loadPersian({
   usePersianDigits: true,
@@ -47,6 +61,30 @@ const tabs = (new Array(10)).fill(0).map((_, i) => i - 4)
 
 export default function Home({ subscribeTopNav }) {
   const [activeTab, setActiveTab] = useState(0);
+
+  const sampleUsers = useUsersSampleList()
+  const sampleUser = sampleUsers.length ? sampleUsers[0] : {}
+  const sampleTeams = useTeamsSampleList()
+  const sampleTeam = sampleTeams.length ? sampleTeams[0] : {}
+  const sampleLeagues = useLeaguesSampleList()
+  const sampleLeague = sampleLeagues.length ? sampleLeagues[0] : {}
+  const sampleMatches = useMatchesSampleList()
+  const sampleMatche = sampleMatches.length ? sampleMatches[0] : {}
+  const samplePlayers = usePlayersSampleList()
+  const samplePlayer = samplePlayers.length ? samplePlayers[0] : {}
+  const sampleEvents = useEventsSampleList()
+  const sampleEvent = sampleEvents.length ? sampleEvents[0] : {}
+  const sampleReferees = useRefereesSampleList()
+  const sampleReferee = sampleReferees.length ? sampleReferees[0] : {}
+  const sampleSponsors = useSponsorsSampleList()
+  const sampleSponsor = sampleSponsors.length ? sampleSponsors[0] : {}
+  const sampleFs = useFsSampleList()
+  const sampleF = sampleFs.length ? sampleFs[0] : {}
+  const sampleLeagueTeams = useLeagueTeamsSampleList()
+  const sampleLeagueTeam = sampleLeagueTeams.length ? sampleLeagueTeams[0] : {}
+  const sampleLeaguePlayers = useLeaguePlayersSampleList()
+  const sampleLeaguePlayer = sampleLeaguePlayers.length ? sampleLeaguePlayers[0] : {}
+
   useEffect(subscribeTopNav.bind({}, []), [])
   useEffect(() => {
     const el = document.getElementById(`tab-id-${activeTab}`)
@@ -65,6 +103,19 @@ export default function Home({ subscribeTopNav }) {
   const toggle = tab => {
     if(activeTab !== tab) setActiveTab(tab);
   }
+  return <pre>{JSON.stringify({
+    sampleUser,
+    sampleTeam,
+    sampleLeague,
+    sampleMatche,
+    samplePlayer,
+    sampleEvent,
+    sampleReferee,
+    sampleSponsor,
+    sampleF,
+    sampleLeagueTeam,
+    sampleLeaguePlayer,
+  }, null, 2)}</pre>
   return (
     <>
       <div className="bg-dark border-0 position-absolute w-100 z-index-10 pt-1 mt-n1 shadow">
@@ -132,7 +183,7 @@ export default function Home({ subscribeTopNav }) {
             <hr/>
 
             <h6 className="text-center">TableCard</h6>
-            <TableCard />
+            <TableCard defaultView="all" />
             <hr/>
 
             <h6 className="text-center">TeamFormCard</h6>
