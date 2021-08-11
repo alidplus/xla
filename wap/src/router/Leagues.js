@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import useCommonList from '../lib/useCommonList'
-import LeagueOverallCard from '../components/LeagueOverallCard'
 import {Container} from "reactstrap";
+import LeagueOverallCard from '../components/LeagueOverallCard'
 
+// hook customization
 const useLeaguesList = useCommonList.bind({}, 'leagues', 'leagues-list-page')
 
 const leagueQuery = {
@@ -10,7 +11,6 @@ const leagueQuery = {
 }
 
 export default function Home({ subscribeTopNav }) {
-  const [c, count] = useState(0)
   const leagues = useLeaguesList(leagueQuery)
 
   useEffect(() => {
