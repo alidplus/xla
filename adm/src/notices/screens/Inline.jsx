@@ -6,7 +6,7 @@ import LoadTeamContainer from 'src/teams/containers/Load'
 import TeamInlineScreen from 'src/teams/screens/Inline'
 import classnames from "classnames";
 
-const MatchInline = ({ data, hash }) => {
+const noticeInline = ({ data, hash }) => {
   return !data ? null : (
     <span className={classnames("cursor-pointer", {'text-decoration-line-through':  data.deleted})}>
       <Icon className="me-1" />
@@ -35,11 +35,11 @@ const MatchInline = ({ data, hash }) => {
   )
 }
 
-MatchInline.propTypes = {
+noticeInline.propTypes = {
   data: PropTypes.object
 }
 
-export default MatchInline
+export default noticeInline
 
 
 

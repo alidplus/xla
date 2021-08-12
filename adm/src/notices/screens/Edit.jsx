@@ -1,6 +1,6 @@
-import { schema, options } from '@xla/schemas/src/match'
+import { schema, options } from '@xla/schemas/src/notice'
 import Form from './Form'
 import Card from './Card'
 import withCommonEditScreen from 'lib/withCommonEditScreen'
 
-export default withCommonEditScreen(Card, Form, schema, options, 'match')
+export default withCommonEditScreen(Card, Form, schema, options, 'notices')
