@@ -23,6 +23,8 @@ import sponsorRoutes from 'src/sponsors/routes'
 import leaguePlayersRoutes from 'src/leaguePlayers/routes'
 import leagueTeamsRoutes from 'src/leagueTeams/routes'
 import fsRoutes from 'src/fs/routes'
+import categoriesRoutes from 'src/categories/routes'
+import noticesRoutes from 'src/notices/routes'
 
 const HModal = ({ children, match }) => {
   const history = useHistory();
@@ -79,7 +81,9 @@ const hashRoutes = [
   sponsorRoutes,
   fsRoutes,
   leaguePlayersRoutes,
-  leagueTeamsRoutes
+  leagueTeamsRoutes,
+  categoriesRoutes,
+  noticesRoutes
 ]
 
 const HashRoutes = function HashRoutes({ children, routes }) {

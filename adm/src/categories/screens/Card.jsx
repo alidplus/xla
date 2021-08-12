@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Card} from 'atoms'
-import './Card.module.scss'
 
 import LoadTeamContainer from 'src/teams/containers/Load'
 import LoadLeaguesContainer from 'src/leagues/containers/Load'

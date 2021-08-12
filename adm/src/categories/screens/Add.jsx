@@ -1,4 +1,4 @@
-import { schema, options } from '@xla/schemas/src/categories'
+import { schema, options } from '@xla/schemas/src/category'
 import Form from './Form'
 import Card from './Card'
 import withCommonAddScreen from 'lib/withCommonAddScreen'
