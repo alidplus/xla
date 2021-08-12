@@ -177,7 +177,6 @@ module.exports = async (app) => {
         })
       }
     })
-    console.log(assets.notices);
   } catch (e) {
     console.log(e);
   }
