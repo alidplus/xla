@@ -12,7 +12,7 @@ const options = module.exports.options = { convert: true, abortEarly: false, all
 
 const schema = Joi.object().keys(attrs)
 
-module.exports.schema = [schema, Joi.array().items(schema)]
+module.exports.schema = Joi.alternatives().try(schema, Joi.array().items(schema))
 
 const fields = module.exports.fields = Object.keys(attrs);
 

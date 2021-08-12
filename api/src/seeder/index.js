@@ -5,6 +5,9 @@ const teamTemplate = require("./team");
 const playerTemplate = require("./player");
 const matchTemplate = require("./match");
 const seederFactory = require("./seedFactory");
+const categoryTemplate = require("./category");
+const noticeTemplate = require("./notice");
+
 const moment = require('moment');
 moment().format();
 
@@ -20,6 +23,8 @@ module.exports = async (app) => {
       matches: [],
       leagueTeams: [],
       events: [],
+      categories: [],
+      notices: [],
     }
     await app.get("mongooseClient").connection.dropDatabase();
     const seeder = seederFactory(app);
@@ -54,7 +59,7 @@ module.exports = async (app) => {
 
     await seeder({
       path: 'users',
-      count: 20,
+      count: 10,
       template: userTemplate({}),
       callback: async (user) => {
         assets.users.push(user)
@@ -113,7 +118,7 @@ module.exports = async (app) => {
         const eTypes = ['goal', 'rc', 'yc'];
         const homeOrAway = ['home', 'away'];
         allMatches.forEach(match => {
-          for(let j = 0; j < 30; j++) {
+          for(let j = 0; j < 10; j++) {
             const event = {
               eType: eTypes[~~(Math.random() * 100) % 3],
               league: assets.leagues[0]._id,
@@ -147,6 +152,32 @@ module.exports = async (app) => {
         console.log("event Creation Finished");
       }
     })
+
+
+    await seeder({
+      path: 'categories',
+      count: 2,
+      template: categoryTemplate({}),
+      callback: async (category) => {
+        assets.categories.push(category)
+        await seeder({
+          path: 'notices',
+          count: 5,
+          template: noticeTemplate({ 
+            category: category._id,
+            sponsor: assets.sponsors[~~(Math.random()*100) % assets.sponsors.length]._id,
+            league: assets.leagues[~~(Math.random()*100) % assets.leagues.length]._id,
+            leagueTeam: assets.leagueTeams[~~(Math.random()*100) % assets.leagueTeams.length]._id,
+            match: assets.matches[~~(Math.random()*100) % assets.matches.length]._id,
+            // leaguePlayer: assets.leaguePlayers[~~(Math.random()*100) % assets.leaguePlayers.length],
+          }),
+          callback: async (notice) => {
+            assets.notices.push(notice);
+          }
+        })
+      }
+    })
+    console.log(assets.notices);
   } catch (e) {
     console.log(e);
   }

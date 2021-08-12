@@ -17,7 +17,9 @@ const attrs = module.exports.attrs = {
 
 const options = module.exports.options = { convert: true, abortEarly: false, allowUnknown: true }
 
-const schema = module.exports.schema = Joi.object().keys(attrs)
+const schema = Joi.object().keys(attrs)
+
+module.exports.schema = Joi.alternatives().try(schema, Joi.array().items(schema))
 
 const fields = module.exports.fields = Object.keys(attrs);
 

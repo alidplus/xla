@@ -20,6 +20,7 @@ module.exports = function (app) {
     match: { type: Schema.Types.ObjectId, ref: 'matches' },
     leaguePlayer: { type: Schema.Types.ObjectId, ref: 'leaguePlayers' },
     referee: { type: Schema.Types.ObjectId, ref: 'referees' },
+    category: { type: Schema.Types.ObjectId, ref: 'categories' },
 
     tags: [{ type: String }],
     // author: { type: Schema.Types.ObjectId, ref: 'User' },

@@ -4,6 +4,7 @@ const faker = require("faker/locale/fa");
 
 module.exports = (app) => async ({ path, count = 1, template = {}, callback, del = true }) => {
   const Service = app.service(path)
+  // console.log(path, "<<<<<<<<<<<<<<<<<<<<<<<<<<path");
   // if(del) {
   //   await Service.Model.deleteMany({})
   // }
