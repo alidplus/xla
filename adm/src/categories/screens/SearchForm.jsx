@@ -6,6 +6,7 @@ import useTeamOptionsProvider from "src/teams/hooks/useOptionsProvider";
 import useLeagueOptionsProvider from "src/leagues/hooks/useOptionsProvider";
 import useRefereeOptionsProvider from "src/referees/hooks/useOptionsProvider";
 import {FormGroup, InputGroup, InputGroupAddon, Label, ModalBody} from "../../../atoms";
+import TextField from "../../../components/form/TextField";
 
 const SearchForm = ({ register, control, data }) => {
   return (
@@ -18,10 +19,8 @@ const SearchForm = ({ register, control, data }) => {
           <JdateField {...register("startTime__$lte")} nativeControl removable timeBound="end" timePicker={false}/>
         </InputGroup>
       </FormGroup>
-      <SelectField label="Home" {...register("home")} provider={useTeamOptionsProvider}/>
-      <SelectField label="Away" {...register("away")} provider={useTeamOptionsProvider}/>
-      <SelectField label="League" {...register("league")} provider={useLeagueOptionsProvider}/>
-      <SelectField label="Referee" {...register("referee")} provider={useRefereeOptionsProvider}/>
+      <TextField label="Title" {...register("title")} />
+      <TextField label="Slug" {...register("slug")} disabled />
       {/*<DevTool control={control} />*/}
     </>
   )

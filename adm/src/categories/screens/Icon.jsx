@@ -1,2 +1,2 @@
-import {Futbol} from 'atoms/icons'
-export default Futbol
+import {Hashtag} from 'atoms/icons'
+export default Hashtag

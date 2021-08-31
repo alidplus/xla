@@ -5,15 +5,14 @@ import JdateField from "components/form/JdateField";
 import useTeamOptionsProvider from "src/teams/hooks/useOptionsProvider";
 import useLeagueOptionsProvider from "src/leagues/hooks/useOptionsProvider";
 import useRefereeOptionsProvider from "src/referees/hooks/useOptionsProvider";
+import TextField from "../../../components/form/TextField";
+import {TabPane} from "../../../atoms";
 
 const Form = ({ register, control, data }) => {
   return (
     <>
-      <JdateField label="Time" {...register("startTime")} />
-      <SelectField label="Home" {...register("home")} provider={useTeamOptionsProvider}/>
-      <SelectField label="Away" {...register("away")} provider={useTeamOptionsProvider}/>
-      <SelectField label="League" {...register("league")} provider={useLeagueOptionsProvider}/>
-      <SelectField label="Referee" {...register("referee")} provider={useRefereeOptionsProvider}/>
+      <TextField label="Title" {...register("title")} />
+      <TextField label="Slug" {...register("slug")} disabled />
       {/*<DevTool control={control} />*/}
     </>
   )

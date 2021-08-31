@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ducks from "store/services";
+import ducks from "../store/services";
 
 export default function useCommonGet(serviceName, id = null) {
   const dispatch = useDispatch();

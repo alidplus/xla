@@ -59,7 +59,7 @@ const tabs = (new Array(10)).fill(0).map((_, i) => i - 4)
     }
   })
 
-export default function Home({ subscribeTopNav }) {
+export default function NewsList({ subscribeTopNav }) {
   const [activeTab, setActiveTab] = useState(0);
 
   const sampleUsers = useUsersSampleList()

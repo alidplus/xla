@@ -9,11 +9,12 @@ module.exports = {
 }
 
 async function generator (data, params, app) {
-      
+
   try {
     // console.log(data);
     const {leagueId, startTime} = data;
-    
+    console.log({startTime: startTime.clone()})
+
     const MatchService = app.service("matches");
     const cnt = await MatchService.Model.countDocuments({league: leagueId});
     if(cnt > 0) {
@@ -26,20 +27,21 @@ async function generator (data, params, app) {
     .map((value) => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
-    
+
     const arrLen = shuffledLeagueTeamsArr.length;
     const allMatches = [];
-
+    const mpd = 3 //match per day
     for(let i = 1; i < arrLen; i++) {
       for (let j = 0; j < arrLen / 2; j++) {
+        const ddo = Math.floor(i / mpd)
         const match = {
-          startTime,
+          startTime: startTime.clone().add(i - 1 + ddo, 'days').startOf('day').add((ddo * 24) + (j * 2) + 18, 'hours').toDate(),
           matchDay: 0,
           home: null,
           away: null,
           league: leagueId,
         };
-        // console.log(shuffledLeagueTeamsArr[j]);
+        console.log(match.startTime, 'startTime',i - 1 + ddo, ddo * 24 + (j * 2) + 18);
         match.home = shuffledLeagueTeamsArr[j]._id;
         match.away = shuffledLeagueTeamsArr[arrLen - j - 1]._id;
         match.matchDay = i;
@@ -49,7 +51,7 @@ async function generator (data, params, app) {
       shuffledLeagueTeamsArr.splice(1, 0, lastOne);
     }
     // console.log(">>>>>>>>>>>>>>>>allMatches\n", allMatches);
-    
+
     // console.log(">>>>>>>>>>>>>>>>", allMatches[0].home, "<<<<<<<<<<<<<<<<<<");
     // console.log(">>>>>>>>>>>>>>>>", allMatches[0].away, "<<<<<<<<<<<<<<<<<<");
     const insertedMatches = await MatchService.create(allMatches);

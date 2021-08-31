@@ -5,9 +5,12 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Home from './Home'
-import Home2 from './Home2'
+import NewsList from './NewsList'
+import TeamsLeaderBoard from './TeamsLeaderBoard'
+import MatchPage from './MatchPage'
+import LeagueTeamPage from './LeagueTeamPage'
 import Leagues from './Leagues'
+import MatchesCalendar from './MatchesCalendar/index'
 import MainLayout from '../layouts/MainLayout'
 // import { connect } from "react-redux"
 const LayoutTag = ({ children }) => <div>{children}</div>
@@ -62,9 +65,12 @@ export default function AppRouter() {
   return (
     <Router>
         <Switch>
-          <AppRoute exact path="/" component={Home} />
-          <AppRoute exact path="/home-2" component={Home2} />
-          <AppRoute exact path="/home-3" component={Leagues} />
+          <AppRoute exact path="/" component={MatchesCalendar} />
+          <AppRoute exact path="/news" component={NewsList} />
+          <AppRoute exact path="/teams" component={TeamsLeaderBoard} />
+          <AppRoute exact path="/leagues" component={Leagues} />
+          <AppRoute exact path="/match/:id" component={MatchPage} />
+          <AppRoute exact path="/league-team/:id" component={LeagueTeamPage} />
         </Switch>
     </Router>
   )

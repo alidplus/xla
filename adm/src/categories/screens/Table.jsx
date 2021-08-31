@@ -17,9 +17,12 @@ const tableMap = [
     render: data => (<Id data={data}/>),
   },
   {
-    title: 'Details',
-    propName: 'data',
-    Component: InLine,
+    title: 'Title',
+    key: 'title'
+  },
+  {
+    title: 'Slug',
+    key: 'slug'
   },
   {
     title: 'date',

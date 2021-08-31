@@ -26,19 +26,19 @@ const MainNavTabs = () => {
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink activeClassName="active text-white" className="px-0 nav-link text-light" to="/home-2">
+          <NavLink activeClassName="active text-white" className="px-0 nav-link text-light" to="/news">
             <i className="fa fa-newspaper d-block fa-2x"/>
             <span>اخبار</span>
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink activeClassName="active text-white" className="px-0 nav-link text-light" to="/home-3">
+          <NavLink activeClassName="active text-white" className="px-0 nav-link text-light" to="/teams">
             <i className="fa fa-users d-block fa-2x"/>
             <span>تیم ها</span>
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink activeClassName="active text-white" className="px-0 nav-link text-light" to="/home-3">
+          <NavLink activeClassName="active text-white" className="px-0 nav-link text-light" to="/leagues">
             <i className="fa fa-trophy d-block fa-2x"/>
             <span>لیگ</span>
           </NavLink>
