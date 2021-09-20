@@ -3,14 +3,7 @@
 import feathers from '@feathersjs/client'
 import rest from '@feathersjs/rest-client'
 import io from 'socket.io-client'
-<<<<<<< HEAD
 // import cookieStorage from './cookieStorage'
-const socket = io('', {
-  path: '/socket',
-  // transports:	['websocket']
-})
-=======
->>>>>>> 868ebcb7b9d6b2a8f67025c7361881781b381e79
 
 const client = feathers()
 
