@@ -82,6 +82,7 @@ export default function Home({ subscribeTopNav }) {
   const sampleF = sampleFs.length ? sampleFs[0] : {}
   const sampleLeagueTeams = useLeagueTeamsSampleList()
   const sampleLeagueTeam = sampleLeagueTeams.length ? sampleLeagueTeams[0] : {}
+  console.log(">>>>>>>>", sampleLeagueTeam);
   const sampleLeaguePlayers = useLeaguePlayersSampleList()
   const sampleLeaguePlayer = sampleLeaguePlayers.length ? sampleLeaguePlayers[0] : {}
 
@@ -103,19 +104,25 @@ export default function Home({ subscribeTopNav }) {
   const toggle = tab => {
     if(activeTab !== tab) setActiveTab(tab);
   }
-  return <pre>{JSON.stringify({
-    sampleUser,
-    sampleTeam,
+
+  const sampleLeagueAndTeams = {
     sampleLeague,
-    sampleMatche,
-    samplePlayer,
-    sampleEvent,
-    sampleReferee,
-    sampleSponsor,
-    sampleF,
-    sampleLeagueTeam,
-    sampleLeaguePlayer,
-  }, null, 2)}</pre>
+    sampleLeagueTeams
+  }
+
+  // return <pre>{JSON.stringify({
+  //   sampleUser,
+  //   sampleTeam,
+  //   sampleLeague,
+  //   sampleMatche,
+  //   samplePlayer,
+  //   sampleEvent,
+  //   sampleReferee,
+  //   sampleSponsor,
+  //   sampleF,
+  //   sampleLeagueTeam,
+  //   sampleLeaguePlayer,
+  // }, null, 2)}</pre>
   return (
     <>
       <div className="bg-dark border-0 position-absolute w-100 z-index-10 pt-1 mt-n1 shadow">
@@ -147,27 +154,27 @@ export default function Home({ subscribeTopNav }) {
           >
             <h4>بازی های {a.label}</h4>
             <h6 className="text-center">BestPlayersCard</h6>
-            <BestPlayersCard />
+            <BestPlayersCard data={sampleLeaguePlayers}/>
             <hr/>
 
             <h6 className="text-center">LeagueOverallCard</h6>
-            <LeagueOverallCard />
+            <LeagueOverallCard data={sampleLeagueAndTeams}/>
             <hr/>
 
             <h6 className="text-center">MatchDetailCard</h6>
-            <MatchDetailCard />
+            <MatchDetailCard data={sampleLeague}/>
             <hr/>
 
             <h6 className="text-center">MatchesListCard</h6>
-            <MatchesListCard />
+            <MatchesListCard league={sampleLeague} matches={sampleMatches}/>
             <hr/>
 
             <h6 className="text-center">MatchHeadCard</h6>
-            <MatchHeadCard />
+            <MatchHeadCard matche={sampleMatche}/>
             <hr/>
 
             <h6 className="text-center">MatchLast5Card</h6>
-            <MatchLast5Card />
+            <MatchLast5Card data={sampleLeagueTeams}/>
             <hr/>
 
             <h6 className="text-center">NewsDetailsPage</h6>

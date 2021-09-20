@@ -129,14 +129,14 @@ const MainLayout = ({children, topNav = {}}) => {
           </div>
           <CardBody className="d-flex flex-column">
             <ListGroup flush>
-              <Link className="py-3" component={ListGroupItem} to="/">Cras justo odio</Link>
-              <Link className="py-3" component={ListGroupItem} to="/">Dapibus ac facilisis in</Link>
-              <Link className="py-3" component={ListGroupItem} to="/">Morbi leo risus</Link>
-              <Link className="py-3" component={ListGroupItem} to="/">Porta ac consectetur ac</Link>
-              <Link className="py-3" component={ListGroupItem} to="/">Vestibulum at eros</Link>
+              <Link className="py-3" to="/">Cras justo odio</Link>
+              <Link className="py-3" to="/">Dapibus ac facilisis in</Link>
+              <Link className="py-3" to="/">Morbi leo risus</Link>
+              <Link className="py-3" to="/">Porta ac consectetur ac</Link>
+              <Link className="py-3" to="/">Vestibulum at eros</Link>
             </ListGroup>
             <ListGroup flush className="mt-auto">
-              <ListGroupItem className="py-3" onClick={handleReload}>Reload</ListGroupItem>
+              <ListGroupItem className="py-3" onClick={handleReload} to="/">Reload</ListGroupItem>
             </ListGroup>
           </CardBody>
         </Card>

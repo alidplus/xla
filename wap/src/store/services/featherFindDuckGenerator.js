@@ -99,16 +99,16 @@ export default (serviceName, duck) => {
         createCachedSelector(
           selectors.collection,
           selectors.paginateRequests,
-          selectors.props,
-          (collection, paginateRequests, props) => {
-            if (!paginateRequests.hasOwnProperty(props.uid)) return { data: [], skip: 0, limit: 10, total: 0 }
-            const { $skip = 0, $limit = 10, $sort = '', $select = ''} = pick(paginateRequests[props.uid].query, OPERATORS)
-            const paginate = cloneDeep(paginateRequests[props.uid])
+          selectors.uid,
+          (collection, paginateRequests, uid) => {
+            if (!paginateRequests.hasOwnProperty(uid)) return { data: [], skip: 0, limit: 10, total: 0 }
+            const { $skip = 0, $limit = 10, $sort = '', $select = ''} = pick(paginateRequests[uid].query, OPERATORS)
+            const paginate = cloneDeep(paginateRequests[uid])
             if (Array.isArray(paginate.data)) {
               paginate.data = paginate.data.map(k => collection[k])
               return paginate
             }
-            const sifter = sift(omit(paginateRequests[props.uid].query, OPERATORS), siftOptions)
+            const sifter = sift(omit(paginateRequests[uid].query, OPERATORS), siftOptions)
             paginate.data = sortBy(Object.keys(collection).map(k => collection[k]), $sort.split(' ')).
               filter(sifter).
               slice($skip, $skip + $limit)
@@ -121,16 +121,16 @@ export default (serviceName, duck) => {
         createCachedSelector(
           selectors.collection,
           selectors.listRequests,
-          selectors.props,
-          (collection, listRequests, props) => {
-            if (!listRequests.hasOwnProperty(props.uid)) return { total: 0, data: [] }
-            const { $skip = 0, $limit = 10, $sort = '', $select = ''} = pick(listRequests[props.uid].query, OPERATORS)
-            const list = cloneDeep(listRequests[props.uid])
+          selectors.uid,
+          (collection, listRequests, uid) => {
+            if (!listRequests.hasOwnProperty(uid)) return { total: 0, data: [] }
+            const { $skip = 0, $limit = 10, $sort = '', $select = ''} = pick(listRequests[uid].query, OPERATORS)
+            const list = cloneDeep(listRequests[uid])
             if (Array.isArray(list.data)) {
               list.data = list.data.map(k => collection[k])
               return list
             }
-            const sifter = sift(omit(listRequests[props.uid].query, OPERATORS), siftOptions)
+            const sifter = sift(omit(listRequests[uid].query, OPERATORS), siftOptions)
             list.data = sortBy(Object.keys(collection).map(k => collection[k]), $sort.split(' ')).filter(sifter)
             return list
           }

@@ -5,7 +5,7 @@ import io from 'socket.io-client'
 // import cookieStorage from './cookieStorage'
 const socket = io('', {
   path: '/socket',
-  transports:	['websocket']
+  // transports:	['websocket']
 })
 
 const client = feathers()

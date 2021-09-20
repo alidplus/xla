@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useMemo} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ducks from "../store/services";
 
@@ -21,5 +21,5 @@ export default function useCommonList(serviceName, uid, query = emptyQuery) {
     }
   }, [query])
 
-  return array?.data ?? emptyArray
+  return useMemo(() => array?.data ?? emptyArray, [array.data])
 }

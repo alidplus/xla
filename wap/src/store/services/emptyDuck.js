@@ -16,11 +16,14 @@ export default (store) => ({
   store,
   initialState,
   reducer: (state, action, duck) => {
+    // console.log(action.type, store);
     return state
   },
   selectors: (duck) => ({
     root: (state, props) => state,
     props: (state, props) => props,
+    uid: (state, props) => props.uid,
+    id: (state, props) => props.id,
     ...constructLocalized({
       pops: (state, gState) => state.pops,
       collection: (state, gState) => state.collection,

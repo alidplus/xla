@@ -5,7 +5,8 @@ import { LargeAvatar } from './Avatar';
 
 
 
-const MatchLast5Card = () => {
+const MatchLast5Card = ({data = []}) => {
+  console.log("data: ", data);
   return (
     <Card className="mb-2">
       <CardHeader className="d-flex justify-content-between align-items-center">
@@ -16,29 +17,28 @@ const MatchLast5Card = () => {
         <div className="d-flex justify-content-between align-items-center">
           <LargeAvatar/>
           <div className="flex-grow-1 px-2">
-            <div className="d-flex justify-content-between">
+            {/* <div className="d-flex justify-content-between">
               <div>7</div>
               <div>7</div>
               <div>3</div>
-            </div>
+            </div> */}
             <div className="d-flex justify-content-between ">
-
               <div className="d-inline-flex align-items-center">
                 <i className="fas fa-futbol me-1" />
-                <span className="me-1">28</span>
+                <span className="me-1">{data[0]?.statistics?.gf}</span>
                 <i className="fa px-1 py-2 me-1 bg-danger" />
-                <span className="me-1">2</span>
+                <span className="me-1">{data[0]?.statistics?.rc}</span>
                 <i className="fa px-1 py-2 me-1 bg-warning" />
-                <span className="me-1">20</span>
+                <span className="me-1">{data[0]?.statistics?.yc}</span>
               </div>
 
               <div className="d-inline-flex align-items-center flex-row-reverse">
                 <i className="fas fa-futbol ms-1" />
-                <span className="ms-1">20</span>
+                <span className="ms-1">{data[1]?.statistics?.gf}</span>
                 <i className="fa px-1 py-2 ms-1 bg-danger" />
-                <span className="ms-1">4</span>
+                <span className="ms-1">{data[1]?.statistics?.rc}</span>
                 <i className="fa px-1 py-2 ms-1 bg-warning" />
-                <span className="ms-1">17</span>
+                <span className="ms-1">{data[1]?.statistics?.yc}</span>
               </div>
 
             </div>
