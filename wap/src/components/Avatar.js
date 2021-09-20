@@ -6,7 +6,6 @@ export function SmallAvatar(params) {
             <img src="./AMP_0081.JPG" className="rounded-circle d-block"/>
         </div>
     )
-    
 }
 
 export function LargeAvatar(params) {
@@ -15,7 +14,7 @@ export function LargeAvatar(params) {
             <img src="./AMP_0081.JPG" className="rounded-circle d-block"/>
         </div>
     )
-    
+
 }
 
 
@@ -25,6 +24,6 @@ export function SquareAvatar(params) {
             <img src="./AMP_0081.JPG" className="d-block"/>
         </div>
     )
-    
+
 }
 

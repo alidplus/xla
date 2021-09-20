@@ -4,12 +4,7 @@ import { LargeAvatar, SmallAvatar } from './Avatar';
 
 const TeamHeadCard = () => {
   return (
-    <Card className="mb-2">
-      <CardHeader className="d-flex justify-content-between align-items-center">
-        <CardTitle className="mb-0">TeamHeadCard</CardTitle>
-        <i className="fa fa-ellipsis-v"/>
-      </CardHeader>
-      <CardBody className="text-center">
+      <Card body className="text-center mb-2">
         <div className="d-flex w-100 justify-content-between align-items-center">
           <LargeAvatar/>
           <div className="text-start flex-grow-1 mx-2">
@@ -43,8 +38,7 @@ const TeamHeadCard = () => {
             <SmallAvatar/>
           </div>
         </div>
-      </CardBody>
-    </Card>
+      </Card>
   )
 }
 

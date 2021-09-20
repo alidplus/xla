@@ -1,2 +1,2 @@
-import {Futbol} from 'atoms/icons'
-export default Futbol
+import {NewspaperRegular} from 'atoms/icons'
+export default NewspaperRegular

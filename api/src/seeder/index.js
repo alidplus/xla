@@ -13,7 +13,6 @@ moment().format();
 
 module.exports = async (app) => {
   try {
-
     const assets = {
       users: [],
       sponsors: [],
@@ -110,7 +109,7 @@ module.exports = async (app) => {
         action: "generateMatch",
         payload: {
           leagueId: assets.leagues[0]._id,
-          startTime: moment().subtract(1, "h"),
+          startTime: moment().subtract(4, "days"),
         },
       },
       callback: async (allMatches) => {
@@ -163,7 +162,7 @@ module.exports = async (app) => {
         await seeder({
           path: 'notices',
           count: 5,
-          template: noticeTemplate({ 
+          template: noticeTemplate({
             category: category._id,
             sponsor: assets.sponsors[~~(Math.random()*100) % assets.sponsors.length]._id,
             league: assets.leagues[~~(Math.random()*100) % assets.leagues.length]._id,

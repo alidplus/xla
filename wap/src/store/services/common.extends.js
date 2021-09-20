@@ -7,6 +7,7 @@ import {call, put, select, take, takeEvery} from "redux-saga/effects";
 import produce from "immer";
 import {eventChannel} from "redux-saga";
 import client from "../api/feathersClient";
+import shallowEquals from 'deep-equal'
 
 export default (ducks, serviceName) => {
   const Service = client.service(serviceName)
@@ -24,7 +25,10 @@ export default (ducks, serviceName) => {
             state.pops = []; break;
           case duck.types.POPS_JOIN:
             payload.forEach(pop => {
-              state.collection[pop._id] = pop;
+              if (!state.collection.hasOwnProperty(pop._id) || !shallowEquals(state.collection[pop._id], pop)) {
+                state.collection[pop._id] = pop;
+
+              }
             })
             break;
         }

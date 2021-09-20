@@ -1,6 +1,6 @@
 module.exports = ({sponsor, owner}) => ({
   title: {
-    fa: '{{name.firstName}}',
+    fa: '{{name.firstName}} فارسی',
     en: '{{address.cityName}} team',
     abr: createAbr,
   },
